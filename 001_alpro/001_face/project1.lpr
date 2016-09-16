@@ -28,8 +28,8 @@ begin
 
   // Mulut
   // A
-  // window(20,18,60,30); textbackground(black);
-  // clrscr;
+  window(20,17,60,20); textbackground(white);
+  clrscr;
   // window(25,23,55,18); textbackground(white);
   // clrscr;
   readln;
