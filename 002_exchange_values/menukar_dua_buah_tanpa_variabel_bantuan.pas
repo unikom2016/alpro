@@ -14,18 +14,20 @@ begin
   write('Masukkan angka1: '); readln(angka1);
   write('Masukkan angka2: '); readln(angka2);
 
-  // angka1 <- angka1 + angka2
-  angka1 := angka1 + angka2;
+    // if angka1 = angka2 then
+    //     writeln('Masukkan data yang berbeda!!!')
+    // else
+        // angka1 <- angka1 + angka2
+        angka1 := angka1 + angka2;
 
-  // angka2 <- angka1 - angka2
-  angka2 := angka1 - angka2;
+        // angka2 <- angka1 - angka2
+        angka2 := angka1 - angka2;
 
-  // angka1 <- angka1 - angka2
-  angka1 := angka1 - angka2;
+        // angka1 <- angka1 - angka2
+        angka1 := angka1 - angka2;
 
-  // Output(angka1, angka2)
-  writeln('=== Angka yang telah bertukar ===');
-  writeln('Angka1 setelah bertukar yaitu: ', angka1);
-  writeln('Angka2 setelah bertukar yaitu: ', angka2);
-
+        // Output(angka1, angka2)
+        writeln('=== Angka yang telah bertukar ===');
+        writeln('Angka1 setelah bertukar yaitu: ', angka1);
+        writeln('Angka2 setelah bertukar yaitu: ', angka2);
 end.
