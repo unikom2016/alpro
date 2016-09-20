@@ -19,4 +19,8 @@ Algoritma:
 
 
 References: 
--Swapping of two numbers without third variable (http://www.programmingsimplified.com/c-program-swap-two-numbers)
+-Swapping of two numbers without third variable: 
+    http://www.programmingsimplified.com/c-program-swap-two-numbers)
+-Using XOR (Operator Bitwise):
+    http://www.tutorialspoint.com/pascal/pascal_bit_operators.htm
+    https://betterexplained.com/articles/swap-two-variables-using-xor/
