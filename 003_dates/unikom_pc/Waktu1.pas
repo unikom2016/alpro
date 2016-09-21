@@ -11,17 +11,22 @@ var DETIK_PER_JAM, DETIK_PER_MENIT, DETIK_PER_HARI : longint;
 
 // Algoritma
 begin
+    // Nilai detik dalam sehari
      DETIK_PER_HARI := 86400;
-     DETIK_PER_JAM := 3600;
+
+     // Nilai detik dalam sejam
+     DETIK_PER_JAM := 3600; 
+
+     // Nilai detik dalam semenit
      DETIK_PER_MENIT := 60;
 
-     // Jendela Masukkan
-     window(2, 2, 38, 24); textbackground(7); clrscr();
+     // Membentuk "Jendela" Masukkan
+     window(2, 2, 38, 24); textbackground(0); clrscr();
      textcolor(15);
      gotoxy(13,2); write('Data Masukkan');
      gotoxy(13,3); write('=============');
 
-     // Masukkan Data
+     // Memasukkan Data
      window(2, 2, 38, 24);
      gotoxy(3,5);
      write('Masukkan Waktu (Detik) : '); readln(JumlahDetik);
@@ -38,8 +43,8 @@ begin
      Menit := SisaDetik div DETIK_PER_MENIT;
      SisaDetik := SisaDetik mod DETIK_PER_MENIT;
 
-     // Jendela Keluaran
-     window(42, 2, 79, 24); textbackground(7); clrscr();
+     // Membentuk "Jendela" Keluaran
+     window(42, 2, 79, 24); textbackground(0); clrscr();
      textcolor(15);
      gotoxy(13,2); write('Hasil Keluaran');
      gotoxy(13,3); write('=============');
