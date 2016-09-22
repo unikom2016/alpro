@@ -22,9 +22,9 @@ begin
   writeln();
   
   // Proses pertukaran
-  angka1 := angka1 + angka2;
-  angka2 := angka1 - angka2;
-  angka1 := angka1 - angka2;
+  angka1 := angka1 xor angka2; // decimal to binary, then compute binary xor binary 
+  angka2 := angka1 xor angka2;
+  angka1 := angka1 xor angka2;
   
   // Proses output(angka1, angka2);
   writeln('Keadaan dua buah angka setelah bertukar!');
