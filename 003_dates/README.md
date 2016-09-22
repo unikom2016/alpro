@@ -24,3 +24,7 @@ Algoritma
 	SisaDetik <- SisaDetik mod DETIK_PER_MENIT
 
 	Output(Hari, Jam, Menit, JumlahDetik);
+
+Referensi:
+-Maximum Value Integer: http://wiki.freepascal.org/Integer
+-Example code for color: http://www.irietools.com/iriepascal/progref298.html
