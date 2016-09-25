@@ -24,3 +24,5 @@ References:
 -Using XOR (Operator Bitwise):
     http://www.tutorialspoint.com/pascal/pascal_bit_operators.htm
     https://betterexplained.com/articles/swap-two-variables-using-xor/
+-Well explained using binary :))
+    http://stackoverflow.com/a/528946/3763032
