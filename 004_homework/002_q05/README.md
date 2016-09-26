@@ -1,23 +1,22 @@
 // Judul
-Menampilkan_jarak_hari_pertama_dan_kedua
+Menghitung_berapa_hari_jarak_kedua_tanggal
 
-{I.S. : User memasukkan berapa hari proyek berlangsung}
-{F.S. : Menampilkan perubahan hari ke berapa tahun, bulan dan hari}
+{I.S. : User memasukkan hari pertama dan kedua}
+{F.S. : Menampilkan jumlah hari antara hari pertama dan kedua}
 
-Kamus
+Kamus:
 -----
-    JumlahHari, Tahun, Bulan, SisaHari : integer;
+	Tahun, Bulan, SisaHari : integer;
 
-Algoritma
+Algoritma:
 ---------
-	Input(JumlahHari);
+	Input(HariAwal, BulanAwal, TahunAwal, HariAkhir, BulanAkhir, TahunAkhir);
 	-----
 
-	Tahun <- JumlahHari div 365; // Hasil bagi dari JumlahHari di bagi 365 (1 Tahun)
-	SisaHari <- JumlahHari mod 365; // Sisa bagi, di simpan ke variabel lain
-
-	Bulan <- SisaHari div 30; // Hasil bagi dari SisaHari di bagi 30 (1 Bulan)
-	SisaHari <- SisaHari mod 30; // Sisa bagi, di simpan ke variabel lain
-
+	SelisihTahun <- Abs(TahunAwal - TahunAkhir)
+	SelisihBulan <- Abs(BulanAwal - BulanAkhir)
+	SelisihHari <- Abs(HariAwal - HariAkhir)
+	
+	
 	Output(Tahun, Bulan, Hari);
 	------
