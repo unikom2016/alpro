@@ -17,7 +17,7 @@ Algoritma
 	SisaHari <- JumlahHari mod 365; // Sisa bagi, di simpan ke variabel lain
 
 	Bulan <- SisaHari div 30; // Hasil bagi dari SisaHari di bagi 30 (1 Bulan)
-	SisaHari <- SisaHari mod 30; // Sisa bagi, di simpan ke variabel lain
+	Hari <- SisaHari mod 30; // Sisa bagi, di simpan ke variabel lain
 
 	Output(Tahun, Bulan, Hari);
 	------
