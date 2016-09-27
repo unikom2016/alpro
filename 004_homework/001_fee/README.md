@@ -1,10 +1,11 @@
-// Judul
-Menentukan_biaya_parkir
+    // Judul
+    Menentukan_biaya_parkir
 
-{I.S. : User memasukkan data Nomor Polisi, Jam & Menit Masuk, Jam & Menit Selesai}
-{F.S. : Menampilkan total biaya parkir}
+    {I.S. : User memasukkan data Nomor Polisi, Jam & Menit Masuk, Jam & Menit Selesai}
 
-// Kamus
+    {F.S. : Menampilkan total biaya parkir}
+
+    // Kamus
 	// Nomor Polisi
 	NomorPolisi : string
 	// Jam Masuk
@@ -18,7 +19,7 @@ Menentukan_biaya_parkir
 	// Const
 	JAM_PER_MENIT : integer
 
-// Algoritma
+    // Algoritma
 	JAM_PER_MENIT <- 60
 	BiayaParkir <- 1500
 	TotalBiaya <- BiayaParkir
@@ -39,4 +40,3 @@ Menentukan_biaya_parkir
 	EndIf
 
 	// Output
-	Output(TotalBiaya)
