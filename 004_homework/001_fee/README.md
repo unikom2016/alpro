@@ -5,21 +5,38 @@ Menentukan_biaya_parkir
 {F.S. : Menampilkan total biaya parkir}
 
 // Kamus
-	JAM_PER_MENIT, BiayaParkir, NomorPolisi, JamMasuk, MenitMasuk, JamSelesai, MenitSelesai : Integer
+	// Nomor Polisi
+	NomorPolisi : string
+	// Jam Masuk
+	JamMasuk, MenitMasuk : integer
+	// Jam Keluar
+	JamKeluar, MenitKeluar : integer
+	// Selisih & Konversi
+	SelisihMenit, KonversiJamMasuk, KonversiJamKeluar : integer
+	// Biaya
+	BiayaParkir, TotalBiaya : integer
+	// Const
+	JAM_PER_MENIT : integer
 
 // Algoritma
 	JAM_PER_MENIT <- 60
 	BiayaParkir <- 1500
+	TotalBiaya <- BiayaParkir
 
-	Input(NomorPolisi, JamMasuk, MenitMasuk, JamSelesai, MenitSelesai)
+	// Input
+	Input(NomorPolisi, JamMasuk, MenitMasuk, JamKeluar, MenitKeluar) // Format 24 Jam
 	
-	SelisihJam <- JamSelesai - JamMasuk
-	SelisihMenit <- SelisihJam * JAM_PER_MENIT
-	LamaParkirDalamMenit <- MenitMasuk + MenitSelesai + SelisihMenit
-	If (LamaParkirDalamMenit > JAM_PER_MENIT)
+	// Proses
+	KonversiJamMasuk <- (JamMasuk * JAM_PER_MENIT) + MenitMasuk
+	KonversiJamKeluar <- (JamKeluar * JAM_PER_MENIT) + MenitKeluar
+	DurasiMenit <- KonversiJamKeluar - KonversiJamMasuk
+
+	// Kondisi (Pemilihan)
+	If (DurasiMenit > JAM_PER_MENIT)
 	    Then
+			SelisihJam <- JamKeluar - JamMasuk
 			TotalBiaya <- BiayaParkir + (500 * SelisihJam)
 	EndIf
 
+	// Output
 	Output(TotalBiaya)
-	
