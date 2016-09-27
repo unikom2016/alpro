@@ -1,22 +1,37 @@
-// Judul
-Menghitung_berapa_hari_jarak_kedua_tanggal
+	{ Judul }
+    Menghitung_berapa_hari_jarak_kedua_tanggal
 
-{I.S. : User memasukkan hari pertama dan kedua}
-{F.S. : Menampilkan jumlah hari antara hari pertama dan kedua}
+	{I.S. : User memasukkan hari pertama dan kedua}
 
-Kamus:
------
-	Tahun, Bulan, SisaHari : integer;
+	{F.S. : Menampilkan jumlah hari antara hari pertama dan kedua}
 
-Algoritma:
----------
-	Input(HariAwal, BulanAwal, TahunAwal, HariAkhir, BulanAkhir, TahunAkhir);
-	-----
+	{ Kamus }
+		HariAwal, HariAkhir, BulanAwal, BulanAkhir, TahunAwal, TahunAkhir,
+		SelisihHari, SelisihBulan, SelisihTahun : integer
 
-	SelisihTahun <- Abs(TahunAwal - TahunAkhir)
-	SelisihBulan <- Abs(BulanAwal - BulanAkhir)
-	SelisihHari <- Abs(HariAwal - HariAkhir)
+	{ Algoritma }
+		{ Masukkan Pertama }
+		Input(Hari, Bulan, Tahun)
+		{ Hari Pertama }
+		HariAwal <- Hari + (Bulan * 30) + (Tahun * 365)
+
+		{ Mencari Selisih } 
+		// SelisihTahun <- TahunAwal - TahunAkhir
+		// SelisihBulan <- BulanAwal - BulanAkhir
+		// SelisihHari <- HariAwal - HariAkhir
+
+		{ Masukkan Kedua }
+		Input(Hari, Bulan, Tahun)
+		HariAkhir <- Hari + (Bulan * 30) + (Tahun * 365)
+
+		{ Proses }
+		Hari <- HariAkhir - HariAwal
+		
+		Tahun <- Hari div 365
+		SisaHari <- Hari mod 365
+
+		Bulan <- SisaHari div 30
+		SisaHari <- SisaHari mod 30
 	
-	
-	Output(Tahun, Bulan, Hari);
-	------
+		{ Keluaran }
+		Output(Tahun, Bulan, Hari);
