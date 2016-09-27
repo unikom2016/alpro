@@ -1,51 +1,44 @@
+{ Judul }
 Program BetweenDays;
 
-// Kamus
-var HariAwal, HariAkhir, SelisihHari, SisaHari, 
-	BulanAwal, BulanAkhir, SelisihBulan, KonversiHariKeBulan, 
-	TahunAwal, TahunAkhir, SelisihTahun, KonversiHariKeTahun, 
-	TotalSelisihHari : integer;
+{I.S. : User memasukkan hari pertama dan kedua}
 
-// Algoritma
+{F.S. : Menampilkan jumlah hari antara hari pertama dan kedua}
+
+{ Kamus }
+Var	HariAwal, HariAkhir, Hari, Bulan, Tahun, SisaHari : integer;
+
+{ Algoritma }
 begin
+	{ Masukkan Pertama }
+	Write('Masukkan Hari Pertama : '); Readln(Hari);
+	Write('Masukkan Bulan Pertama : '); Readln(Bulan);
+	Write('Masukkan Tahun Pertama : '); Readln(Tahun);
+	{ Hari Pertama }
+	HariAwal := Hari + (Bulan * 30) + (Tahun * 365);
 
-	// Awal
-	Write('Hari Awal : '); Readln(HariAwal);
-	Write('Bulan Awal : '); Readln(BulanAwal);
-	Write('Tahun Awal : '); Readln(TahunAwal);
+	{ Mencari Selisih } 
+	// SelisihTahun := TahunAwal - TahunAkhir
+	// SelisihBulan := BulanAwal - BulanAkhir
+	// SelisihHari := HariAwal - HariAkhir
+
+	{ Masukkan Kedua }
+	Write('Masukkan Hari Kedua : '); Readln(Hari);
+	Write('Masukkan Bulan Kedua : '); Readln(Bulan);
+	Write('Masukkan Tahun Kedua : '); Readln(Tahun);
+	HariAkhir := Hari + (Bulan * 30) + (Tahun * 365);
+
+	{ Proses }
+	// Mengetahui Jarak Hari Pertama dan Kedua
+	Hari := HariAkhir - HariAwal;
 	
-	// Akhir
-	Write('Hari Akhir : '); Readln(HariAkhir);
-	Write('Bulan Akhir : '); Readln(BulanAkhir);
-	Write('Tahun Akhir : '); Readln(TahunAkhir);
+	Tahun := Hari div 365;
+	SisaHari := Hari mod 365;
 
-	// Proses
-	SelisihHari := Abs(HariAkhir - HariAwal);
-	// Writeln('Beda Hari : ', Abs(SelisihHari));
+	Bulan := SisaHari div 30;
+	SisaHari := SisaHari mod 30;
 
-	SelisihBulan := Abs(BulanAkhir - BulanAwal);
-	// Writeln('Beda Bulan : ', Abs(SelisihBulan));
-
-	SelisihTahun := Abs(TahunAkhir - TahunAwal);
-	// Writeln('Beda Tahun : ', Abs(SelisihTahun));
-	
-	// Jumlah Hari
-	TotalSelisihHari := (Abs(SelisihTahun) * 365) + (Abs(SelisihBulan) * 30) + Abs(SelisihHari);
-
-	// Konversi Tahun, Bulan, Hari
-	// KonversiHariKeTahun := TotalSelisihHari div 365;
-	// SisaHari := TotalSelisihHari mod 365;
-	// Writeln('Berapa Tahun : ', KonversiHariKeTahun);
-
-	// KonversiHariKeBulan := SisaHari div 30;
-	// SisaHari := SisaHari mod 30;
-	// Writeln('Berapa Bulan : ', KonversiHariKeBulan);
-
-	// Writeln('Berapa Hari : ', SisaHari);
-
-	// Output
-	Writeln('Total Hari antara (dd:mm:yy): (', HariAwal, ':',
-		BulanAwal, ':', TahunAwal, ') dan (', HariAkhir, ':',
-		BulanAkhir, ':', TahunAkhir, ') yaitu : ', TotalSelisihHari, 'Hari');
-	Writeln(TotalSelisihHari, 'Hari adalah : ', SelisihTahun, 'Tahun - ', SelisihBulan, 'Bulan - ', SelisihHari, 'Hari');
+	{ Keluaran }
+	Writeln('Total hari : ', Hari);
+	Writeln('Jarak ', Hari,' hari dalam format (Tahun:Bulan:Hari): ', Tahun, ' Tahun ', Bulan, ' Bulan ', SisaHari, ' Hari');
 end.
