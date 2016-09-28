@@ -8,10 +8,8 @@
 	{ Kamus }
 		// Nomor Polisi
 		NomorPolisi : string
-		// Jam Masuk
-		JamMasuk, MenitMasuk, 
-		// Jam Keluar
-		JamKeluar, MenitKeluar, 
+		// Jam Masuk & Keluar, Menit
+		JamMasuk, JamKeluar, Jam, Menit 
 		// Durasi & Konversi
 		DurasiMenit, KonversiJamMasuk, KonversiJamKeluar, 
 		// Biaya
