@@ -15,10 +15,8 @@
 		KiloMeter <- Jarak div 100000 // Hasil bagi konversi CM ke KiloMeter
 		SisaJarak <- Jarak mod 100000 // Sisa bagi konversi CM ke KM
 
-		Meter <- SisaJarak div 1000 // Hasil bagi konversi Sisa CM ke Meter
-		SisaJarak <- SisaJarak mod 1000 // Sisa bagi konversi CM ke KM
-
-		CentiMeter <- SisaJarak
+		Meter <- SisaJarak div 100 // Hasil bagi konversi Sisa CM ke Meter
+		CentiMeter <- SisaJarak mod 100 // Sisa bagi konversi CM ke KM
 
 		{ Keluaran }
 		Output(KiloMeter, Meter, CentiMeter);
