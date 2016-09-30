@@ -1,0 +1,13 @@
+<html>
+<center>
+<font size=10>
+DAFTAR HARGA BARANG
+</font>
+<hr>
+<table border=1>
+	<tr><td align=center rowspan=2>NO <td align=center rowspan=2>MATA KULIAH <td align=center colspan=3>NILAI
+	<tr><td> TUGAS <td>UTS <td>UAS
+</table>
+</html>
+
+<pre>

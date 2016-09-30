@@ -1,0 +1,14 @@
+[Project]
+FileName=D:\DataMahasiswa\FauziElangM_IF4\Program 1.dp
+Name=Program 1
+MainUnit=D:\DataMahasiswa\FauziElangM_IF4\Program1.pas
+UnitCount=1
+ResFiles=D:\DataMahasiswa\FauziElangM_IF4\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\FauziElangM_IF4\Program1.pas
+FileTime=1227784042
+[Unit0]
+FileTime=1227784244

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Compiler Value="C:\lazarus\fpc\2.6.2\bin\i386-win32\fpc.exe" Date="1125670419"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -vewnhi &quot;-FiD:\Data Pascal\10116909\Pertemuan 02\MenampilkanHelloWorld\lib\i386-win32&quot; &quot;-FuD:\Data Pascal\10116909\Pertemuan 02\MenampilkanHelloWorld\&quot; &quot;-FUD:\Data Pascal\10116909\Pertemuan 02\MenampilkanHelloWorld\lib\i386-win32\&quot; -l hello_world.lpr"/>
+</CONFIG>

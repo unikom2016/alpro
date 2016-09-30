@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\FauziElangM_IF4\HitungLingkaran\lingkaran.dp
+Name=lingkaran1
+MainUnit=D:\DataMahasiswa\FauziElangM_IF4\HitungLingkaran\lingkaran1.pas
+UnitCount=1
+ResFiles=D:\DataMahasiswa\FauziElangM_IF4\HitungLingkaran\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\FauziElangM_IF4\HitungLingkaran\lingkaran1.pas
+FileTime=1228242226

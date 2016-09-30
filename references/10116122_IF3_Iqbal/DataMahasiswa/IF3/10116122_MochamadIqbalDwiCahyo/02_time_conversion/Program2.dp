@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\tampilkan_hari_jam_menit_detik\Program2.dp
+Name=Program2
+MainUnit=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\tampilkan_hari_jam_menit_detik\Waktu1.pas
+UnitCount=1
+ResFiles=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\tampilkan_hari_jam_menit_detik\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\tampilkan_hari_jam_menit_detik\Waktu1.pas
+FileTime=1228239734
