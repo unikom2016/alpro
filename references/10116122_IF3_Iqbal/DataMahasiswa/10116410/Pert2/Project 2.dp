@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\10116410\Pert2\Project 2.dp
+Name=Project 2
+MainUnit=D:\DataMahasiswa\10116410\Pert2\Program_Suhu
+UnitCount=1
+ResFiles=D:\DataMahasiswa\10116410\Pert2\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\10116410\Pert2\Program_Suhu
+FileTime=1228622991

@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\Putra_Army_IF1\program 2.dp
+Name=project2
+MainUnit=D:\DataMahasiswa\Putra_Army_IF1\program2.pas
+UnitCount=1
+ResFiles=D:\DataMahasiswa\Putra_Army_IF1\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\Putra_Army_IF1\program2.pas
+FileTime=1228308302
