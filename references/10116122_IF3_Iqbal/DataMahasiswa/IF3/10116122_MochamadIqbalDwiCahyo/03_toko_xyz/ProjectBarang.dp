@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\03_toko_xyz\ProjectBarang.dp
+Name=ProjectBarang
+MainUnit=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\03_toko_xyz\pembelian.pas
+UnitCount=1
+ResFiles=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\03_toko_xyz\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\IF3\10116122_MochamadIqbalDwiCahyo\03_toko_xyz\pembelian.pas
+FileTime=1228698397

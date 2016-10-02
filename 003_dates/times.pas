@@ -11,18 +11,16 @@ var Hari, Jam, Menit, JumlahDetik, SisaDetik : longint;
 
 // Konstanta
 {Di bawah ini disebut konstanta, boleh kamu tinggalkan atau ikuti}
-var DETIK_PER_HARI, DETIK_PER_JAM, DETIK_PER_MENIT : longint;
+// Memasukkan 'data secara langsung'
+const DETIK_PER_HARI = 84600; // 3600 detik (Per Jam) * 24 (Jam) = 84600 Detik
+const DETIK_PER_JAM = 3600; // 60 detik (Per Menit) * 60 (Menit) = 3600 Detik
+const DETIK_PER_MENIT = 60; // 1 (Menit) * 60 (Detik) = 60 Detik
 
 // Algoritma
 begin
-	// Memasukkan 'data secara langsung'
-	DETIK_PER_HARI := 84600; // 3600 detik (Per Jam) * 24 (Jam) = 84600 Detik
-	DETIK_PER_JAM := 3600; // 60 detik (Per Menit) * 60 (Menit) = 3600 Detik
-	DETIK_PER_MENIT := 60; // 1 (Menit) * 60 (Detik) = 60 Detik
-
 	{Membentuk Jendela Masukkan}
-	{Membuat Persegi; Dengan background berwarna 0 (hitam); Memulai jendela}
-	window(2, 2, 38, 24); textbackground(0); clrscr();
+	{Membuat Persegi (x1, y1, x2, y2); Dengan background berwarna 0 (hitam); Memulai jendela}
+	window(2, 2, 38, 24); textbackground(5); clrscr();
 	{Mewarnai text dengan 15 (Putih)}
 	textcolor(15);
 	{Menuju titik koordinat x,y; Tampilkan tulisan pada koordinat tersebut}
@@ -49,7 +47,7 @@ begin
 
 	{Membentuk Keluaran Masukkan}
 	{Membuat Persegi; Dengan background berwarna 0 (hitam); Memulai jendela}
-	window(42, 2, 79, 24); textbackground(0); clrscr();
+	window(42, 2, 79, 24); textbackground(5); clrscr();
 	{Mewarnai text dengan 15 (Putih)}
 	textcolor(15);
 	{Menuju titik koordinat x,y; Tampilkan tulisan pada koordinat tersebut}
