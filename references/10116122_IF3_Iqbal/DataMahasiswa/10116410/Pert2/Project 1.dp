@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\10116410\Pert2\Project 1.dp
+Name=Project 3
+MainUnit=D:\DataMahasiswa\10116410\Pert2\Program_Gaji
+UnitCount=1
+ResFiles=D:\DataMahasiswa\10116410\Pert2\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\10116410\Pert2\Program_Gaji
+FileTime=1228622963

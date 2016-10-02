@@ -1,0 +1,16 @@
+<html>
+<head>
+<title>
+Menformat html
+</title>
+</head>
+<body>
+<font size=1>ukuran teks=1</font>
+<font size=2>ukuran teks=2</font>
+<font size=3>ukuran teks=3</font>
+<font size=4>ukuran teks=4</font>
+<font size=5>ukuran teks=5</font>
+<font size=6>ukuran teks=6</font>
+<font size=7>ukuran teks=7</font>
+</body>
+</html>

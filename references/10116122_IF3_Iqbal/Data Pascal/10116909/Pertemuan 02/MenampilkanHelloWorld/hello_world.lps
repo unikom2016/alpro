@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="1">
+      <Unit0>
+        <Filename Value="hello_world.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="hello_world"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="4"/>
+        <CursorPos X="10" Y="18"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit0>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="4" HistoryIndex="3">
+      <Position1>
+        <Filename Value="hello_world.lpr"/>
+        <Caret Line="17" Column="23" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="hello_world.lpr"/>
+        <Caret Line="20" Column="35" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="hello_world.lpr"/>
+        <Caret Line="18" Column="12" TopLine="2"/>
+      </Position3>
+      <Position4>
+        <Filename Value="hello_world.lpr"/>
+        <Caret Line="19" Column="15" TopLine="2"/>
+      </Position4>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

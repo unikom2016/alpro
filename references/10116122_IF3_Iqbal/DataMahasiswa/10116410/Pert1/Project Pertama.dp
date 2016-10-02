@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\10116410\Pert1\Project Pertama.dp
+Name=Project Pertama
+MainUnit=D:\DataMahasiswa\10116410\Pert1\Input_NIM_Nama.pas
+UnitCount=1
+ResFiles=D:\DataMahasiswa\10116410\Pert1\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\10116410\Pert1\data_diri.pas
+FileTime=1228164192

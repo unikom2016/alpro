@@ -1,0 +1,12 @@
+[Project]
+FileName=D:\DataMahasiswa\HeddyCahyaFirdaus_IF7\Yard_Kaki_Inch_Ke_Meter.dp
+Name=Yard_Kaki_Inch_Ke_Meter
+MainUnit=D:\DataMahasiswa\HeddyCahyaFirdaus_IF7\Yardkakiinckemeter.pas
+UnitCount=1
+ResFiles=D:\DataMahasiswa\HeddyCahyaFirdaus_IF7\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=D:\DataMahasiswa\HeddyCahyaFirdaus_IF7\Yardkakiinckemeter.pas
+FileTime=1228305354
