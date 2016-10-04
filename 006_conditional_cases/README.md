@@ -1,31 +1,33 @@
     { Judul }
     Menghitung_nilai_kelulusan_mata_pelajaran
 
-    {I.S. : User memasukkan }
+    {I.S. : User memasukkan data siswa dan nilai tiap pelajaran}
     
-	{F.S. : Menampilkan }
+	{F.S. : Menampilkan data siswa dan keterangan nilai yang perlu diperbaiki atau tidak}
 
     { Kamus }
+        Nama, MatPel1, MatPel2, MatPel3, MatPel4 : string
+        N_MTK, N_BInd, N_IPA, N_BIng, SK, JumlahRemedial : real
         
 
     { Algoritma }
         { Input }
-        Input('Nama :', Nama);
-        Input('Nilai Matematika :' N_MTK);
-        Input('Nilai Bahasa Indonesia :', N_BInd);
-        Input('Nilai IPA :', N_IPA);
-        Input('Nilai Bahasa Inggris :', N_BIng);
-        Input('Standar Kelulusan :', SK);
+        Input('Nama                     :', Nama);
+        Input('Nilai Matematika         :' N_MTK);
+        Input('Nilai Bahasa Indonesia   :', N_BInd);
+        Input('Nilai IPA                :', N_IPA);
+        Input('Nilai Bahasa Inggris     :', N_BIng);
+        Input('Standar Kelulusan        :', SK);
         
         { Proses }
         JumlahRemedial <- 0
 
         { Kondisi (Pemilihan) }
-        // Kondisi n - 2
+        // Kondisi n - 2 (Tidak lulus semua matpel)
         If ((N_MTK < SK) and (N_BInd < SK) and (N_IPA < SK) and (N_BIng < SK))
             Then
                 Keterangan <- 'maaf kamu harus mengulang!'
-        // Kondisi ke 'n - 1'
+        // Kondisi ke 'n - 1' (Lulus semua matpel)
         Else
             If ((N_MTK >= SK) and (N_BInd >= SK) and (N_IPA >= SK) and (N_BIng >= SK))
                 Then
