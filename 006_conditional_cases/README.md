@@ -21,6 +21,7 @@
         
         { Proses }
         JumlahRemedial <- 0
+        TotalMatPel <- 4
 
         { Kondisi (Pemilihan) }
         // Kondisi n - 2 (Tidak lulus semua matpel)
@@ -35,33 +36,42 @@
             EndIf
         // Kondisi ke 'n'
         Else
+
             Keterangan <- 'kamu harus mengikuti ujian ulang mata pelajaran: '
 
             // Cek Nilai Matematika
             If (N_MTK < SK)
                 Then
-                    MatPel1 <- '1. MTK'
+                    JumlahRemedial <- JumlahRemedial + 1
+                    MatPel1 <- 'MTK'
+                    Remed1 <- JumlahRemedial + '. ' + MatPel1
             EndIf
             // Cek Nilai Bahasa Indonesia
             If (N_BInd < SK)
                 Then
-                    MatPel2 <- '2. Bahasa Indonesia'
+                    JumlahRemedial <- JumlahRemedial + 1
+                    MatPel2 <- 'Bahasa Indonesia'
+                    Remed2 <- JumlahRemedial + '. ' + MatPel2
             EndIf
             // Cek Nilai IPA
             If (N_MTK < SK)
                 Then
-                    MatPel3 <- '3. IPA'
+                    JumlahRemedial <- JumlahRemedial + 1
+                    MatPel3 <- 'IPA'
+                    Remed3 <- JumlahRemedial + '. ' + MatPel3
             EndIf
             // Cek Nilai Bahasa Inggris
             If (N_BIng < SK)
                 Then
-                    MatPel4 <- '4. Bahasa Inggris'
+                    JumlahRemedial <- JumlahRemedial + 1
+                    MatPel4 <- 'Bahasa Inggris'
+                    Remed4 <- JumlahRemedial + '. ' + MatPel4
             EndIf
         EndIf
 
         { Output }
         Output(Nama, ', ', Keterangan)
-        Output(MatPel1)
-        Output(MatPel2)
-        Output(MatPel3)
-        Output(MatPel4)
+        Output(Remed1)
+        Output(Remed2)
+        Output(Remed3)
+        Output(Remed4)
