@@ -33,33 +33,33 @@
             EndIf
         // Kondisi ke 'n'
         Else
+            Keterangan <- 'kamu harus mengikuti ujian ulang mata pelajaran: '
+
             // Cek Nilai Matematika
             If (N_MTK < SK)
                 Then
-                    KodeMatPel <- MTK
-                    JumlahRemedial <- 1
+                    MatPel1 <- '1. MTK'
             EndIf
-            // Cek Nilai Matematika
+            // Cek Nilai Bahasa Indonesia
+            If (N_BInd < SK)
+                Then
+                    MatPel2 <- '2. Bahasa Indonesia'
+            EndIf
+            // Cek Nilai IPA
             If (N_MTK < SK)
                 Then
-                    KodeMatPel <- MTK
-                    JumlahRemedial <- 1
+                    MatPel3 <- '3. IPA'
             EndIf
-            // Cek Nilai Matematika
-            If (N_MTK < SK)
-                Then
-                    KodeMatPel <- MTK
-                    JumlahRemedial <- 1
-            EndIf
-            // Cek Nilai Matematika
+            // Cek Nilai Bahasa Inggris
             If (N_BIng < SK)
                 Then
-                    KodeMatPel <- 'Ba'
-                    JumlahRemedial <- 1
+                    MatPel4 <- '4. Bahasa Inggris'
             EndIf
-            Output(Nama, 'harus mengikuti ujian ulang mata pelajaran: ')
-            Output()
-
+        EndIf
 
         { Output }
-        Output(Keterangan)
+        Output(Nama, ', ', Keterangan)
+        Output(MatPel1)
+        Output(MatPel2)
+        Output(MatPel3)
+        Output(MatPel4)
