@@ -28,11 +28,13 @@
         If ((N_MTK < SK) and (N_BInd < SK) and (N_IPA < SK) and (N_BIng < SK))
             Then
                 Keterangan <- 'maaf kamu harus mengulang!'
+        
         // Kondisi ke 'n - 1' (Lulus semua matpel)
         Else
             If ((N_MTK >= SK) and (N_BInd >= SK) and (N_IPA >= SK) and (N_BIng >= SK))
                 Then
                     Keterangan <- 'selamat kamu lulus!'
+        
         // Kondisi ke 'n' (Tidak lulus sebagian)
         Else
 
@@ -43,7 +45,7 @@
                 Then
                     JumlahRemedial <- JumlahRemedial + 1
                     UrutanMTK <- JumlahRemedial  
-                    KetMTK <- UrutanMTK + '. Matematika'
+                    KetMTK <- 'Matematika'
             EndIf
 
             // Cek Nilai Bahasa Indonesia
@@ -51,7 +53,7 @@
                 Then
                     JumlahRemedial <- JumlahRemedial + 1
                     UrutanBInd <- JumlahRemedial  
-                    KetBInd <- UrutanBInd + '. Bahasa Indonesia'
+                    KetBInd <- 'Bahasa Indonesia'
             EndIf
 
             // Cek Nilai IPA
@@ -59,7 +61,7 @@
                 Then
                     JumlahRemedial <- JumlahRemedial + 1
                     UrutanIPA <- JumlahRemedial  
-                    KetIPA <- UrutanIPA + '. IPA'
+                    KetIPA <- 'IPA'
             EndIf
 
             // Cek Nilai Bahasa Inggris
@@ -67,7 +69,7 @@
                 Then
                     JumlahRemedial <- JumlahRemedial + 1
                     UrutanBIng <- JumlahRemedial
-                    KetBIng <- UrutanBIng + '. Bahasa Inggris'
+                    KetBIng <- 'Bahasa Inggris'
             EndIf
             
         EndIf
@@ -76,17 +78,17 @@
         Output(Nama, ', ', Keterangan)
         If (KetMTK != '')
             Then
-                Output(KetMTK)
+                Output(UrutanMTK, '. ', KetMTK)
         EndIf
         If (KetBInd != '')
             Then
-                Output(KetBInd)
+                Output(UrutanBInd, '. ', KetBInd)
         EndIf
         If (KetIPA != '')
             Then
-                Output(KetIPA)
+                Output(UrutanIPA, '. ', KetIPA)
         EndIf
         If (KetBIng != '')
             Then
-                Output(KetBIng)
+                Output(UrutanBIng, '. ', KetBIng)
         EndIf
