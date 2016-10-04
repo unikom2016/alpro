@@ -8,13 +8,17 @@ Uses sysutils;
 {F.S. : Menampilkan data siswa dan keterangan nilai yang perlu diperbaiki atau tidak}
 
 { Kamus }
-var Nama, MatPel1, MatPel2, MatPel3, MatPel4, Keterangan,
-    Remed1, Remed2, Remed3, Remed4 : string;
-var N_MTK, N_BInd, N_IPA, N_BIng, SK, JumlahRemedial : integer;
+var CR, LF, CRLF : string; // Newline
+var Nama, KetMTK, KetBInd, KetIPA, KetBIng, Keterangan : string;
+var N_MTK, N_BInd, N_IPA, N_BIng, SK : real;
+var JumlahRemedial, UrutanMTK, UrutanBInd, UrutanIPA, UrutanBIng : integer;
 
 
 { Algoritma }
 begin
+    CR := #13;
+    LF := #10;
+    CRLF := CR + LF;
     { Input }
     Write('Nama                     :'); Readln(Nama);
     Write('Nilai Matematika         :'); Readln(N_MTK);
@@ -35,55 +39,54 @@ begin
             End
     // Kondisi ke 'n - 1' (Lulus semua matpel)
     Else If ((N_MTK >= SK) and (N_BInd >= SK) and (N_IPA >= SK) and (N_BIng >= SK))
-            Then
-                Begin
-                    Keterangan := 'selamat kamu lulus!';
-                End
+        Then
+            Begin
+                Keterangan := 'selamat kamu lulus!';
+            End
     // Kondisi ke 'n'
     Else
         Begin
             Keterangan := 'kamu harus mengikuti ujian ulang mata pelajaran: ';
 
             // Cek Nilai Matematika
-            If (N_MTK < SK)
+            If (N_MTK < SK) 
                 Then
                     Begin
                         JumlahRemedial += 1;
-                        MatPel1 := 'MTK';
-                        Remed1 := IntToStr(JumlahRemedial) + '. ' + MatPel1;
+                        UrutanMTK := JumlahRemedial;
+                        KetMTK := IntToStr(UrutanMTK) + '. ' + 'Matematika'+CRLF;
                     End;
             // Cek Nilai Bahasa Indonesia
             If (N_BInd < SK)
                 Then
                     Begin
                         JumlahRemedial += 1;
-                        MatPel2 := 'Bahasa Indonesia';
-                        Remed2 := IntToStr(JumlahRemedial) + '. ' + MatPel2;
+                        UrutanBInd := JumlahRemedial;
+                        KetBInd := IntToStr(UrutanBInd) + '. ' + 'Bahasa Indonesia'+CRLF;
                     End;
             // Cek Nilai IPA
             If (N_IPA < SK)
                 Then
                     Begin
                         JumlahRemedial += 1;
-                        MatPel3 := 'IPA';
-                        Remed3 := IntToStr(JumlahRemedial) + '. ' + MatPel3;
+                        UrutanIPA := JumlahRemedial;
+                        KetIPA := IntToStr(UrutanIPA) + '. ' + 'IPA'+CRLF;
                     End;
             // Cek Nilai Bahasa Inggris
             If (N_BIng < SK)
                 Then
                     Begin
                         JumlahRemedial += 1;
-                        MatPel4 := 'Bahasa Inggris';
-                        Remed4 := IntToStr(JumlahRemedial) + '. ' + MatPel4;
+                        UrutanBIng := JumlahRemedial;
+                        KetBIng := IntToStr(UrutanBIng) + '. ' + 'Bahasa Inggris'+CRLF;
                     End;
         End;
 
     { Output }
     Writeln(Nama, ', ', Keterangan);
-    If (MatPel1 <> '')
-        Then
-            Writeln()
-    Writeln(Remed2);
-    Writeln(Remed3);
-    Writeln(Remed4);
+    Write(KetMTK);
+    Write(KetBInd);
+    Write(KetIPA);
+    Write(KetBIng);
+
 end.
