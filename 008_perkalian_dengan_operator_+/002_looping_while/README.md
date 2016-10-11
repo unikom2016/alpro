@@ -28,8 +28,8 @@
                     Hasil <- M
                     
                     // Perulangan (While)
-                    i <- 2
-                    While (i <= N) 
+                    i <- 1
+                    While (i < N) 
                         Hasil <- Hasil + M
                         i <- i + 1
                     EndWhile
@@ -43,8 +43,8 @@
                     Hasil <- N
 
                     // Perulangan (While) 
-                    i <- 2
-                    While (i <= N)
+                    i <- 1
+                    While (i < N)
                         Hasil <- Hasil + N
                         i <- i + 1
                     EndWhile
@@ -55,8 +55,8 @@
             M <- M * -1 // Positif
             N <- N * -1 // Positif
             Hasil <- M
-            i <- 2
-            While (i <= N)
+            i <- 1
+            While (i < N)
                 Hasil <- Hasil + M
                 i <- i + 1
             EndWhile

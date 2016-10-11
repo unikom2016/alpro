@@ -26,12 +26,9 @@ begin
     else
         // Kondisi M > 0 or M < 0; N > 0
         if ((M > 0) or (M < 0)) and (N > 0) then
-                begin
-                    // Aksi
-                    Hasil := M;
-                    
+                begin                    
                     // Perulangan (while)
-                    i := 2;
+                    i := 1;
                     repeat
                         begin
                             Hasil := Hasil + M;
@@ -44,11 +41,8 @@ begin
         // Kondisi N < 0; M = 3; N = -2
         if (M > 0) and (N < 0) then
                 begin
-                    // Aksi
-                    Hasil := N;
-
                     // Perulangan (while) 
-                    i := 2;
+                    i := 1;
                     repeat
                         begin
                             Hasil := Hasil + N;
@@ -62,10 +56,9 @@ begin
         begin
             M := M * -1; // Positif
             N := N * -1; // Positif
-            Hasil := M;
             
             // Perulangan (while)
-            i := 2;
+            i := 1;
             repeat
                 begin
                     Hasil := Hasil + M;

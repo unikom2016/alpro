@@ -24,11 +24,8 @@
             // Kondisi M > 0 or M < 0; N > 0
             If ((M > 0 or (M < 0) and (N > 0)
                 Then
-                    // Aksi
-                    Hasil <- M
-                    
                     // Perulangan (For)
-                    For i <- 2 to N do
+                    For i <- 1 to N do
                         Hasil <- Hasil + M
                     EndFor
             EndIf
@@ -37,21 +34,18 @@
             // Kondisi N < 0; M = 3; N = -2
             If (M > 0) and (N < 0)
                 Then
-                    // Aksi
-                    Hasil <- N
-
                     // Perulangan (For)
-                    For i <- 2 to M do
+                    For i <- 1 to M do
                         Hasil <- Hasil + N
                     EndFor
             EndIf
 
         // Kondisi M & N < 0
         Else
-            M <- M * -1 // Positif
-            N <- N * -1 // Positif
-            Hasil <- M
-            For i <- 2 to N do
+            M <- M * -1
+            N <- N * -1
+
+            For i <- 1 to N do
                 Hasil <- Hasil + M
             EndFor
 

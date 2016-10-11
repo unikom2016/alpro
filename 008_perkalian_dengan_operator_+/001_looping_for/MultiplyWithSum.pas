@@ -27,12 +27,9 @@ begin
         // Kondisi M > 0 or M < 0; N > 0
         // M = 3; N = 2
         if ((M > 0) or (M < 0)) and (N > 0) then
-	        begin
-                // Aksi
-                Hasil := M;
-                
+	        begin                
                 // Perulangan (for)
-                for i := 2 to N do
+                for i := 1 to N do
                     begin
                         Hasil := Hasil + M;
                     end;
@@ -42,11 +39,8 @@ begin
         // Kondisi N < 0; M = 3; N = -2
         if (M > 0) and (N < 0) then
 	        begin
-                // Aksi
-                Hasil := N;
-
                 // Perulangan (for)
-                for i := 2 to M do
+                for i := 1 to M do
                     begin
                         Hasil := Hasil + N;
                     end;
@@ -57,10 +51,9 @@ begin
         begin
             M := M * -1; // Positif
             N := N * -1; // Positif
-            Hasil := M;
 
             // Perulangan (for)
-            for i := 2 to N do
+            for i := 1 to N do
                 begin
                     Hasil := Hasil + M;
                 end;

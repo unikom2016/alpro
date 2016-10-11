@@ -23,12 +23,9 @@
         Else
             // Kondisi M > 0 or M < 0; N > 0
             If ((M > 0 or (M < 0) and (N > 0)
-                Then
-                    // Aksi
-                    Hasil <- M
-                    
+                Then                    
                     // Perulangan (Repeat)
-                    i <- 2
+                    i <- 1
                     Repeat
                         Hasil <- Hasil + M
                         i <- i + 1
@@ -39,11 +36,8 @@
             // Kondisi N < 0; M = 3; N = -2
             If (M > 0) and (N < 0)
                 Then
-                    // Aksi
-                    Hasil <- N
-
                     // Perulangan (Repeat) 
-                    i <- 2
+                    i <- 1
                     Repeat
                         Hasil <- Hasil + N
                         i <- i + 1
@@ -54,15 +48,12 @@
         Else
             M <- M * -1 // Positif
             N <- N * -1 // Positif
-            Hasil <- M
-            i <- 2
+
+            i <- 1
             Repeat
                 Hasil <- Hasil + M
                 i <- i + 1
             Until (i > N)
-
-
-
 
         { Output }
             Output(Hasil)
