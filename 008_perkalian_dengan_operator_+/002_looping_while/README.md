@@ -27,12 +27,12 @@
                     // Aksi
                     Hasil <- M
                     
-                    // Perulangan (Repeat)
-                    i <- 1
-                    Repeat
+                    // Perulangan (While)
+                    i <- 2
+                    While (i <= N) 
                         Hasil <- Hasil + M
                         i <- i + 1
-                    Until (i > N)
+                    EndWhile
             EndIf
 
         Else
@@ -42,12 +42,12 @@
                     // Aksi
                     Hasil <- N
 
-                    // Perulangan (Repeat) 
-                    i <- 1
-                    Repeat
+                    // Perulangan (While) 
+                    i <- 2
+                    While (i <= N)
                         Hasil <- Hasil + N
                         i <- i + 1
-                    Until (i > M)
+                    EndWhile
             EndIf
 
         // Kondisi M & N < 0
@@ -55,14 +55,12 @@
             M <- M * -1 // Positif
             N <- N * -1 // Positif
             Hasil <- M
-            i <- 1
-            Repeat
+            i <- 2
+            While (i <= N)
                 Hasil <- Hasil + M
                 i <- i + 1
-            Until (i > N)
-
-
-
+            EndWhile
+        EndIf
 
         { Output }
             Output(Hasil)

@@ -31,8 +31,8 @@ begin
                     Hasil := M;
                     
                     // Perulangan (while)
-                    i := 1;
-                    while (i < N) do
+                    i := 2;
+                    while (i <= N) do
                         begin
                             Hasil := Hasil + M;
                             i := i + 1;
@@ -47,8 +47,8 @@ begin
                     Hasil := N;
 
                     // Perulangan (while) 
-                    i := 1;
-                    while (i < M) do
+                    i := 2;
+                    while (i <= M) do
                         begin
                             Hasil := Hasil + N;
                             i := i + 1;
@@ -63,8 +63,8 @@ begin
             Hasil := M;
             
             // Perulangan (while)
-            i := 1;
-            while (i < N) do
+            i := 2;
+            while (i <= N) do
                 begin
                     Hasil := Hasil + M;
                     i := i + 1;
