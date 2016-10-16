@@ -15,8 +15,8 @@ begin
         textcolor(15);
         writeln('Menu Pilihan');
         writeln('============');
-        writeln('1. Suku Ke-N Dari Barisan 3,5,15,20,.....');
-        writeln('2. MxN Menggunakan Operator Penjumlahan');
+        writeln('1. MxN Menggunakan Operator Penjumlahan');
+        writeln('2. Suku Ke-N Dari Barisan 2,3,5,15,.....');
         writeln('0. Keluar');
         write('Pilihan Anda ? ');readln(pilihan);
         // Validasi Menu Pilihan
@@ -32,71 +32,7 @@ begin
 
 
         case (pilihan) of
-         1 : begin
-              clrscr;
-              {Suku ke-N}
-              writeln('Suku Ke-N');
-              writeln('---------');
-              write('Suku N      : ');readln(n);
-              
-              while( n < 1 ) or ( n > 10 ) do
-              begin
-               textcolor(lightgreen);
-               write('Harga N Baris antara 1 - 10 !');
-               readln;
-               textcolor(15);
-               gotoxy(15,3);clreol;
-               gotoxy(1,4);clreol;
-               gotoxy(15,3);readln(n);
-              end;
-
-              write('Suku Ke - ');
-              textcolor(lightgreen);
-              write(n);
-
-              writeln; textcolor(15);
-              write('Dengan baris: ');
-
-              if (n = 1) then
-              begin
-                  suku := 2; write('2');
-              end
-              else if (n = 2) then
-              begin
-                  suku := 3; write('2, 3');
-              end
-              else
-              begin
-                  awal := 2;
-                  akhir := 3;
-              
-                  textcolor(lightgreen);
-                  write('2, 3, ');
-                  for i := 3 to n do  //Proses for x to y do
-                  begin
-
-                    if(i mod 2 = 1 ) then
-                      suku := awal + akhir
-                    else
-                      suku := awal * akhir;
-
-                    awal := akhir;
-                    akhir := suku;
-                    
-                    write(suku);
-                    if i <> n then
-                      write(', ');
-                  end;
-              end;
-
-              writeln;
-              textcolor(15);
-              write('Yaitu : ');
-              textcolor(lightgreen);
-              write(suku);
-              readln;
-             end;
-         2 : begin
+          1 : begin
               clrscr;
               {MxN}
               writeln('Perkalian M x N');
@@ -177,6 +113,70 @@ begin
               write('                 : ');
               textcolor(lightgreen);
               write(Hasil);
+              readln;
+             end;
+        2 : begin
+              clrscr;
+              {Suku ke-N}
+              writeln('Suku Ke-N');
+              writeln('---------');
+              write('Suku N      : ');readln(n);
+              
+              while( n < 1 ) or ( n > 10 ) do
+              begin
+               textcolor(lightgreen);
+               write('Harga N Baris antara 1 - 10 !');
+               readln;
+               textcolor(15);
+               gotoxy(15,3);clreol;
+               gotoxy(1,4);clreol;
+               gotoxy(15,3);readln(n);
+              end;
+
+              write('Suku Ke - ');
+              textcolor(lightgreen);
+              write(n);
+
+              writeln; textcolor(15);
+              write('Dengan baris: ');
+
+              if (n = 1) then
+              begin
+                  suku := 2; write('2');
+              end
+              else if (n = 2) then
+              begin
+                  suku := 3; write('2, 3');
+              end
+              else
+              begin
+                  awal := 2;
+                  akhir := 3;
+              
+                  textcolor(lightgreen);
+                  write('2, 3, ');
+                  for i := 3 to n do  //Proses for x to y do
+                  begin
+
+                    if(i mod 2 = 1 ) then
+                      suku := awal + akhir
+                    else
+                      suku := awal * akhir;
+
+                    awal := akhir;
+                    akhir := suku;
+                    
+                    write(suku);
+                    if i <> n then
+                      write(', ');
+                  end;
+              end;
+
+              writeln;
+              textcolor(15);
+              write('Yaitu : ');
+              textcolor(lightgreen);
+              write(suku);
               readln;
              end;
         end; //Endcase
