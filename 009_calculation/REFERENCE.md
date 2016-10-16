@@ -1,0 +1,1 @@
+http://pmat.uad.ac.id/mencari-un-dan-sn-barisanderet-aritmetika-bertingkat-dengan-sistem-persamaan-linier-n-variabel-bag-i
