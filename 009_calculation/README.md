@@ -86,7 +86,7 @@
                                 Output('Deretnya adalah: ')
                                 For i <- 1 to x Do
                                     // Rumus deret tingkat 3
-                                    total <- 2 + (n - 1) + ((n^2 - 3n + 2) div 2) + ((n^3) div 6)
+                                    total <- 2 + (x - 1) + ((x^2 - 3x + 2) div 2) + ((x^3) div 6)
                                     Output(total)
                                 EndFor
                             Output(total)
