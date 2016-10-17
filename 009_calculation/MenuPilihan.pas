@@ -4,7 +4,7 @@ program MenuPilihan;
 {I.S. : User memilih salah satu menu}
 {F.S. : Menampilkan hasil dari menu yang dipilih}
 
-uses crt, sysutils;
+uses crt, sysutils, math;
 
 { Kamus }
 var Pilihan: integer;
@@ -14,7 +14,9 @@ var M, N, Hasil, i: integer;
 
 { Suku ke-N }
 var
-    m00, m01, m02, m03, x, total: integer;
+    m00, m01, m02, m03, x, n2: longint;
+    n3: extended;
+    a, b, c, d, total: real;
     
 { Algoritma }
 begin
@@ -124,14 +126,22 @@ begin
                         write('Deretnya adalah: ');
                         for i := 1 to x do
                         begin
-                            m00 := 2;
-                            m01 := i - 1;
-                            m02 := sqr(i) - 3*i + 2;
-                            m03 := m02 * (i - 3) * 7;
-                            total := m00 + m01 + (m02 div 2) + (m03 div 6);
+                            // m00 := 2;
+                            // m01 := i - 1;
+                            // m02 := sqr(i) - 3*i + 2;
+                            // m03 := m02 * (i - 3);
+                            // total := m00 + m01 + (m02 div 2) + (m03 * 7 div 6);
+                            a := 0.5;
+                            b := 1;
+                            c := 4.5;
+                            d := -6;
+                            n3 := intpower(i,3);
+                            n2 := sqr(i);
+                            total := a*n3 + b*n2 + c*i + d; 
                             // Un := 2 + (n - 1) + ((n^2 - 3n + 2) / 2) + ((n^3) / 6)
                             textcolor(yellow);
-                            write(total);
+                            // write(total:8:0);
+                            write(n3:8:0);
                             if (i <> x) then
                             begin
                                 textcolor(white); write(', ');
@@ -140,7 +150,7 @@ begin
                         textcolor(white);
                         writeln();
                         write('Nilai suku ke-', x, ' adalah: ');
-                        textcolor(yellow); writeln(total);
+                        textcolor(yellow); writeln(total:8:0);
                         textcolor(white);
                     end
                     else
