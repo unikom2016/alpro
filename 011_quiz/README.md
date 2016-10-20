@@ -26,27 +26,93 @@
 
     #### Algo #####
     { Procedure }
-        Procedure masukkan_latihan(i: integer; var g, v: integer);
-            {I.S. : Membelikan motor}
-            {F.S. : Menampilkan kelayakan mengendarai motor}        
-        EndProcedure
-        Procedure periksa_latihan(i: integer; var g, v: integer);
-        Procedure tampilkan_latihan(i: integer; var g, v: integer);
+        Procedure masukkan_latihan(Input i: integer; Output gigi, kecepatan: integer);
+            {I.S. : Melakukan latihan motor}
+            {F.S. : Menghasilkan latihan perhari}
+
+            { Kamus }
+                // tidak ada
+
+            { Algoritma }
+                Output(i) // Hari ke-i
+                Input(g, v); // gigi motor dan kecepatan
+        EndProcedure // masukkan_latihan
+
+        Procedure periksa_latihan(Input gigi, kecepatan: integer; Output hasil, temp_hasil: string);
+            {I.S. : Memeriksa hasil latihan dari tiap hari yang sudah terdefinisi}
+            {F.S. : Menampilkan kelayakan mengendarai motor atau tidak}
+
+            { Kamus }
+                // tidak ada
+
+            { Algoritma }
+                hasil <- ''
+                If (gigi = 4) and (kecepatan >= 80)
+                    Then
+                    hasil <- 'Benar'
+                Else
+                    If (gigi = 3) and ((kecepatan > 60) and (kecepatan < 80))
+                        Then
+                        hasil <- 'Benar'
+                Else
+                    If (gigi = 2) and ((kecepatan > 40) and (kecepatan < 60))
+                        Then
+                        hasil <- 'Benar'
+                Else
+                    If (gigi = 1) and ((kecepatan > 0) and (kecepatan < 40))
+                        Then
+                        hasil <- 'Benar'
+
+                If (hasil = 'Salah')
+                    Then
+                    temp_hasil <- hasil
+
+                Outpu(hasil); // munculkan Salah atau Benar        
+        EndProcedure // periksa_latihan
+
+        Procedure tampilkan_latihan(Input hasil, temp_hasil: string);
+            {I.S. : Mendapat total keberhasilan yang telah terdefinisi }
+            {F.S. : Menampilkan keterangan boleh menggunakan motor atau tidak}
+
+            { Kamus }
+                // tidak ada
+
+            { Algoritma }
+                If (temp_hasil = 'Salah')
+                    Then
+                    Output('Maaf, kamu belum layak');
+                Else
+                    Output('Selamat, kamu layak');
+
+        EndProcedure // tampilkan_latihan
+    { End of Sub-routine / Sub-program }
 
     { Judul }
         Uji_kelayakan_mengendarai_motor
 
-    {I.S. : Membelikan motor}
+    {I.S. : Latihan menggunakan motor}
     {F.S. : Menampilkan kelayakan mengendarai motor}
 
     { Kamus }
-        hari = 2;
+        hari = 6;
 
         i, gigi, kecepatan: integer;
         hasil, temp_hasil: string;
-        Procedure masukkan_latihan(i: integer; var g, v: integer);
-        Procedure periksa_latihan(i: integer; var g, v: integer);
-        Procedure tampilkan_latihan(i: integer; var g, v: integer);
+
+        { Prototype } // dalam notasi algoritma, prosedur dalam kamus disebut prototype
+            Procedure masukkan_latihan(Input i: integer; Output gigi, kecepatan: integer);
+            Procedure periksa_latihan(Input gigi, kecepatan: integer; Output hasil, temp_hasil: string);
+            Procedure tampilkan_latihan(Input hasil, temp_hasil: string);
         
     { Algoritma }
-        { Input }
+        // For looping, paling sederhana
+        For i <- 1 to hari Do
+            { Input }
+            masukkan_latihan(i, gigi, kecepatan)
+            { Proces }
+            periksa_latihan(gigi, kecepatan)
+        EndFor
+
+        { Output }
+        tampilkan_latihan(hasil, temp_hasil)
+    { End of Main Algorithm }
