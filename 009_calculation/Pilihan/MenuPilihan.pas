@@ -63,52 +63,50 @@ begin
               textcolor(15);
               gotoxy(18,8);
               write(': ');
-              if ( n = 0 )
-               then
-                begin
+              
+              if ( n = 0 ) then
+              begin
                 textcolor(lightgreen);
                 write(hasil);
                 textcolor(15);
-                end
-                else
-                if ( n < 0 )
-                 then
-                 begin
-                  m := m * -1;
-                  textcolor(lightgreen);
-                  write(m);
-                  textcolor(15);
-                 end
-                 else
-                  begin
-                   textcolor(lightgreen);
-                   write(m);
-                   textcolor(15);
-                  end;
-              if ( n < 0)
-               then
-               n := n * -1;
-              a := 2;
-              while ( a <= n ) do
-               begin
-                if( hasil >= 0 )
-                then
-                begin
-                   write(' + ');
-                   textcolor(lightgreen);
-                   write(m);
-                   textcolor(15);
-                   a := a + 1;
-                end
-                else
-                begin
-                write(' + ');
+              end
+              else if ( n < 0 ) then
+              begin
+                m := m * -1;
                 textcolor(lightgreen);
                 write(m);
                 textcolor(15);
-                a := a + 1;
-                end
-               end;
+              end
+              else
+              begin
+                textcolor(lightgreen);
+                write(m);
+                textcolor(15);
+              end;
+
+              if ( n < 0) then
+                n := n * -1;
+                a := 2;
+                while ( a <= n ) do
+                begin
+                  if( hasil >= 0 ) then
+                  begin
+                    write(' + ');
+                    textcolor(lightgreen);
+                    write(m);
+                    textcolor(15);
+                    a := a + 1;
+                  end
+                  else
+                  begin
+                    write(' + ');
+                    textcolor(lightgreen);
+                    write(m);
+                    textcolor(15);
+                    a := a + 1;
+                  end
+                end;
+                
               writeln;
               write('                 : ');
               textcolor(lightgreen);
