@@ -6,7 +6,7 @@ var
     { Protototype }
     { Input nama_variable = ' nama_variable' or by value }
     { I/O nama_variable = 'var nama_variable' or by reference } 
-    procedure input(nama: string);
+    procedure input(var nama: string); // Output
     begin
         write('Masukkan nama: '); readln(nama);
     end;
@@ -14,7 +14,7 @@ var
     procedure output(nama: string);
     begin
         writeln('Hallo, ', nama);
-    end;
+    end; 
 
 begin
     { Runtunan }
