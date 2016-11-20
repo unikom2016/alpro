@@ -5,11 +5,10 @@ program LatihanMotor;
 uses crt;
 
 const
-   hari = 2;
+   hari = 6;
 
 var
    i, gigi, kecepatan: integer;
-var
    hasil, temp_hasil: string;
 
 { Input }
@@ -17,10 +16,10 @@ procedure Masukkan_Latihan(i: integer; var gigi, kecepatan: integer);
 {I.S. : Membelikan motor kepada Sumin}
 {F.S. : Menghasilkan data latihan sumin}
 begin
-     textcolor(15);
-     writeln('Hari ke-', i, ':');
-     write('Gigi motor yang digunakan : '); readln(gigi);
-     write('Kecepatan                 : '); readln(kecepatan);
+    textcolor(15);
+    writeln('Hari ke-', i, ':');
+    write('Gigi motor yang digunakan : '); readln(gigi);
+    write('Kecepatan                 : '); readln(kecepatan);
 end; // endprocedure
 
 procedure Periksa_Latihan(gigi, kecepatan: integer; var hasil, temp_hasil: string);
@@ -30,17 +29,23 @@ procedure Periksa_Latihan(gigi, kecepatan: integer; var hasil, temp_hasil: strin
 begin
      hasil := 'Salah';
 
-          if (gigi = 4) and (kecepatan >= 80) then
-             hasil := 'Benar'
-          else if (gigi = 3) and ((kecepatan > 60) and (kecepatan < 80)) then
-             hasil := 'Benar'
-          else if (gigi = 2) and ((kecepatan > 40) and (kecepatan < 60)) then
-             hasil := 'Benar'
-          else if (gigi = 1) and ((kecepatan >= 0) and (kecepatan <= 40)) then
-             hasil := 'Benar';
+        // if (gigi = 4) and (kecepatan >= 80) then
+        //     hasil := 'Benar'
+        // else if (gigi = 3) and ((kecepatan > 60) and (kecepatan < 80)) then
+        //     hasil := 'Benar'
+        // else if (gigi = 2) and ((kecepatan > 40) and (kecepatan < 60)) then
+        //     hasil := 'Benar'
+        // else if (gigi = 1) and ((kecepatan >= 0) and (kecepatan <= 40)) then
+        //     hasil := 'Benar';
+        if (gigi = 1) and (kecepatan <= 40)
+        or (gigi = 2) and (kecepatan < 60)
+        or (gigi = 3) and (kecepatan < 80)
+        or (gigi = 4) and (kecepatan >= 80) then
+            hasil := 'Benar';
 
-          if (hasil = 'Salah') then
-             temp_hasil := hasil;
+
+        if (hasil = 'Salah') then
+            temp_hasil := hasil;
 
      write('Hasil                     : ');
      textcolor(yellow);
@@ -69,7 +74,7 @@ begin
 
      writeln;
 
-     Tampil_Hasil_Latihan(hasil, temp_hasil);
+    Tampil_Hasil_Latihan(hasil, temp_hasil);
 
      readln;
 end.
