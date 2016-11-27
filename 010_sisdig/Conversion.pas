@@ -24,12 +24,12 @@ begin
             writeln('2. Binary to Octal');
             writeln('3. Binary to Hexa');
 
-            write('Your answer? '); readln(bc);
+            // write('Your answer? '); readln(bc);
         end;    
         0: begin
             writeln('Exited!');
-            break;
         end;
+    end;
 end;
 
 function binary_to_decimal(n: integer): real;
@@ -42,16 +42,17 @@ begin
 
     // ratio = 2
     r := 2; 
-    binary_to_decimal := (1 - r**n) / (1 - r);
+    binary_to_decimal := (r**n - 1) / (r - 1);
+    writeln(binary_to_decimal:10:0);
 end;
 
 var
     choices, data: integer;
 
 begin
-    repeat
+    // repeat
         // Show menu
-        menu(choices);
-        binary_to(data);
-    until (choices = 0);
+        // menu(choices);
+        binary_to_decimal(data);
+    // until (choices = 0);
 end.
