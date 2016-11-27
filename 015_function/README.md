@@ -29,19 +29,19 @@
         EndFunction
 
         { Process Procedure }
-        Function rumus_deret(Input n: Integer): Real
+        Function nilai_dari(Input baris: Integer): Real
         {I.S. : Nilai n telah terdefinisi}
         {F.S. : Menampilkan hasil rumus deret}
         { Kamus Lokal }
-            i: Integer
+            rumus: Integer
         { Algoritma }
-            // Rumus deret tingkat
-                For i <- 1 To n Do
-                    rumus_deret <- (3 div factorial(0)) 
-                    + (2 * (n - 1) div factorial(1)) 
-                    + (8 * (n - 1) * (n - 2) div factorial(2)) 
-                    + (3 * (n - 1) * (n - 2) * (n - 3) div factorial(3))
-                EndFor
+            If (baris = 0) Then // Termination
+                nilai_dari <- 0
+            Else
+                rumus <- (2*n + 4*sqr(n) - 12*n + ((n - 3)*(n - 2)*(n - 1) div 2) + 9);
+                nilai_dari <- rumus + nilai_dari(baris - 1) 
+
+            nilai_dari <- suku
         EndFunction
 
         Procedure tampil_suku(Input hasil: Integer)
@@ -56,12 +56,12 @@
         hasil, n: Integer
         Procedure isi_suku(Output n: Integer)
         Function factorial(Input n: Integer)
-        Function rumus_deret(Input n: Integer)
+        Function nilai_dari(Input n: Integer)
         Procedure tampil_deret(Input hasil: Integer)
         
     { Algoritma Utama}
         { Input }
         isi_suku(n)
-        hasil <- rumus_deret(n)
+        hasil <- nilai_dari(n)
         tampil_deret(hasil)
 

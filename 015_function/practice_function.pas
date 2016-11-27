@@ -1,6 +1,5 @@
 { Judul }
-program practice_function;
-uses math;
+program Menampilkan_suku_ke_n;
 
 {I.S. : User mendefinisikan suku ke-N}
 {F.S. : Menampilkan hasil dari barisan suku ke-n}
@@ -11,96 +10,58 @@ var n, hasil: integer;
 { Procedure and Function }
 { Input Procedure }
 procedure isi_suku(var n: integer);
-  {I.S. : User memasukkan nilai n}
-  {F.S. : Mengeluarkan nilai n}
-  { Kamus Lokal }
-  { Algoritma }
+{I.S. : User memasukkan nilai n}
+{F.S. : Mengeluarkan nilai n}
+{ Kamus Lokal }
+{ Algoritma }
 begin
-  write('Masukkan nilai n: ');
+  write('Masukkan baris ke-');
   readln(n);
 end;
 
-function factorial(n: integer): integer;
-{I.S. : Nilai n telah terdefinisi}
-{F.S. : Menampilkan hasil faktorial nilai n}
-{ Kamus Lokal }
-{ Algoritma }
-begin
-  if (n = 0) then
-    factorial := 1
-  else
-    factorial := factorial(n - 1) * n;
-end;
-
 { Process Procedure }
-function rumus_deret(n: integer): integer;
+function nilai_dari(urutan: integer): integer;
 {I.S. : Nilai n telah terdefinisi}
 {F.S. : Menampilkan hasil rumus deret}
 { Kamus Lokal }
-var awal, akhir, i: integer;
+var rumus: integer;
 { Algoritma }
 begin
-  // Rumus deret tingkat 3
-  // for i := 1 to n do begin
-    // rumus_deret := (3 div factorial(0)) 
-    // + ((2 * (n - 1)) div factorial(1)) 
-    // + ((8 * (n - 1) * (n - 2)) div factorial(2)) 
-    // + ((3 * (n - 1) * (n - 2) * (n - 3)) div factorial(3));
-    // + ((5 * (n - 1)) div factorial(1)) 
-    // + ((10 * (n - 1) * (n - 2)) div factorial(2)) 
-    // + ((5 * (n - 1) * (n - 2) * (n - 3)) div factorial(3))
-    // + ((3 * (n - 1) * (n - 2) * (n - 3) * (n - 4)) div factorial(4));
-    // rumus_deret := 2*n + 4*sqr(n) - 12*n + ((n - 3)*(n - 2)*(n - 1) div 2) + 9;
-    // rumus_deret := (3 * (1 - 4**n)) div (1 - 4); // geometri
-    // rumus_deret := 3 * 4**(n - 1); // suku ke-n
-    if (n = 0) then
-      writeln('Tidak ada!')
+    if (urutan = 0) then // Termination
+      nilai_dari := 0
     else begin
-      if (n = 1) then begin
-        rumus_deret := 3;
-        writeln(rumus_deret);
-      end else if (n = 2) then begin
-        rumus_deret := 5;
-        writeln('3, ', rumus_deret);
-      end else begin
-        awal := 3;
-        akhir := 5;
-
-        write('3, 5, ');
-        for i := 3 to n do begin
-          if (i mod 2 = 0) then
-            rumus_deret := awal + akhir
-          else
-            rumus_deret := awal * akhir;
-
-          awal := akhir;
-          akhir := rumus_deret;
-
-          write(rumus_deret);
-          if i <> n then
-            write(', ');
-        end;
-        writeln;
-      end;
+      rumus := (2*urutan + 4*sqr(urutan) - 12*urutan + 
+                ((urutan - 3)*(urutan - 2)*(urutan - 1) div 2) + 9
+              );
+      // nilai_dari := nilai_dari(baris - 1) + 3;
     end;
-  // end;
+
+    nilai_dari := rumus;
+    if (urutan = 4) then
+        nilai_dari := nilai_dari - 16;
 end;
 
-procedure tampil_suku(n, hasil: integer);
+procedure tampil(hasil: integer);
 {I.S. : User telah mendefinisikan hasil}
 {F.S. : Mengeluarkan nilai hasil pada layar}
 { Kamus Lokal }
+var i: integer;
 { Algoritma }
 begin
-  writeln('Hasil suku ke-', n, ', yaitu: ', hasil);
+  writeln('Barisannya yaitu: ');
+  for i := 1 to n do begin
+    write(nilai_dari(i));
+    if (i <> n) then
+      write(', ');
+  end;
+  writeln;
+  writeln('Nilai dari suku ke-', n, ' yaitu: ', hasil);
 end;
 
 { Algoritma Utama}
+{ Input }
 begin
-  { Input }
-  isi_suku(n); // prosedur
-  { Process }
-  hasil := rumus_deret(n); // fungsi
-  { Output }
-  tampil_suku(n, hasil); // prosedur
+  isi_suku(n);
+  hasil := nilai_dari(n);
+  tampil(hasil);
 end.
