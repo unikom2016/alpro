@@ -20,27 +20,26 @@ begin
 end;
 
 { Process Procedure }
-function nilai_dari(urutan: integer): integer;
+function nilai_dari(suku: integer): integer;
 {I.S. : Nilai n telah terdefinisi}
 {F.S. : Menampilkan hasil rumus deret}
 { Kamus Lokal }
-var rumus: integer;
+var awal, rasio, rumus: integer;
 { Algoritma }
 begin
-  if (urutan = 0) or (urutan = 1) then begin// Termination
-    nilai_dari := 3;
-    write(nilai_dari);
+  awal := 3;
+  rasio := 5;
+  if (suku < 1) then
+    writeln('You cannot')
+  else if (suku = 1) then begin
+    // writeln('suku ke-', suku);
+    nilai_dari := suku * awal;
+  end else if (suku = 2) then begin
+    // writeln('suku ke-', suku);
+    nilai_dari := suku + awal;
   end else begin
-    rumus := (2*urutan + 4*sqr(urutan) - 12*urutan + 
-              ((urutan - 3)*(urutan - 2)*(urutan - 1) div 2) + 9
-            );
-    if (urutan = 4) then
-      write(rumus - 16)
-    else 
-      write(rumus);
-
-    write(', ');
-    nilai_dari := nilai_dari(urutan - 1) + rumus;
+    // writeln('suku ke-', suku);
+    nilai_dari := suku * rasio;
   end;
 end;
 
@@ -51,12 +50,12 @@ procedure tampil(hasil: integer);
 var i: integer;
 { Algoritma }
 begin
-  // writeln('Barisannya yaitu: ');
-  // for i := 1 to n do begin
-  //   write(nilai_dari(i));
-  //   if (i <> n) then
-  //     write(', ');
-  // end;
+  writeln('Barisannya yaitu: ');
+  for i := 1 to n do begin
+    write(nilai_dari(i));
+    if (i <> n) then
+      write(', ');
+  end;
   writeln;
   writeln('Nilai dari suku ke-', n, ' yaitu: ', hasil);
 end;
@@ -65,7 +64,6 @@ end;
 { Input }
 begin
   isi_suku(n);
-  writeln('Barisannya yaitu: ');
   hasil := nilai_dari(n);
   tampil(hasil);
 end.
