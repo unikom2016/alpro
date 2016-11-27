@@ -27,18 +27,21 @@ function nilai_dari(urutan: integer): integer;
 var rumus: integer;
 { Algoritma }
 begin
-    if (urutan = 0) then // Termination
-      nilai_dari := 0
-    else begin
-      rumus := (2*urutan + 4*sqr(urutan) - 12*urutan + 
-                ((urutan - 3)*(urutan - 2)*(urutan - 1) div 2) + 9
-              );
-      // nilai_dari := nilai_dari(baris - 1) + 3;
-    end;
-
-    nilai_dari := rumus;
+  if (urutan = 0) or (urutan = 1) then begin// Termination
+    nilai_dari := 3;
+    write(nilai_dari);
+  end else begin
+    rumus := (2*urutan + 4*sqr(urutan) - 12*urutan + 
+              ((urutan - 3)*(urutan - 2)*(urutan - 1) div 2) + 9
+            );
     if (urutan = 4) then
-        nilai_dari := nilai_dari - 16;
+      write(rumus - 16)
+    else 
+      write(rumus);
+
+    write(', ');
+    nilai_dari := nilai_dari(urutan - 1) + rumus;
+  end;
 end;
 
 procedure tampil(hasil: integer);
@@ -48,12 +51,12 @@ procedure tampil(hasil: integer);
 var i: integer;
 { Algoritma }
 begin
-  writeln('Barisannya yaitu: ');
-  for i := 1 to n do begin
-    write(nilai_dari(i));
-    if (i <> n) then
-      write(', ');
-  end;
+  // writeln('Barisannya yaitu: ');
+  // for i := 1 to n do begin
+  //   write(nilai_dari(i));
+  //   if (i <> n) then
+  //     write(', ');
+  // end;
   writeln;
   writeln('Nilai dari suku ke-', n, ' yaitu: ', hasil);
 end;
@@ -62,6 +65,7 @@ end;
 { Input }
 begin
   isi_suku(n);
+  writeln('Barisannya yaitu: ');
   hasil := nilai_dari(n);
   tampil(hasil);
 end.
