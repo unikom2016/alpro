@@ -27,11 +27,12 @@
         EndFunction
 
         { Process Procedure }
-        Function nilai_dari(Input n: Integer): Real
+        Function nilai_dari(Input n: Integer): Integer
         {I.S. : Nilai n telah terdefinisi}
         {F.S. : Menampilkan hasil rumus deret}
         { Kamus Lokal }
             rumus: Integer
+            Function factorial(Input n: Integer): Integer
         { Algoritma }
             If (n = 0) Then // Termination
                 nilai_dari <- 0
@@ -59,8 +60,7 @@
     { Kamus Global }
         hasil, n: Integer
         Procedure isi_suku(Output n: Integer)
-        Function factorial(Input n: Integer)
-        Function nilai_dari(Input n: Integer)
+        Function nilai_dari(Input n: Integer): Integer
         Procedure tampil(Input hasil: Integer)
         
     { Algoritma Utama}
