@@ -60,6 +60,10 @@
     { Kamus Global }
         hasil, n: Integer
         Procedure isi_suku(Output n: Integer)
+<<<<<<< HEAD
+=======
+        Function factorial(Input n: Integer): Integer
+>>>>>>> caff9d8fdd832b01beeae1c2a1b7ffb3411ea03e
         Function nilai_dari(Input n: Integer): Integer
         Procedure tampil(Input hasil: Integer)
         
