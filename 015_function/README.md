@@ -34,15 +34,11 @@
             rumus: Integer
             Function factorial(Input n: Integer): Integer
         { Algoritma }
-            If (n = 0) Then // Termination
-                nilai_dari <- 0
-            Else
-                rumus <- (3 div factorial(0)) 		
-                + ((2 * (n - 1)) div factorial(1)) 		
-                + ((8 * (n - 1) * (n - 2)) div factorial(2)) 		
-                + ((3 * (n - 1) * (n - 2) * (n - 3)) div factorial(3))
-                nilai_dari <- rumus
-            EndIf
+            rumus <- (3 div factorial(0)) 		
+            + ((2 * (i - 1)) div factorial(1)) 		
+            + ((8 * (i - 1) * (i - 2)) div factorial(2)) 		
+            + ((3 * (i - 1) * (i - 2) * (i - 3)) div factorial(3))
+            nilai_dari <- rumus
 
             If (n = 4) Then
                 nilai_dari <- nilai_dari - 16
@@ -53,7 +49,14 @@
         {I.S. : User telah mendefinisikan hasil}
         {F.S. : Mengeluarkan nilai hasil pada layar}
         { Kamus Lokal }
+            i: Integer
+            Function nilai_dari(Input n: Integer): Integer
         { Algoritma }
+            For i <- 1 To n Do
+                Output(nilai_dari(i))
+                If (i != n) Then
+                    Output(', ')
+            EndFor
             Output(hasil)
         EndProcedure
 
