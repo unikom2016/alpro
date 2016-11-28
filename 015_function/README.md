@@ -29,19 +29,23 @@
         EndFunction
 
         { Process Procedure }
-        Function nilai_dari(Input baris: Integer): Real
+        Function nilai_dari(Input n: Integer): Real
         {I.S. : Nilai n telah terdefinisi}
         {F.S. : Menampilkan hasil rumus deret}
         { Kamus Lokal }
             rumus: Integer
         { Algoritma }
-            If (baris = 0) Then // Termination
+            If (n = 0) Then // Termination
                 nilai_dari <- 0
             Else
-                rumus <- (2*n + 4*sqr(n) - 12*n + ((n - 3)*(n - 2)*(n - 1) div 2) + 9);
-                nilai_dari <- rumus + nilai_dari(baris - 1) 
+                rumus <- (3 div factorial(0)) 		
+                + ((2 * (n - 1)) div factorial(1)) 		
+                + ((8 * (n - 1) * (n - 2)) div factorial(2)) 		
+                + ((3 * (n - 1) * (n - 2) * (n - 3)) div factorial(3))
+                nilai_dari <- rumus
 
-            nilai_dari <- suku
+            If (n = 4) Then
+                nilai_dari <- nilai_dari - 16
         EndFunction
 
         Procedure tampil_suku(Input hasil: Integer)
