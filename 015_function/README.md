@@ -4,9 +4,6 @@
     {I.S. : User mendefinisikan suku ke-N}
     {F.S. : Menampilkan hasil dari barisan suku ke-n}
 
-    { Kamus }
-        n, hasil: Integer
-
     { Procedure and Function }
         { Input Procedure }
         Procedure isi_suku(Output n: Integer)
@@ -26,6 +23,7 @@
                     factorial <- 1
                 Else
                     factorial <- factorial(n - 1) * n
+                EndIf
         EndFunction
 
         { Process Procedure }
@@ -43,12 +41,14 @@
                 + ((8 * (n - 1) * (n - 2)) div factorial(2)) 		
                 + ((3 * (n - 1) * (n - 2) * (n - 3)) div factorial(3))
                 nilai_dari <- rumus
+            EndIf
 
             If (n = 4) Then
                 nilai_dari <- nilai_dari - 16
+            EndIf
         EndFunction
 
-        Procedure tampil_suku(Input hasil: Integer)
+        Procedure tampil(Input hasil: Integer)
         {I.S. : User telah mendefinisikan hasil}
         {F.S. : Mengeluarkan nilai hasil pada layar}
         { Kamus Lokal }
@@ -61,11 +61,10 @@
         Procedure isi_suku(Output n: Integer)
         Function factorial(Input n: Integer)
         Function nilai_dari(Input n: Integer)
-        Procedure tampil_deret(Input hasil: Integer)
+        Procedure tampil(Input hasil: Integer)
         
     { Algoritma Utama}
         { Input }
         isi_suku(n)
         hasil <- nilai_dari(n)
-        tampil_deret(hasil)
-
+        tampil(hasil)
