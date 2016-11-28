@@ -19,28 +19,26 @@ begin
   readln(n);
 end;
 
+function factorial(n: integer): integer;
+begin
+  if (n = 0) then
+    factorial := 1
+  else
+    factorial := factorial(n - 1) * n;
+end;
+
 { Process Procedure }
 function nilai_dari(suku: integer): integer;
 {I.S. : Nilai n telah terdefinisi}
 {F.S. : Menampilkan hasil rumus deret}
 { Kamus Lokal }
-var awal, rasio, rumus: integer;
 { Algoritma }
 begin
-  awal := 3;
-  rasio := 5;
-  if (suku < 1) then
-    writeln('You cannot')
-  else if (suku = 1) then begin
-    // writeln('suku ke-', suku);
-    nilai_dari := suku * awal;
-  end else if (suku = 2) then begin
-    // writeln('suku ke-', suku);
-    nilai_dari := suku + awal;
-  end else begin
-    // writeln('suku ke-', suku);
-    nilai_dari := suku * rasio;
-  end;
+  nilai_dari := (2 div factorial(0))
+  + ((suku - 1) div factorial(1))
+  + (((suku - 1) * (suku - 2)) div factorial(2))
+  + (7 * ((suku - 1) * (suku - 2) * (suku - 3)) div factorial(3))
+  + (-20 * ((suku - 1) * (suku - 2) * (suku - 3) * (suku - 4)) div factorial(4));
 end;
 
 procedure tampil(hasil: integer);
@@ -52,7 +50,7 @@ var i: integer;
 begin
   writeln('Barisannya yaitu: ');
   for i := 1 to n do begin
-    write(nilai_dari(i));
+    write(nilai_dari(i + 1));
     if (i <> n) then
       write(', ');
   end;
@@ -64,6 +62,6 @@ end;
 { Input }
 begin
   isi_suku(n);
-  hasil := nilai_dari(n);
+  hasil := nilai_dari(n + 1);
   tampil(hasil);
 end.
