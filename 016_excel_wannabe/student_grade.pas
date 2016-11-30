@@ -34,19 +34,26 @@ begin
   // if (jml_mhsiswa <= max) then begin
     
   // end;
-  window(0, 0, 79, 29);
+  window(2, 2, 79, 29);
   clrscr;
   gotoxy(0, 0);
   writeln('masukkan nim, nama, nilai, indeks (akan terhitung otomatis)');
-  writeln('===========================================================');
-  writeln('No |      NIM      |      Nama      |      Nilai      |      Indeks     ');
+  writeln('===========================================================================');
+  writeln('| No |      NIM      |      Nama      |      Nilai      |      Indeks     |');
+  writeln('---------------------------------------------------------------------------');
    
   for i := 0 to (max - 1) do begin
-    gotoxy(0, i + 4); write(i + 1, ' | ');
-    gotoxy(17, i + 4); readln(nim[i]); // write('|');
-    gotoxy(27, i + 4); readln(nama[i]); // write('|');
-    gotoxy(37, i + 4); readln(nilai[i]); // write('|');
-    gotoxy(57, i + 4);
+    // gotoxy(x, y)
+    write('|'); gotoxy(4, i + 5); write(i + 1, ' | ');
+    gotoxy(22, i + 5); write('|');
+    gotoxy(39, i + 5); write('|');
+    gotoxy(57, i + 5); write('|');
+    gotoxy(75, i + 5); write('|');
+
+    gotoxy(11, i + 5); readln(nim[i]);
+    gotoxy(28, i + 5); readln(nama[i]);
+    gotoxy(45, i + 5); readln(nilai[i]);
+    gotoxy(66, i + 5);
     indeks[i] := indeks_nilai(nilai[i]);
     writeln(indeks[i]);
   end;
