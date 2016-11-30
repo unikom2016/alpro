@@ -1,36 +1,21 @@
 #include <iostream>
 
-const
-  max = 2;
+char indeks_nilai();
+void tampil(); // prototype atau header
 
-type
-  arr_str = array[1..max] of string;
-  arr_int = array[1..max] of integer;
-  arr_char = array[1..max] of char;
-
-  nim, nama: arr_str;
-  nilai: arr_int;
-  indeks: arr_char;
-  jml_mhsiswa: integer;
-
+// Algoritma Utama
 int main() {
   tampil_data;
 }
 
 // Procedure and Function
 
-function indeks_nilai(nilai: integer): char;
-begin
-  case (nilai) of
-    80..100: indeks_nilai := 'A';
-    70..79: indeks_nilai := 'B';
-    60..69: indeks_nilai := 'C';
-    50..59: indeks_nilai := 'D';
-    0..49: indeks_nilai := 'E';
-  end;
-end;
+char indeks_nilai() {
+  // asdlfja;ksd
+}
 
-void tampil_data() {
+void tampil() {
+  // definisi 
 int i;
   // readln(jml_mhsiswa);
   // if (jml_mhsiswa <= max) then begin
