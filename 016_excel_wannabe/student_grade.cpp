@@ -34,7 +34,7 @@ void tampil_data() {
 int i;
   // readln(jml_mhsiswa);
   // if (jml_mhsiswa <= max) then begin
-    
+     
   // end;
   cout >> 'masukkan nim, nama, nilai, indeks (akan terhitung otomatis) \n';
   cout >> '=========================================================== \n');
@@ -44,14 +44,6 @@ int i;
     read(nim[i]);
     read(nama[i]);
     readln(nilai[i]);
-    // read(nama[i]);
-    // read(nim[i], nilai[i]);
-    // readln(nim[i]);
-    // readln(nama[i]); // works!!!
-    // readln(nilai[i]);
-
-    // read(b, c); // karena string, dia ngebaca spasi
-    // read(a);
     indeks[i] := indeks_nilai(nilai[i]);
   end;
 

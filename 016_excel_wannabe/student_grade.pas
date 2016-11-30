@@ -1,5 +1,7 @@
 program student_grade;
 
+uses crt;
+
 const
   max = 2;
 
@@ -26,36 +28,32 @@ begin
 end;
 
 procedure tampil_data;
-var i, a: integer; b, c: string;
+var i: integer;
 begin
   // readln(jml_mhsiswa);
   // if (jml_mhsiswa <= max) then begin
     
   // end;
+  window(0, 0, 79, 29);
+  clrscr;
+  gotoxy(0, 0);
   writeln('masukkan nim, nama, nilai, indeks (akan terhitung otomatis)');
   writeln('===========================================================');
-  writeln('No | NIM | Nama | Nilai | Indeks');
-  
+  writeln('No |      NIM      |      Nama      |      Nilai      |      Indeks     ');
+   
   for i := 0 to (max - 1) do begin
-    read(nim[i]);
-    read(nama[i]);
-    readln(nilai[i]);
-    // read(nama[i]);
-    // read(nim[i], nilai[i]);
-    // readln(nim[i]);
-    // readln(nama[i]); // works!!!
-    // readln(nilai[i]);
-
-    // read(b, c); // karena string, dia ngebaca spasi
-    // read(a);
+    gotoxy(0, i + 4); write(i + 1, ' | ');
+    gotoxy(17, i + 4); readln(nim[i]); // write('|');
+    gotoxy(27, i + 4); readln(nama[i]); // write('|');
+    gotoxy(37, i + 4); readln(nilai[i]); // write('|');
+    gotoxy(57, i + 4);
     indeks[i] := indeks_nilai(nilai[i]);
+    writeln(indeks[i]);
   end;
 
-  for i := 0 to (max - 1) do begin
-  writeln('output');
-  writeln(i + 1, ' | ', nim[i], ' | ', nama[i], ' | ', nilai[i], ' | ', indeks[i]);
-  // writeln('a: ', a, ' | ', 'b: ', b, ' | ', 'c: ', c);
-  end;
+  // for i := 0 to (max - 1) do begin
+  //   writeln( ' | ', nim[i], ' | ', nama[i], ' | ', nilai[i], ' | ', indeks[i]);
+  // end;
 end;
 
 begin
