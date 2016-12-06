@@ -53,27 +53,37 @@ begin
   rata_rata := total / jml_mhs;
 end;
 
-function nilai_min(nilai1, nilai2: integer): integer;
+function nilai_min(mahasiswa: arr_mhs): integer;
 { I.S.: data(nilai) sudah terdefinisi }
 { F.S.: menghasilkan fungsi nilai terendah }
+var i: integer;
 begin
-  nilai_min := nilai1;
-  if nilai2 < nilai_min then
-    nilai_min := nilai2;
+  nilai_min := mahasiswa[0].nilai;
+
+  for i := 1 to (jml_mhs - 1) do begin
+    if (nilai_min > mahasiswa[i].nilai) then begin
+      nilai_min := mahasiswa[i].nilai;
+    end;
+  end;
 end;
 
-function nilai_max(nilai1, nilai2: integer): integer;
+function nilai_max(mahasiswa: arr_mhs): integer;
 { I.S.: data(nilai) sudah terdefinisi }
 { F.S.: menghasilkan fungsi nilai tertinggi }
+var i: integer;
 begin
-  nilai_max := nilai1;
-  if nilai2 > nilai_max then
-    nilai_max := nilai2;
+  nilai_max := mahasiswa[0].nilai;
+
+  for i := 1 to (jml_mhs - 1) do begin
+    if (nilai_max < mahasiswa[i].nilai) then begin
+      nilai_max := mahasiswa[i].nilai;
+    end;
+  end;
 end;
 
 procedure tampil_data;
 var 
-  total, n_min, n_max: integer;
+  total: integer;
   // function idx(nilai: integer); // prototype 
 begin
   if (jml_mhs > 0) and (jml_mhs <= max) then begin
@@ -105,10 +115,10 @@ begin
       gotoxy(74, i + 5); write(idx(mahasiswa[i].nilai)); // input Indeks
 
       total := total + mahasiswa[i].nilai;
-      if i = (jml_mhs - 1) then begin 
-        n_min := nilai_min(mahasiswa[i].nilai, mahasiswa[i - 1].nilai);
-        n_max := nilai_max(mahasiswa[i].nilai, mahasiswa[i - 1].nilai); 
-      end;
+      // if i = (jml_mhs - 1) then begin 
+      //   n_min := nilai_min(mahasiswa[i].nilai, mahasiswa[i - 1].nilai);
+      //   n_max := nilai_max(mahasiswa[i].nilai, mahasiswa[i - 1].nilai); 
+      // end;
     end;
 
     gotoxy(7, i + 6);
@@ -117,9 +127,9 @@ begin
     writeln('Rata-rata nilai dari ', jml_mhs, ' mahasiswa, yaitu: ', rata_rata(total):0:1);
     // tambahkan fungsi nilai tertinggi dan terendah
     gotoxy(7, i + 8);
-    writeln('Nilai terendah dari ', jml_mhs, ' mahasiswa, yaitu: ', n_min);
+    writeln('Nilai terendah dari ', jml_mhs, ' mahasiswa, yaitu: ', nilai_min(mahasiswa));
     gotoxy(7, i + 9);
-    writeln('Nilai tertinggi dari ', jml_mhs, ' mahasiswa, yaitu: ', n_max);
+    writeln('Nilai tertinggi dari ', jml_mhs, ' mahasiswa, yaitu: ', nilai_max(mahasiswa));
   end else
     writeln('Ga bisa nambahin mahasaiswa, karena penuh');
 end;
