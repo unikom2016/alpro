@@ -61,7 +61,7 @@ begin
   nilai_min := mahasiswa[0].nilai;
 
   for i := 1 to (jml_mhs - 1) do begin
-    if (nilai_min > mahasiswa[i].nilai) then begin
+    if (mahasiswa[i].nilai < nilai_min) then begin
       nilai_min := mahasiswa[i].nilai;
     end;
   end;
@@ -75,7 +75,7 @@ begin
   nilai_max := mahasiswa[0].nilai;
 
   for i := 1 to (jml_mhs - 1) do begin
-    if (nilai_max < mahasiswa[i].nilai) then begin
+    if (mahasiswa[i].nilai > nilai_max) then begin
       nilai_max := mahasiswa[i].nilai;
     end;
   end;
@@ -115,19 +115,15 @@ begin
       gotoxy(74, i + 5); write(idx(mahasiswa[i].nilai)); // input Indeks
 
       total := total + mahasiswa[i].nilai;
-      // if i = (jml_mhs - 1) then begin 
-      //   n_min := nilai_min(mahasiswa[i].nilai, mahasiswa[i - 1].nilai);
-      //   n_max := nilai_max(mahasiswa[i].nilai, mahasiswa[i - 1].nilai); 
-      // end;
     end;
 
     gotoxy(7, i + 6);
     write('-------------------------------------------------------------------------------------');
     gotoxy(7, i + 7);
-    writeln('Rata-rata nilai dari ', jml_mhs, ' mahasiswa, yaitu: ', rata_rata(total):0:1);
+    write('Rata-rata nilai dari ', jml_mhs, ' mahasiswa, yaitu: ', rata_rata(total):0:1);
     // tambahkan fungsi nilai tertinggi dan terendah
     gotoxy(7, i + 8);
-    writeln('Nilai terendah dari ', jml_mhs, ' mahasiswa, yaitu: ', nilai_min(mahasiswa));
+    write('Nilai terendah dari ', jml_mhs, ' mahasiswa, yaitu: ', nilai_min(mahasiswa));
     gotoxy(7, i + 9);
     writeln('Nilai tertinggi dari ', jml_mhs, ' mahasiswa, yaitu: ', nilai_max(mahasiswa));
   end else
