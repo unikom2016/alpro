@@ -16,20 +16,22 @@ type
   // mahasiswa
   mhs = record // record
     nim, nama: string;
-    nilai: array[0..maks_mk] of integer;
-    indeks: array[0..maks_mk] of char;
+    ipk: real;
   end;
   
   arr_mk = array[0..maks_mk] of matkul; // matakuliah array of record
   arr_mhs = array[0..maks_mhs] of mhs; // mahasiswa array of record
-  arr_int = array[0..maks_mk] of integer; // array index
+  arr_nilai = array[0..maks_mhs, 0..maks_mk] of integer;
+  arr_idx = array[0..maks_mhs, 0..maks_mk] of char;
   // array cuma bisa data tipe yg sama, jadi ga bisa <char, int> <key, value>
 
 { Kamus Global }
 var
   mahasiswa: arr_mhs;
-  matakuliah: arr_mk; 
-  idx_mhs: arr_int; // simpan data tiap indeks
+  matakuliah: arr_mk;
+  nilai: arr_nilai; // simpan data
+  indeks: arr_idx;
+  // idx_mhs: arr_int; // simpan data tiap indeks
   i, j: integer; // buat looping
   jml_mhs, jml_mk: integer; // buat jumlah mahasiswa dan matkul
   // idxA, idxB, idxC, idxD, idxE: integer; // untuk indeks persiswa
@@ -151,16 +153,35 @@ begin
   end;
 end;
 
-function ipk(total: integer): integer;
+function hitung_ipk(indeks: arr_idx): real;
+var
+  total: real;
+  i, j: integer;
 begin
-  
+  total := 0.0;
+  for i := 0 to maks_mhs do begin
+    for j := 0 to maks_mk do begin
+      case (indeks[i, j]) of
+        'A': total := total + 4.0;
+        'B': total := total + 3.0;
+        'C': total := total + 2.0;
+        'D': total := total + 1.0;
+        'E': total := total + 0.0;
+      end;
+    end;
+  end;
+  hitung_ipk := total;
 end;
 { End Perhitungan }
 
 procedure isi_nilai;
 begin
-  for j := 0 to (jml_mk - 1) do begin
-    gotoxy((j + 1) * 15, i + 5); readln(mahasiswa[i].nilai[j]);
+  for i := 0 to (jml_mhs - 1) do begin
+    gotoxy(7, i + 5); // write('|'); // buka NIM
+    write(mahasiswa[i].nim); // NIM
+    for j := 0 to (jml_mk - 1) do begin
+      gotoxy((j + 1) * 15, i + 5); readln(nilai[i, j]);
+    end;
   end;
 end;
 
@@ -168,8 +189,8 @@ procedure isi_indeks;
 begin
   for i := 0 to (jml_mhs - 1) do begin
     for j := 0 to (jml_mk - 1) do begin
-      mahasiswa[i].indeks[j] := idx(mahasiswa[i].nilai[j]);
-      gotoxy((j + 1) * 15, i + 5); clreol; delay(300); write(mahasiswa[i].indeks[j]);
+      indeks[i, j] := idx(nilai[i, j]);
+      gotoxy((j + 1) * 15, i + 5); clreol; delay(300); write(indeks[i, j]);
     end;
   end;
 end;
@@ -184,37 +205,35 @@ begin
   for i := 0 to (jml_mk - 1) do begin
     gotoxy((i + 1) * 15, 3); write(matakuliah[i].kd_mk);
   end;
-
-  for i := 0 to (jml_mhs - 1) do begin
-    gotoxy(7, i + 5); // write('|'); // buka NIM
-    write(mahasiswa[i].nim); // NIM
-
-    isi_nilai;
-  end;
-
+  isi_nilai;
   isi_indeks;
   writeln;
 end;
 
 procedure tampil_data;
-var total: integer;
 begin
-  write('NIM:', mahasiswa[i].nim);
-  write('Nama:', mahasiswa[i].nama);
-  // tabel
-  total := total + mahasiswa[i].nilai[j];
-  write('IPK:', ipk(total));
+  clrscr;
+  for i := 0 to jml_mhs do begin
+    write('NIM:', mahasiswa[i].nim);
+    write('Nama:', mahasiswa[i].nama);
+    mahasiswa[i].ipk := hitung_ipk(indeks) / jml_mk;
+    write('IPK: ', mahasiswa[i].ipk:0:1);
+    writeln;
+  end;
 end;
 
 { Algoritma Utama }
 begin
   window(1, 1, 100, 100);
   clrscr;
+  // masukkan jumlah
   jumlah_data_mhs(jml_mhs);
   jumlah_data_mk(jml_mk);
+  // tampilkan tabel matkul dan mahasiswa
   tabel_mahasiswa;
   tabel_matkul;
+  // tampilkan nilai mahasiswa
   tabel_indeks_nilai;
-  // clrscr;
-  // tampil_data;
+  // tampilkan semuanya
+  tampil_data;
 end.
