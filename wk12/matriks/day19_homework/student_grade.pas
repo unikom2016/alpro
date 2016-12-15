@@ -30,7 +30,9 @@ var
   mahasiswa: arr_mhs;
   matakuliah: arr_mk; 
   idx_mhs: arr_idx; // simpan data tiap indeks
-  i, jml_mhs, jml_mk, idxA, idxB, idxC, idxD, idxE: integer;
+  i, j: integer; // buat looping
+  jml_mhs, jml_mk: integer; // buat jumlah mahasiswa dan matkul
+  // idxA, idxB, idxC, idxD, idxE: integer; // untuk indeks persiswa
 
 procedure jumlah_data_mhs(var jml_mhs: integer);
 { I.S: User memasukkan banyaknya data (jml_mhs) }
@@ -152,7 +154,9 @@ end;
 
 procedure isi_indeks_nilai;
 begin
-  
+  for j := 0 to (jml_mk - 1) do begin
+    gotoxy((j + 1) * 23, i + 5); write('|', j + 24);
+  end;
 end;
 
 procedure tampil_indeks_nilai;
@@ -171,12 +175,13 @@ begin
   gotoxy(7, 4);
   write('---------------------------------------------------'); 
 
-  for i := 0 to (jml_mhs - 1) do begin // array 0
-    // gotoxy(x, y)
-    gotoxy(7, i + 5); write('|');
-    gotoxy(28, i + 5); write('|'); // Tutup NIM
+  for i := 0 to (jml_mhs - 1) do begin
+    gotoxy(7, i + 5); write('|'); // buka NIM
+    write(mahasiswa[i].nim); // NIM
 
-    // isi_indeks_nilai;
+    isi_indeks_nilai;
+
+    gotoxy(57, 3); write('|'); // tutup NIM dan nilai
   end;
 
   gotoxy(7, i + 6);
@@ -188,9 +193,9 @@ end;
 begin
   window(1, 1, 100, 100);
   clrscr;
-  // jumlah_data_mhs(jml_mhs);
+  jumlah_data_mhs(jml_mhs);
   jumlah_data_mk(jml_mk);
-  // tampil_mhs;
+  tampil_mhs;
   tampil_mk;
   tampil_indeks_nilai;
   // clrscr;
