@@ -22,14 +22,14 @@ type
   
   arr_mk = array[0..maks_mk] of matkul; // matakuliah array of record
   arr_mhs = array[0..maks_mhs] of mhs; // mahasiswa array of record
-  arr_idx = array[0..4] of integer; // array index
+  arr_int = array[0..maks_mk] of integer; // array index
   // array cuma bisa data tipe yg sama, jadi ga bisa <char, int> <key, value>
 
 { Kamus Global }
 var
   mahasiswa: arr_mhs;
   matakuliah: arr_mk; 
-  idx_mhs: arr_idx; // simpan data tiap indeks
+  idx_mhs: arr_int; // simpan data tiap indeks
   i, j: integer; // buat looping
   jml_mhs, jml_mk: integer; // buat jumlah mahasiswa dan matkul
   // idxA, idxB, idxC, idxD, idxE: integer; // untuk indeks persiswa
@@ -152,10 +152,20 @@ begin
 end;
 { End Perhitungan }
 
-procedure isi_indeks_nilai;
+procedure isi_nilai;
 begin
   for j := 0 to (jml_mk - 1) do begin
-    gotoxy((j + 1) * 23, i + 5); write('|', j + 24);
+    gotoxy((j + 1) * 15, i + 5); readln(mahasiswa[i].nilai[j]);
+  end;
+end;
+
+procedure isi_indeks;
+begin
+  for i := 0 to (jml_mhs - 1) do begin
+    for j := 0 to (jml_mk - 1) do begin
+      mahasiswa[i].indeks[j] := idx(mahasiswa[i].nilai[j]);
+      gotoxy((j + 1) * 15, i + 5); clreol; delay(300); write(mahasiswa[i].indeks[j]);
+    end;
   end;
 end;
 
@@ -164,28 +174,20 @@ begin
   clrscr;
   gotoxy(39, 1); // dibagi 2
   write('DAFTAR NILAI MAHASISWA');
-  gotoxy(7, 2);
-  write('---------------------------------------------------');
   gotoxy(7, 3);
-  write('|      NIM      ');
+  write('NIM');
   for i := 0 to (jml_mk - 1) do begin
-    gotoxy((i + 24) * 5, 3); write('|', matakuliah[i].kd_mk);
+    gotoxy((i + 1) * 15, 3); write(matakuliah[i].kd_mk);
   end;
-  gotoxy(57, 3); write('|'); // Tutup matkul
-  gotoxy(7, 4);
-  write('---------------------------------------------------'); 
 
   for i := 0 to (jml_mhs - 1) do begin
-    gotoxy(7, i + 5); write('|'); // buka NIM
+    gotoxy(7, i + 5); // write('|'); // buka NIM
     write(mahasiswa[i].nim); // NIM
 
-    isi_indeks_nilai;
-
-    gotoxy(57, 3); write('|'); // tutup NIM dan nilai
+    isi_nilai;
   end;
 
-  gotoxy(7, i + 6);
-  write('---------------------------------------------------');
+  isi_indeks;
   writeln;
 end;
 
