@@ -25,6 +25,7 @@ type
   arr_idx = array[0..4] of integer; // array index
   // array cuma bisa data tipe yg sama, jadi ga bisa <char, int> <key, value>
 
+{ Kamus Global }
 var
   mahasiswa: arr_mhs;
   matakuliah: arr_mk; 
@@ -59,27 +60,16 @@ begin
   end;
 end;
 
-function idx(nilai: integer): char;
-{ I.S.: (nilai) sudah terdefinisi }
-{ F.S.: menghasilkan fungsi idx nilai }
-begin
-  case (nilai) of
-    80..100: idx := 'A'; // nama variabel / fungsi?
-    70..79: idx := 'B';
-    60..69: idx := 'C';
-    50..59: idx := 'D';
-    0..49: idx := 'E';
-  end;
-end;
-
+{ Begin Mata Kuliah }
 procedure isi_matkul;
 begin
-  for i := 0 to (jml_mk - 1) do begin
-    
-  end;
+  gotoxy(23, i + 5); readln(matakuliah[i].kd_mk); // Isi Kode MK
+  gotoxy(46, i + 5); readln(matakuliah[i].nm_mk); // Isi Nama MK
+  gotoxy(69, i + 5); readln(matakuliah[i].sks); // Isi SKS
 end;
 
 procedure tampil_mk;
+// procedure isi_matkul; prototype
 begin
   clrscr;
   gotoxy(41, 1); // dibagi 2
@@ -94,61 +84,110 @@ begin
   for i := 0 to (jml_mk - 1) do begin
     // gotoxy(x, y)
     // Tabel
-    gotoxy(17, i + 5); write('|', i + 1); // No
-    gotoxy(22, i + 5); write('|'); // Tutup No
+    gotoxy(17, i + 5); write('|'); // No
+    gotoxy(22, i + 5); write(i + 1, '|'); // Tutup No
     gotoxy(45, i + 5); write('|'); // Tutup Kode MK
     gotoxy(68, i + 5); write('|'); // Tutup Nama MK
     gotoxy(77, i + 5); write('|'); // Tutup SKS
 
-    // isi_matkul;
+    isi_matkul;
   end;
-end;
 
+  gotoxy(17, i + 6);
+  write('-------------------------------------------------------------------------------------');
+  writeln;
+end;
+{ End Mata Kuliah }
+
+{ Begin Mata Kuliah }
 procedure isi_dmahasiswa;
 begin
-  for i := 0 to (jml_mhs - 1) do begin
-    // gotoxy(13, i + 5); readln(mahasiswa[i].nim); // input NIM
-    // gotoxy(29, i + 5); readln(mahasiswa[i].nama); // input Nama
-    // gotoxy(56, i + 5); readln(mahasiswa[i].nilai); // input Nilai
-    // mahasiswa[i].indeks := idx(mahasiswa[i].nilai);
-    // gotoxy(74, i + 5); write(mahasiswa[i].indeks); // input Indeks
-  end;
+  gotoxy(13, i + 5); readln(mahasiswa[i].nim); // Isi NIM
+  gotoxy(29, i + 5); readln(mahasiswa[i].nama); // Isi Nama
 end;
 
-procedure tampil_data; 
+procedure tampil_mhs;
+// procedure isi_dmahasiswa; prototype
 begin
   clrscr;
-  gotoxy(39, 1); // dibagi 2
-  write('DAFTAR NILAI MAHASISWA');
+  gotoxy(42, 1); // dibagi 2
+  write('DAFTAR MAHASISWA');
   gotoxy(7, 2);
-  write('-------------------------------------------------------------------------------------');
+  write('-------------------------------------------------');
   gotoxy(7, 3);
-  write('| No |      NIM      |      Nama Mahasiswa      |      Nilai      |      Indeks     |');
+  write('| No |      NIM      |      Nama Mahasiswa      |');
   gotoxy(7, 4);
-  write('-------------------------------------------------------------------------------------'); 
+  write('-------------------------------------------------'); 
 
   for i := 0 to (jml_mhs - 1) do begin // array 0
     // gotoxy(x, y)
-    gotoxy(7, i + 5); write('|'); gotoxy(11, i + 5); write(i + 1, '|');
-    gotoxy(28, i + 5); write('|'); // NIM
-    gotoxy(55, i + 5); write('|'); // Nama
-    gotoxy(73, i + 5); write('|'); // Nilai
-    gotoxy(91, i + 5); write('|'); // Indeks
+    gotoxy(7, i + 5); write('|');
+    gotoxy(11, i + 5); write(i + 1, '|'); // Tutup No
+    gotoxy(28, i + 5); write('|'); // Tutup NIM
+    gotoxy(55, i + 5); write('|'); // Tutup Nama
 
     isi_dmahasiswa;
   end;
 
   gotoxy(7, i + 6);
-  write('-------------------------------------------------------------------------------------');
+  write('-------------------------------------------------');
+  writeln;
+end;
+{ End Mata Kuliah }
+
+{ Begin Perhitungan }
+function idx(nilai: integer): char;
+{ I.S.: (nilai) sudah terdefinisi }
+{ F.S.: menghasilkan fungsi idx nilai }
+begin
+  case (nilai) of
+    80..100: idx := 'A'; // nama variabel / fungsi?
+    70..79: idx := 'B';
+    60..69: idx := 'C';
+    50..59: idx := 'D';
+    0..49: idx := 'E';
+  end;
+end;
+{ End Perhitungan }
+
+procedure isi_indeks_nilai;
+begin
+  
+end;
+
+procedure tampil_indeks_nilai;
+begin
+  clrscr;
+  gotoxy(39, 1); // dibagi 2
+  write('DAFTAR NILAI MAHASISWA');
+  gotoxy(7, 2);
+  write('-----------------');
+  gotoxy(7, 3);
+  write('|      NIM      |');
+  gotoxy(7, 4);
+  write('-----------------'); 
+
+  for i := 0 to (jml_mhs - 1) do begin // array 0
+    // gotoxy(x, y)
+    gotoxy(7, i + 5); write('|');
+    gotoxy(28, i + 5); write('|'); // Tutup NIM
+
+    isi_indeks_nilai;
+  end;
+
+  gotoxy(7, i + 6);
+  write('-------------------------------------------------');
   writeln;
 end;
 
+{ Algoritma Utama }
 begin
   window(1, 1, 100, 100);
   clrscr;
   // jumlah_data_mhs(jml_mhs);
-  jumlah_data_mk(jml_mk);
-  tampil_mk;
+  // jumlah_data_mk(jml_mk);
+  // tampil_mk;
+  // tampil_mhs;
   // clrscr;
   // tampil_data;
 end.
