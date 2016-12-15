@@ -85,7 +85,7 @@ begin
     // gotoxy(x, y)
     // Tabel
     gotoxy(17, i + 5); write('|'); // No
-    gotoxy(22, i + 5); write(i + 1, '|'); // Tutup No
+    gotoxy(21, i + 5); write(i + 1, '|'); // Tutup No
     gotoxy(45, i + 5); write('|'); // Tutup Kode MK
     gotoxy(68, i + 5); write('|'); // Tutup Nama MK
     gotoxy(77, i + 5); write('|'); // Tutup SKS
@@ -161,22 +161,26 @@ begin
   gotoxy(39, 1); // dibagi 2
   write('DAFTAR NILAI MAHASISWA');
   gotoxy(7, 2);
-  write('-----------------');
+  write('---------------------------------------------------');
   gotoxy(7, 3);
-  write('|      NIM      |');
+  write('|      NIM      ');
+  for i := 0 to (jml_mk - 1) do begin
+    gotoxy((i + 24) * 5, 3); write('|', matakuliah[i].kd_mk);
+  end;
+  gotoxy(57, 3); write('|'); // Tutup matkul
   gotoxy(7, 4);
-  write('-----------------'); 
+  write('---------------------------------------------------'); 
 
   for i := 0 to (jml_mhs - 1) do begin // array 0
     // gotoxy(x, y)
     gotoxy(7, i + 5); write('|');
     gotoxy(28, i + 5); write('|'); // Tutup NIM
 
-    isi_indeks_nilai;
+    // isi_indeks_nilai;
   end;
 
   gotoxy(7, i + 6);
-  write('-------------------------------------------------');
+  write('---------------------------------------------------');
   writeln;
 end;
 
@@ -185,9 +189,10 @@ begin
   window(1, 1, 100, 100);
   clrscr;
   // jumlah_data_mhs(jml_mhs);
-  // jumlah_data_mk(jml_mk);
-  // tampil_mk;
+  jumlah_data_mk(jml_mk);
   // tampil_mhs;
+  tampil_mk;
+  tampil_indeks_nilai;
   // clrscr;
   // tampil_data;
 end.
