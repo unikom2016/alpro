@@ -153,22 +153,16 @@ begin
   end;
 end;
 
-function hitung_ipk(indeks: arr_idx): real;
-var
-  total: real;
-  i, j: integer;
+function hitung_ipk(idx_mhs: char): real;
+var total: real;
 begin
   total := 0.0;
-  for i := 0 to maks_mhs do begin
-    for j := 0 to maks_mk do begin
-      case (indeks[i, j]) of
-        'A': total := total + 4.0;
-        'B': total := total + 3.0;
-        'C': total := total + 2.0;
-        'D': total := total + 1.0;
-        'E': total := total + 0.0;
-      end;
-    end;
+  case (idx_mhs) of
+    'A': total := total + 4.0;
+    'B': total := total + 3.0;
+    'C': total := total + 2.0;
+    'D': total := total + 1.0;
+    'E': total := total + 0.0;
   end;
   hitung_ipk := total;
 end;
@@ -190,7 +184,7 @@ begin
   for i := 0 to (jml_mhs - 1) do begin
     for j := 0 to (jml_mk - 1) do begin
       indeks[i, j] := idx(nilai[i, j]);
-      gotoxy((j + 1) * 15, i + 5); clreol; delay(300); write(indeks[i, j]);
+      gotoxy((j + 1) * 15, i + 5); clreol; delay(700); write(indeks[i, j]);
     end;
   end;
 end;
@@ -213,11 +207,13 @@ end;
 procedure tampil_data;
 begin
   clrscr;
-  for i := 0 to jml_mhs do begin
-    write('NIM:', mahasiswa[i].nim);
-    write('Nama:', mahasiswa[i].nama);
-    mahasiswa[i].ipk := hitung_ipk(indeks) / jml_mk;
-    write('IPK: ', mahasiswa[i].ipk:0:1);
+  for i := 0 to (jml_mhs - 1) do begin
+    writeln('NIM:', mahasiswa[i].nim);
+    writeln('Nama:', mahasiswa[i].nama);
+    for j := 0 to (jml_mk - 1) do begin
+      mahasiswa[i].ipk := hitung_ipk(indeks[i, j]) / jml_mk;
+    end;
+    writeln('IPK: ', mahasiswa[i].ipk:0:1);
     writeln;
   end;
 end;
