@@ -10,7 +10,7 @@ type
   // mata kuliah
   matkul = record
     kd_mk, nm_mk: string;
-    sks: integer;
+    sks: real;
   end;
 
   // mahasiswa
@@ -140,11 +140,11 @@ end;
 { End Mahasiswa }
 
 { Begin Perhitungan }
-function idx(nilai: integer): char;
-{ I.S.: (nilai) sudah terdefinisi }
-{ F.S.: menghasilkan fungsi idx nilai }
+function idx(n: integer): char;
+{ I.S.: (n) sudah terdefinisi }
+{ F.S.: menghasilkan fungsi idx n }
 begin
-  case (nilai) of
+  case (n) of
     80..100: idx := 'A'; // nama variabel / fungsi?
     70..79: idx := 'B';
     60..69: idx := 'C';
@@ -153,18 +153,15 @@ begin
   end;
 end;
 
-function hitung_ipk(idx_mhs: char): real;
-var total: real;
+function bobot(idx_mhs: char; sks: real): real;
 begin
-  total := 0.0;
   case (idx_mhs) of
-    'A': total := total + 4.0;
-    'B': total := total + 3.0;
-    'C': total := total + 2.0;
-    'D': total := total + 1.0;
-    'E': total := total + 0.0;
+    'A': bobot := 4.0 * sks;
+    'B': bobot := 3.0 * sks;
+    'C': bobot := 2.0 * sks;
+    'D': bobot := 1.0 * sks;
+    'E': bobot := 0.0 * sks;
   end;
-  hitung_ipk := total;
 end;
 { End Perhitungan }
 
@@ -205,15 +202,25 @@ begin
 end;
 
 procedure tampil_data;
+var
+  total_sks, total_bobot: real;
 begin
   clrscr;
   for i := 0 to (jml_mhs - 1) do begin
+    total_bobot := 0;
+    total_sks := 0; // reset for each student
     writeln('NIM:', mahasiswa[i].nim);
     writeln('Nama:', mahasiswa[i].nama);
     for j := 0 to (jml_mk - 1) do begin
-      mahasiswa[i].ipk := hitung_ipk(indeks[i, j]) / jml_mk;
+      // writeln(matakuliah[j].sks:0:1);
+      // writeln('bobot: ', bobot(indeks[i, j], matakuliah[j].sks):0:1);
+      total_sks := total_sks + matakuliah[j].sks;
+      total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
     end;
-    writeln('IPK: ', mahasiswa[i].ipk:0:1);
+    mahasiswa[i].ipk := total_bobot / total_sks;
+    // writeln('total sks: ', total_sks:0:1);
+    // writeln('total bobot: ', total_bobot:0:1);
+    writeln('IPK: ', mahasiswa[i].ipk:1:1);
     writeln;
   end;
 end;
