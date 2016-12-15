@@ -34,19 +34,21 @@ procedure isi_data;
 var i, j: integer;
 begin
   gotoxy(10, 3); write('Kode Mata Kuliah');
+  
+  textcolor(9);
   gotoxy(1, 4); write('NIM');
   // tampilan
   for j := 1 to n do begin
-    gotoxy(j * 5, 4); write(j);
-  end; 
-  for i := 1 to m do begin
-    gotoxy(1, i + 4); write(i);
+    gotoxy(j * 5, 4); delay(50); write(j);
   end;
 
   // nilai dan index
   for i := 1 to m do begin
+    textcolor(9);
+    gotoxy(1, i + 4); readln(nim[i]); // masukkan nim
     for j := 1 to n do begin
-      gotoxy(j * 5, i + 4); write(i);
+      textcolor(15);
+      gotoxy(j * 5, i + 4); readln(nilai[i, j]); // masukkan nilai
     end;
     writeln;
   end;
