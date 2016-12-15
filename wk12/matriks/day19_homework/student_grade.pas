@@ -70,7 +70,7 @@ begin
   gotoxy(69, i + 5); readln(matakuliah[i].sks); // Isi SKS
 end;
 
-procedure tampil_mk;
+procedure tabel_matkul;
 // procedure isi_matkul; prototype
 begin
   clrscr;
@@ -101,15 +101,15 @@ begin
 end;
 { End Mata Kuliah }
 
-{ Begin Mata Kuliah }
-procedure isi_dmahasiswa;
+{ Begin Mahasiswa }
+procedure isi_mahasiswa;
 begin
   gotoxy(13, i + 5); readln(mahasiswa[i].nim); // Isi NIM
   gotoxy(29, i + 5); readln(mahasiswa[i].nama); // Isi Nama
 end;
 
-procedure tampil_mhs;
-// procedure isi_dmahasiswa; prototype
+procedure tabel_mahasiswa;
+// procedure isi_mahasiswa; prototype
 begin
   clrscr;
   gotoxy(42, 1); // dibagi 2
@@ -128,14 +128,14 @@ begin
     gotoxy(28, i + 5); write('|'); // Tutup NIM
     gotoxy(55, i + 5); write('|'); // Tutup Nama
 
-    isi_dmahasiswa;
+    isi_mahasiswa;
   end;
 
   gotoxy(7, i + 6);
   write('-------------------------------------------------');
   writeln;
 end;
-{ End Mata Kuliah }
+{ End Mahasiswa }
 
 { Begin Perhitungan }
 function idx(nilai: integer): char;
@@ -149,6 +149,11 @@ begin
     50..59: idx := 'D';
     0..49: idx := 'E';
   end;
+end;
+
+function ipk(total: integer): integer;
+begin
+  
 end;
 { End Perhitungan }
 
@@ -169,7 +174,7 @@ begin
   end;
 end;
 
-procedure tampil_indeks_nilai;
+procedure tabel_indeks_nilai;
 begin
   clrscr;
   gotoxy(39, 1); // dibagi 2
@@ -191,15 +196,25 @@ begin
   writeln;
 end;
 
+procedure tampil_data;
+var total: integer;
+begin
+  write('NIM:', mahasiswa[i].nim);
+  write('Nama:', mahasiswa[i].nama);
+  // tabel
+  total := total + mahasiswa[i].nilai[j];
+  write('IPK:', ipk(total));
+end;
+
 { Algoritma Utama }
 begin
   window(1, 1, 100, 100);
   clrscr;
   jumlah_data_mhs(jml_mhs);
   jumlah_data_mk(jml_mk);
-  tampil_mhs;
-  tampil_mk;
-  tampil_indeks_nilai;
+  tabel_mahasiswa;
+  tabel_matkul;
+  tabel_indeks_nilai;
   // clrscr;
   // tampil_data;
 end.
