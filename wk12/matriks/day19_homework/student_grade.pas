@@ -4,7 +4,7 @@ uses crt;
 
 const
   maks_mhs = 50; // mahasiswa
-  maks_mk = 5; // matakuliah
+  maks_mk = 10; // matakuliah
 
 type
   // mata kuliah
