@@ -10,7 +10,7 @@ type
   // mata kuliah
   matkul = record
     kd_mk, nm_mk: string;
-    sks: real;
+    sks: integer;
   end;
 
   // mahasiswa
@@ -153,7 +153,7 @@ begin
   end;
 end;
 
-function bobot(idx_mhs: char; sks: real): real;
+function bobot(idx_mhs: char; sks: integer): real;
 begin
   case (idx_mhs) of
     'A': bobot := 4.0 * sks;
@@ -171,7 +171,7 @@ begin
     gotoxy(7, i + 5); // write('|'); // buka NIM
     write(mahasiswa[i].nim); // NIM
     for j := 0 to (jml_mk - 1) do begin
-      gotoxy((j + 1) * 15, i + 5); readln(nilai[i, j]);
+      gotoxy((j + 1) * 15, i + 5); readln(nilai[i, j]); // nilai
     end;
   end;
 end;
@@ -181,9 +181,10 @@ begin
   for i := 0 to (jml_mhs - 1) do begin
     for j := 0 to (jml_mk - 1) do begin
       indeks[i, j] := idx(nilai[i, j]);
-      gotoxy((j + 1) * 15, i + 5); clreol; delay(700); write(indeks[i, j]);
+      gotoxy((j + 1) * 15, i + 5); clreol; delay(300); write(indeks[i, j]);
     end;
   end;
+  readln;
 end;
 
 procedure tabel_indeks_nilai;
@@ -196,12 +197,12 @@ begin
   for i := 0 to (jml_mk - 1) do begin
     gotoxy((i + 1) * 15, 3); write(matakuliah[i].kd_mk);
   end;
-  isi_nilai;
+  isi_nilai; // prosedur
   isi_indeks;
   writeln;
 end;
 
-procedure tampil_data;
+procedure tampil_data; // khs
 var
   total_sks, total_bobot: real;
 begin
@@ -211,15 +212,20 @@ begin
     total_sks := 0; // reset for each student
     writeln('NIM:', mahasiswa[i].nim);
     writeln('Nama:', mahasiswa[i].nama);
+    writeln('mahasiswa ke-', i + 1);
+    writeln('no | kode mata kuliah | nama mata kuliah | sks | indeks');
     for j := 0 to (jml_mk - 1) do begin
-      // writeln(matakuliah[j].sks:0:1);
-      // writeln('bobot: ', bobot(indeks[i, j], matakuliah[j].sks):0:1);
       total_sks := total_sks + matakuliah[j].sks;
       total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
+
+      write(j + 1, ' ');
+      write(matakuliah[j].kd_mk, ' ');
+      write(matakuliah[j].nm_mk, ' ');
+      write(matakuliah[j].sks, ' ');
+      write(indeks[i, j]);
+      writeln;
     end;
     mahasiswa[i].ipk := total_bobot / total_sks;
-    // writeln('total sks: ', total_sks:0:1);
-    // writeln('total bobot: ', total_bobot:0:1);
     writeln('IPK: ', mahasiswa[i].ipk:1:1);
     writeln;
   end;
