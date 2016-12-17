@@ -208,7 +208,7 @@ var
   baris: integer; // buat nyimpan baris dari mahasiswa sebelumnya
 begin
   clrscr;
-  baris := 0;
+  baris := 1;
   for i := 0 to (jml_mhs - 1) do begin
     total_bobot := 0;
     total_sks := 0; // reset for each student
@@ -223,14 +223,14 @@ begin
 
       gotoxy(1, i + 5 + j + baris); write('   |                  |                  |     |        |');
       gotoxy(1, i + 5 + j + baris); write(j + 1);
-      gotoxy(1 * 5, i + 5 + j + baris); write(matakuliah[j].kd_mk);
-      gotoxy(1 * 25, i + 5 + j + baris); write(matakuliah[j].nm_mk);
-      gotoxy(1 * 44, i + 5 + j + baris); write(matakuliah[j].sks);
-      gotoxy(1 * 50, i + 5 + j + baris); write(indeks[i, j]);
+      gotoxy(5, i + 5 + j + baris); write(matakuliah[j].kd_mk);
+      gotoxy(25, i + 5 + j + baris); write(matakuliah[j].nm_mk);
+      gotoxy(44, i + 5 + j + baris); write(matakuliah[j].sks);
+      gotoxy(50, i + 5 + j + baris); write(indeks[i, j]);
     end;
     mahasiswa[i].ipk := total_bobot / total_sks;
     gotoxy(1, i + 6 + j + baris); write('IPK: ', mahasiswa[i].ipk:1:1);
-    baris := i + 7 + j;
+    baris := baris + i + 7 + j;
   end;
 end;
 
