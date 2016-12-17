@@ -225,20 +225,21 @@ begin
   clrscr;
   baris := 0;
 
-  gotoxy(50, 1); write('HASIL STUDI MAHASISWA TEKNIK INFORMATIKA UNIKOM SEBANYAK ', jml_mhs, ' MAHASISWA');
-  gotoxy(50, 2); write('================================================================================');
+  gotoxy(6, 1); write('HASIL STUDI MAHASISWA TEKNIK INFORMATIKA UNIKOM SEBANYAK ', jml_mhs, ' MAHASISWA');
+  gotoxy(1, 2); write('================================================================================');
   for i := 1 to jml_mhs do begin
     total_bobot := 0;
     total_sks := 0; // reset for each student
 
-    if (i > 1) then baris := baris - i + 1;
+    if (i > 1) then baris := baris - i;
     gotoxy(1, baris + i + 4);
     write('---------------------------------Mahasiswa Ke-', i, '---------------------------------');
     gotoxy(1, baris + i + 5); write('NIM  : ', mahasiswa[i].nim);
     gotoxy(1, baris + i + 6); write('Nama : ', mahasiswa[i].nama);
-    gotoxy(1, baris + i + 7); write('---------------------------------------------------------');
-    gotoxy(1, baris + i + 8); write('| No | Kode Mata Kuliah | Nama Mata Kuliah | SKS | Indeks');
-    baris := baris + i + 8;
+    gotoxy(1, baris + i + 7); write('-----------------------------------------------------------');
+    gotoxy(1, baris + i + 8); write('| No | Kode Mata Kuliah | Nama Mata Kuliah | SKS | Indeks |');
+    gotoxy(1, baris + i + 9); write('-----------------------------------------------------------');
+    baris := baris + i + 9;
 
     for j := 1 to jml_mk do begin
       total_sks := total_sks + matakuliah[j].sks;
@@ -252,9 +253,9 @@ begin
       gotoxy(52, baris + j); write(indeks[i, j]);
     end;
     mahasiswa[i].ipk := total_bobot / total_sks;
-    gotoxy(1, baris + j + 1); write('---------------------------------------------------------');
-    gotoxy(1, baris + j + 2); write('IPK  : ', mahasiswa[i].ipk:0:1);
-    baris := baris + j + 2;
+    gotoxy(1, baris + j + 1); write('-----------------------------------------------------------');
+    gotoxy(1, baris + j + 2); writeln('IPK  : ', mahasiswa[i].ipk:0:1);
+    baris := baris + j;
   end;
 end;
 
