@@ -89,7 +89,7 @@ begin
 
   for i := 1 to jml_mhs do begin
     gotoxy(17, i + 4); write('|    |         |                          |');
-    gotoxy(18, i + 4); write(i);
+    gotoxy(21, i + 4); write(i);
 
     isi_mahasiswa(i, mahasiswa);
   end;
@@ -101,42 +101,40 @@ end;
 { End Mahasiswa }
 
 { Begin Mata Kuliah }
-procedure isi_matkul(i: integer; baris: integer; var matakuliah: arr_mk);
+procedure isi_matkul(i: integer; var matakuliah: arr_mk);
 { I.S: User memasukkan data tiap mata kuliah }
 { F.S: Menyimpan data mata kuliah }
 begin
-  // gotoxy(19, baris + i + 4); readln(matakuliah[i].kd_mk); // Isi Kode MK
-  // gotoxy(42, baris + i + 4); readln(matakuliah[i].nm_mk); // Isi Nama MK
-  // gotoxy(65, baris + i + 4); readln(matakuliah[i].sks); // Isi SKS
+  gotoxy(23, baris + i + 4); readln(matakuliah[i].kd_mk); // Isi Kode MK
+  gotoxy(42, baris + i + 4); readln(matakuliah[i].nm_mk); // Isi Nama MK
+  gotoxy(63, baris + i + 4); readln(matakuliah[i].sks); // Isi SKS
 end;
 
-procedure tabel_matkul(jml_mk: integer; baris: integer; var matakuliah: arr_mk);
+procedure tabel_matkul(jml_mk: integer; var matakuliah: arr_mk);
 { I.S: Jumlah mata kuliah telah terdefinisi }
 { F.S: Menghasilkan data baru mata kuliah }
 // procedure isi_matkul; prototype
+var i: integer;
 begin
-  // gotoxy(41, baris + 1); // dibagi 2
-  // write('DAFTAR MATA KULIAH');
-  // gotoxy(17, baris + 2);
-  // write('--------------------------------------------------');
-  // gotoxy(17, baris + 3);
-  // write('| No | Kode Mata Kuliah | Nama Mata Kuliah | SKS |');
-  // gotoxy(17, baris + 4);
-  // write('--------------------------------------------------');
+  gotoxy(33, baris + 1); // dibagi 2
+  write('DAFTAR MATA KULIAH');
+  gotoxy(17, baris + 2);
+  write('--------------------------------------------------');
+  gotoxy(17, baris + 3);
+  write('| No | Kode Mata Kuliah | Nama Mata Kuliah | SKS |');
+  gotoxy(17, baris + 4);
+  write('--------------------------------------------------');
   
-  // for i := 1 to jml_mk do begin
-  //   // Tabel
-  //   gotoxy(17, baris + i + 4); write('|    |                  |                  |     |'); // header
-  //   gotoxy(18, baris + i + 4); write(i);
-  //   // gotoxy(45, baris + i + 4); write('|'); // Tutup Kode MK
-  //   // gotoxy(68, baris + i + 4); write('|'); // Tutup Nama MK
-  //   // gotoxy(77, baris + i + 4); write('|'); // Tutup SKS
+  for i := 1 to jml_mk do begin
+    // Tabel
+    gotoxy(17, baris + i + 4); write('|    |                  |                  |     |'); // header
+    gotoxy(21, baris + i + 4); write(i);
 
-  //   isi_matkul(i, baris, matakuliah);
-  // end;
+    isi_matkul(i, matakuliah);
+  end;
 
-  // gotoxy(17, baris + i + 5);
-  // writeln('--------------------------------------------------');
+  gotoxy(17, baris + i + 5);
+  writeln('--------------------------------------------------');
 end;
 { End Mata Kuliah }
 
@@ -251,11 +249,14 @@ begin
   // masukkan jumlah
   jumlah_data_mhs(jml_mhs);
   jumlah_data_mk(jml_mk);
+
   // tampilkan tabel matkul dan mahasiswa
   tabel_mahasiswa(jml_mhs, mahasiswa);
-  // tabel_matkul;
-  // // tampilkan nilai mahasiswa
+  tabel_matkul(jml_mk, matakuliah);
+
+  // isi nilai dan tampilkan indeks tiap mahasiswa
   // tabel_indeks_nilai;
+
   // // tampilkan semuanya
   // tampil_data;
 end.
