@@ -205,7 +205,7 @@ end;
 procedure tampil_data; // khs
 var
   total_sks, total_bobot: real;
-  baris: integer;
+  baris: integer; // buat nyimpan baris dari mahasiswa sebelumnya
 begin
   clrscr;
   baris := 0;
