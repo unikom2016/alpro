@@ -173,8 +173,10 @@ procedure isi_nilai(var nilai: arr_nilai);
 var i, j: integer;
 begin
   for i := 1 to jml_mhs do begin
+    textcolor(blue);
     gotoxy(1, i + 5); write(mahasiswa[i].nim); // NIM
     for j := 1 to jml_mk do begin
+      textcolor(white);
       gotoxy(j * 10, i + 5); readln(nilai[i, j]); // nilai
     end;
   end;
@@ -188,9 +190,11 @@ begin
   for i := 1 to jml_mhs do begin
     for j := 1 to jml_mk do begin
       indeks[i, j] := idx(nilai[i, j]);
+      textcolor(red);
       gotoxy(j * 10, i + 5); clreol; delay(300); write(indeks[i, j]);
     end;
   end;
+  textcolor(white);
   gotoxy(1, i + 6); write('Tekan enter untuk melanjutkan!'); readln;
 end;
 
@@ -205,6 +209,7 @@ begin
   gotoxy(39, 2); write('-------------------------');
   gotoxy(1, 5); write('NIM');
   for i := 1 to jml_mk do begin
+    textcolor(blue);
     gotoxy(i * 10, 5); write(matakuliah[i].kd_mk);
   end;
   isi_nilai(nilai); // prosedur
@@ -212,44 +217,52 @@ begin
   writeln;
 end;
 
-procedure tampil_data; // khs
+procedure tampil_data(jml_mhs, jml_mk: integer; mahasiswa: arr_mhs; matakuliah: arr_mk; nilai: arr_nilai; indeks: arr_idx); // khs
 var
   total_sks, total_bobot: real;
+  i, j: integer;
 begin
-  // clrscr;
-  // baris := 0;
-  // for i := 1 to jml_mhs do begin
-  //   total_bobot := 0;
-  //   total_sks := 0; // reset for each student
+  clrscr;
+  baris := 0;
 
-  //   if (i > 1) then baris := baris - i + 1;
-  //   gotoxy(1, baris + i + 1); write('mahasiswa ke-', i);
-  //   gotoxy(1, baris + i + 2); write('NIM:', mahasiswa[i].nim);
-  //   gotoxy(1, baris + i + 3); write('Nama:', mahasiswa[i].nama);
-  //   gotoxy(1, baris + i + 4); write('no | kode mata kuliah | nama mata kuliah | sks | indeks');
-  //   baris := baris + i + 4;
+  gotoxy(50, 1); write('HASIL STUDI MAHASISWA TEKNIK INFORMATIKA UNIKOM SEBANYAK ', jml_mhs, ' MAHASISWA');
+  gotoxy(50, 2); write('================================================================================');
+  for i := 1 to jml_mhs do begin
+    total_bobot := 0;
+    total_sks := 0; // reset for each student
 
-  //   for j := 1 to jml_mk do begin
-  //     total_sks := total_sks + matakuliah[j].sks;
-  //     total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
+    if (i > 1) then baris := baris - i + 1;
+    gotoxy(1, baris + i + 4);
+    write('---------------------------------Mahasiswa Ke-', i, '---------------------------------');
+    gotoxy(1, baris + i + 5); write('NIM  : ', mahasiswa[i].nim);
+    gotoxy(1, baris + i + 6); write('Nama : ', mahasiswa[i].nama);
+    gotoxy(1, baris + i + 7); write('---------------------------------------------------------');
+    gotoxy(1, baris + i + 8); write('| No | Kode Mata Kuliah | Nama Mata Kuliah | SKS | Indeks');
+    baris := baris + i + 8;
 
-  //     gotoxy(1, baris + j); write('   |                  |                  |     |        |');
-  //     gotoxy(1, baris + j); write(j + 1);
-  //     gotoxy(5, baris + j); write(matakuliah[j].kd_mk);
-  //     gotoxy(25, baris + j); write(matakuliah[j].nm_mk);
-  //     gotoxy(44, baris + j); write(matakuliah[j].sks);
-  //     gotoxy(50, baris + j); write(indeks[i, j]);
-  //   end;
-  //   mahasiswa[i].ipk := total_bobot / total_sks;
-  //   gotoxy(1, baris + j + 1); write('IPK: ', mahasiswa[i].ipk:1:1);
-  //   baris := baris + j + 1;
-  // end;
+    for j := 1 to jml_mk do begin
+      total_sks := total_sks + matakuliah[j].sks;
+      total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
+
+      gotoxy(1, baris + j); write('|    |                  |                  |     |        |');
+      gotoxy(3, baris + j); write(j);
+      gotoxy(7, baris + j); write(matakuliah[j].kd_mk);
+      gotoxy(27, baris + j); write(matakuliah[j].nm_mk);
+      gotoxy(46, baris + j); write(matakuliah[j].sks);
+      gotoxy(52, baris + j); write(indeks[i, j]);
+    end;
+    mahasiswa[i].ipk := total_bobot / total_sks;
+    gotoxy(1, baris + j + 1); write('---------------------------------------------------------');
+    gotoxy(1, baris + j + 2); write('IPK  : ', mahasiswa[i].ipk:0:1);
+    baris := baris + j + 2;
+  end;
 end;
 
 { Algoritma Utama }
 begin
   // window(1, 1, 100, 100);
   clrscr;
+  textcolor(white);
   // masukkan jumlah
   jumlah_data_mhs(jml_mhs);
   jumlah_data_mk(jml_mk);
@@ -262,5 +275,5 @@ begin
   tabel_indeks_nilai(jml_mhs, jml_mk, nilai, indeks);
 
   // // tampilkan semuanya
-  // tampil_data;
+  tampil_data(jml_mhs, jml_mk, mahasiswa, matakuliah, nilai, indeks);
 end.
