@@ -208,29 +208,32 @@ var
   baris: integer; // buat nyimpan baris dari mahasiswa sebelumnya
 begin
   clrscr;
-  baris := 1;
+  baris := 0;
   for i := 0 to (jml_mhs - 1) do begin
     total_bobot := 0;
     total_sks := 0; // reset for each student
 
-    gotoxy(1, i + 1 + baris); write('mahasiswa ke-', i + 1);
-    gotoxy(1, i + 2 + baris); write('NIM:', mahasiswa[i].nim);
-    gotoxy(1, i + 3 + baris); write('Nama:', mahasiswa[i].nama);
-    gotoxy(1, i + 4 + baris); write('no | kode mata kuliah | nama mata kuliah | sks | indeks');
+    baris := baris + i;
+    gotoxy(1, baris + 1); write('mahasiswa ke-', i + 1);
+    gotoxy(1, baris + 2); write('NIM:', mahasiswa[i].nim);
+    gotoxy(1, baris + 3); write('Nama:', mahasiswa[i].nama);
+    gotoxy(1, baris + 4); write('no | kode mata kuliah | nama mata kuliah | sks | indeks');
+    baris := baris + 5;
+
     for j := 0 to (jml_mk - 1) do begin
       total_sks := total_sks + matakuliah[j].sks;
       total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
 
-      gotoxy(1, i + 5 + j + baris); write('   |                  |                  |     |        |');
-      gotoxy(1, i + 5 + j + baris); write(j + 1);
-      gotoxy(5, i + 5 + j + baris); write(matakuliah[j].kd_mk);
-      gotoxy(25, i + 5 + j + baris); write(matakuliah[j].nm_mk);
-      gotoxy(44, i + 5 + j + baris); write(matakuliah[j].sks);
-      gotoxy(50, i + 5 + j + baris); write(indeks[i, j]);
+      gotoxy(1, baris + j); write('   |                  |                  |     |        |');
+      gotoxy(1, baris + j); write(j + 1);
+      gotoxy(5, baris + j); write(matakuliah[j].kd_mk);
+      gotoxy(25, baris + j); write(matakuliah[j].nm_mk);
+      gotoxy(44, baris + j); write(matakuliah[j].sks);
+      gotoxy(50, baris + j); write(indeks[i, j]);
     end;
+    baris := baris + j;
     mahasiswa[i].ipk := total_bobot / total_sks;
-    gotoxy(1, i + 6 + j + baris); write('IPK: ', mahasiswa[i].ipk:1:1);
-    baris := baris + i + 7 + j;
+    gotoxy(1, baris + 1); write('IPK: ', mahasiswa[i].ipk:1:1);
   end;
 end;
 
