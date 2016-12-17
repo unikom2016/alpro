@@ -96,7 +96,7 @@ begin
 
   gotoxy(17, i + 5);
   writeln('-------------------------------------------');
-  baris := baris + i + 5;
+  baris := baris + i + 6;
 end;
 { End Mahasiswa }
 
@@ -134,7 +134,8 @@ begin
   end;
 
   gotoxy(17, baris + i + 5);
-  writeln('--------------------------------------------------');
+  write('--------------------------------------------------');
+  gotoxy(17, baris + i + 6); write('Tekan enter untuk melanjutkan!'); readln;
 end;
 { End Mata Kuliah }
 
@@ -166,46 +167,49 @@ begin
 end;
 { End Perhitungan }
 
-procedure isi_nilai(jml_mhs, jml_mk: integer; mahasiswa: arr_mhs; var nilai: arr_nilai);
+procedure isi_nilai(var nilai: arr_nilai);
 { I.S.: User mengisi data nilai }
 { F.S.: Menghasilkan nilai tiap mahasiswa }
+var i, j: integer;
 begin
-  // for i := 1 to jml_mhs do begin
-  //   gotoxy(7, i + 5); write(mahasiswa[i].nim); // NIM
-  //   for j := 1 to jml_mk do begin
-  //     gotoxy(j * 9, i + 5); readln(nilai[i, j]); // nilai
-  //   end;
-  // end;
+  for i := 1 to jml_mhs do begin
+    gotoxy(1, i + 5); write(mahasiswa[i].nim); // NIM
+    for j := 1 to jml_mk do begin
+      gotoxy(j * 10, i + 5); readln(nilai[i, j]); // nilai
+    end;
+  end;
 end;
 
-procedure isi_indeks(jml_mhs, jml_mk: integer; nilai: arr_nilai; var indeks: arr_idx);
+procedure isi_indeks(var indeks: arr_idx);
 { I.S.: User mengisi data indeks }
 { F.S.: Menghasilkan indeks tiap mahasiswa }
+var i, j: integer;
 begin
-  // for i := 1 to jml_mhs do begin
-  //   for j := 1 to jml_mk do begin
-  //     indeks[i, j] := idx(nilai[i, j]);
-  //     gotoxy(j * 9, i + 5); clreol; delay(300); write(indeks[i, j]);
-  //   end;
-  // end;
-  // readln;
+  for i := 1 to jml_mhs do begin
+    for j := 1 to jml_mk do begin
+      indeks[i, j] := idx(nilai[i, j]);
+      gotoxy(j * 10, i + 5); clreol; delay(300); write(indeks[i, j]);
+    end;
+  end;
+  gotoxy(1, i + 6); write('Tekan enter untuk melanjutkan!'); readln;
 end;
 
-procedure tabel_indeks_nilai(jml_mhs, jml_mk: integer; mahasiswa: arr_mhs; matakuliah: arr_mk);
+procedure tabel_indeks_nilai(jml_mhs, jml_mk: integer; var nilai: arr_nilai; var indeks: arr_idx);
 { I.S.: User memulai mengisi data nilai dan indeks }
 { F.S.: Menampilkan indeks tiap mahasiswa }
+var i: integer;
 begin
-  // clrscr;
-  // gotoxy(39, 1); // dibagi 2
-  // write('DAFTAR NILAI MAHASISWA');
-  // gotoxy(7, 3);
-  // write('NIM');
-  // for i := 1 to jml_mk do begin
-  //   gotoxy(i * 9, 3); write(matakuliah[i].kd_mk);
-  // end;
-  // isi_nilai(jml_mhs, jml_mk, mahasiswa, nilai); // prosedur
-  // isi_indeks(jml_mhs, jml_mk, indeks);
-  // writeln;
+  clrscr;
+  gotoxy(39, 1); // dibagi 2
+  write('Pengisian Nilai Mahasiswa');
+  gotoxy(39, 2); write('-------------------------');
+  gotoxy(1, 5); write('NIM');
+  for i := 1 to jml_mk do begin
+    gotoxy(i * 10, 5); write(matakuliah[i].kd_mk);
+  end;
+  isi_nilai(nilai); // prosedur
+  isi_indeks(indeks);
+  writeln;
 end;
 
 procedure tampil_data; // khs
@@ -244,7 +248,7 @@ end;
 
 { Algoritma Utama }
 begin
-  window(1, 1, 100, 100);
+  // window(1, 1, 100, 100);
   clrscr;
   // masukkan jumlah
   jumlah_data_mhs(jml_mhs);
@@ -255,7 +259,7 @@ begin
   tabel_matkul(jml_mk, matakuliah);
 
   // isi nilai dan tampilkan indeks tiap mahasiswa
-  // tabel_indeks_nilai;
+  tabel_indeks_nilai(jml_mhs, jml_mk, nilai, indeks);
 
   // // tampilkan semuanya
   // tampil_data;
