@@ -205,29 +205,32 @@ end;
 procedure tampil_data; // khs
 var
   total_sks, total_bobot: real;
+  baris: integer;
 begin
   clrscr;
+  baris := 0;
   for i := 0 to (jml_mhs - 1) do begin
     total_bobot := 0;
     total_sks := 0; // reset for each student
-    writeln('NIM:', mahasiswa[i].nim);
-    writeln('Nama:', mahasiswa[i].nama);
-    writeln('mahasiswa ke-', i + 1);
-    writeln('no | kode mata kuliah | nama mata kuliah | sks | indeks');
+
+    gotoxy(1, i + 1 + baris); write('mahasiswa ke-', i + 1);
+    gotoxy(1, i + 2 + baris); write('NIM:', mahasiswa[i].nim);
+    gotoxy(1, i + 3 + baris); write('Nama:', mahasiswa[i].nama);
+    gotoxy(1, i + 4 + baris); write('no | kode mata kuliah | nama mata kuliah | sks | indeks');
     for j := 0 to (jml_mk - 1) do begin
       total_sks := total_sks + matakuliah[j].sks;
       total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
 
-      write(j + 1, ' ');
-      write(matakuliah[j].kd_mk, ' ');
-      write(matakuliah[j].nm_mk, ' ');
-      write(matakuliah[j].sks, ' ');
-      write(indeks[i, j]);
-      writeln;
+      gotoxy(1, i + 5 + j + baris); write('   |                  |                  |     |        |');
+      gotoxy(1, i + 5 + j + baris); write(j + 1);
+      gotoxy(1 * 5, i + 5 + j + baris); write(matakuliah[j].kd_mk);
+      gotoxy(1 * 25, i + 5 + j + baris); write(matakuliah[j].nm_mk);
+      gotoxy(1 * 44, i + 5 + j + baris); write(matakuliah[j].sks);
+      gotoxy(1 * 50, i + 5 + j + baris); write(indeks[i, j]);
     end;
     mahasiswa[i].ipk := total_bobot / total_sks;
-    writeln('IPK: ', mahasiswa[i].ipk:1:1);
-    writeln;
+    gotoxy(1, i + 6 + j + baris); write('IPK: ', mahasiswa[i].ipk:1:1);
+    baris := i + 7 + j;
   end;
 end;
 
