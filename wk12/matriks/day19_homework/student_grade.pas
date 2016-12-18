@@ -42,9 +42,9 @@ begin
   // validation
   while (jml_mhs < 1) or (jml_mhs > maks_mhs) do begin
     gotoxy(1, 1);
-    write('Banyaknya data mahasiswa hanya antara 1-50');
-    gotoxy(1, 1); clreol; readln;
-    gotoxy(45, 1); clreol; readln(jml_mhs)
+    write('Banyaknya data mahasiswa hanya antara 1-50: ');
+    gotoxy(45, 1); clreol; readln(jml_mhs);
+    gotoxy(1, 1); clreol; write('Banyaknya mahasiswa: ', jml_mhs);
   end;
 end;
 
@@ -56,18 +56,36 @@ begin
   // validation
   while (jml_mk < 1) or (jml_mk > maks_mk) do begin
     gotoxy(1, 2);
-    write('Banyaknya data mata kuliah hanya antara 1-5');
-    gotoxy(1, 2); clreol; readln;
-    gotoxy(45, 2); clreol; readln(jml_mk)
+    write('Banyaknya data mata kuliah hanya antara 1-10: ');
+    gotoxy(47, 2); clreol; readln(jml_mk);
+    gotoxy(1, 2); clreol; write('Banyaknya mata kuliah: ', jml_mk);
   end;
+  gotoxy(1, 3); write('Tekan enter untuk melanjutkan!'); readln;
 end;
 
+{ isSorted }
+{ isExisted }
+
 { Begin Mahasiswa }
+procedure no_mhs_ke(i: integer);
+begin
+  gotoxy(17, i + 4); write('|    |         |                          |');
+  gotoxy(21, i + 4); write(i);
+end;
+
 procedure isi_mahasiswa(i: integer; var mahasiswa: arr_mhs);
 { I.S: User memasukkan data tiap mahasiswa }
 { F.S: Menyimpan data mahasiswa }
 begin
   gotoxy(23, i + 4); readln(mahasiswa[i].nim); // Isi NIM
+  while (length(mahasiswa[i].nim) > 8) do begin
+    gotoxy(17, i + 5); write('NIM hanya boleh 8 digit');
+    readkey;
+    gotoxy(17, i + 5); clreol; // hapus keterangan error
+    gotoxy(23, i + 4); clreol;
+    no_mhs_ke(i); 
+    gotoxy(23, i + 4); readln(mahasiswa[i].nim); // Isi NIM
+  end;
   gotoxy(33, i + 4); readln(mahasiswa[i].nama); // Isi Nama
 end;
 
@@ -88,8 +106,7 @@ begin
   write('-------------------------------------------');
 
   for i := 1 to jml_mhs do begin
-    gotoxy(17, i + 4); write('|    |         |                          |');
-    gotoxy(21, i + 4); write(i);
+    no_mhs_ke(i);
 
     isi_mahasiswa(i, mahasiswa);
   end;
@@ -231,7 +248,7 @@ begin
     total_bobot := 0;
     total_sks := 0; // reset for each student
 
-    if (i > 1) then baris := baris - i;
+    if (i > 1) then baris := baris - i; // line-length for each student table
     gotoxy(1, baris + i + 4);
     write('---------------------------------Mahasiswa Ke-', i, '---------------------------------');
     gotoxy(1, baris + i + 5); write('NIM  : ', mahasiswa[i].nim);
@@ -270,11 +287,11 @@ begin
 
   // tampilkan tabel matkul dan mahasiswa
   tabel_mahasiswa(jml_mhs, mahasiswa);
-  tabel_matkul(jml_mk, matakuliah);
+  // tabel_matkul(jml_mk, matakuliah);
 
   // isi nilai dan tampilkan indeks tiap mahasiswa
-  tabel_indeks_nilai(jml_mhs, jml_mk, nilai, indeks);
+  // tabel_indeks_nilai(jml_mhs, jml_mk, nilai, indeks);
 
   // // tampilkan semuanya
-  tampil_data(jml_mhs, jml_mk, mahasiswa, matakuliah, nilai, indeks);
+  // tampil_data(jml_mhs, jml_mk, mahasiswa, matakuliah, nilai, indeks);
 end.
