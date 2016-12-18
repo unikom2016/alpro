@@ -170,11 +170,11 @@ begin
   end;
 end;
 
-function bobot(idx_mhs: char; sks: integer): real;
-{ I.S.: (idx_mhs) & (sks) sudah terdefinisi }
+function bobot(indeks: char; sks: integer): real;
+{ I.S.: (indeks) & (sks) sudah terdefinisi }
 { F.S.: menghasilkan fungsi bobot }
 begin
-  case (idx_mhs) of
+  case (indeks) of
     'A': bobot := 4 * sks;
     'B': bobot := 3 * sks;
     'C': bobot := 2 * sks;
@@ -260,7 +260,7 @@ begin
 
     for j := 1 to jml_mk do begin
       total_sks := total_sks + matakuliah[j].sks;
-      total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
+      total_bobot := total_bobot + bobot(indeks[i, j], matakuliah[j].sks);
 
       gotoxy(1, baris + j); write('|    |                  |                  |     |        |');
       gotoxy(3, baris + j); write(j);
