@@ -227,7 +227,7 @@ begin
   gotoxy(1, 5); write('NIM');
   for i := 1 to jml_mk do begin
     textcolor(blue);
-    gotoxy(i * 10, 5); write(matakuliah[i].kd_mk);
+    gotoxy(i * 10, 5); write(upcase(matakuliah[i].kd_mk));
   end;
   isi_nilai(nilai); // prosedur
   isi_indeks(indeks);
@@ -264,8 +264,8 @@ begin
 
       gotoxy(1, baris + j); write('|    |                  |                  |     |        |');
       gotoxy(3, baris + j); write(j);
-      gotoxy(7, baris + j); write(matakuliah[j].kd_mk);
-      gotoxy(27, baris + j); write(matakuliah[j].nm_mk);
+      gotoxy(7, baris + j); write(upcase(matakuliah[j].kd_mk));
+      gotoxy(27, baris + j); write(upcase(matakuliah[j].nm_mk));
       gotoxy(46, baris + j); write(matakuliah[j].sks);
       gotoxy(52, baris + j); write(indeks[i, j]);
     end;
@@ -287,11 +287,11 @@ begin
 
   // tampilkan tabel matkul dan mahasiswa
   tabel_mahasiswa(jml_mhs, mahasiswa);
-  // tabel_matkul(jml_mk, matakuliah);
+  tabel_matkul(jml_mk, matakuliah);
 
   // isi nilai dan tampilkan indeks tiap mahasiswa
-  // tabel_indeks_nilai(jml_mhs, jml_mk, nilai, indeks);
+  tabel_indeks_nilai(jml_mhs, jml_mk, nilai, indeks);
 
-  // // tampilkan semuanya
-  // tampil_data(jml_mhs, jml_mk, mahasiswa, matakuliah, nilai, indeks);
+  // tampilkan semuanya
+  tampil_data(jml_mhs, jml_mk, mahasiswa, matakuliah, nilai, indeks);
 end.
