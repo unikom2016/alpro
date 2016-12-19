@@ -30,9 +30,8 @@ var
   matakuliah: arr_mk;
   nilai: arr_nilai;
   indeks: arr_idx;
-  // i, j: integer; // buat looping dan tabel
-  baris: integer; // buat nyimpan baris dari tabel mahasiswa dan matkul
-  jml_mhs, jml_mk: integer; // buat jumlah mahasiswa dan matkul
+  baris: integer;
+  jml_mhs, jml_mk: integer;
 
 procedure jumlah_data_mhs(var jml_mhs: integer);
 { I.S: User memasukkan banyaknya data (jml_mhs) }
@@ -66,29 +65,6 @@ begin
 end;
 
 { Begin Mahasiswa }
-procedure no_mhs_ke(i: integer);
-begin
-  gotoxy(17, i + 4); write('|    |         |                          |');
-  gotoxy(21, i + 4); write(i);
-end;
-
-procedure isi_mahasiswa(i: integer; var mahasiswa: arr_mhs);
-{ I.S: User memasukkan data tiap mahasiswa }
-{ F.S: Menyimpan data mahasiswa }
-begin
-  gotoxy(23, i + 4); readln(mahasiswa[i].nim); // Isi NIM
-  //validasi
-  while (length(mahasiswa[i].nim) <> 8) do begin
-    gotoxy(17, i + 5); textcolor(red); write('NIM hanya boleh 8 digit!');
-    readkey;
-    gotoxy(17, i + 5); clreol; // hapus keterangan error
-    gotoxy(23, i + 4); clreol; textcolor(white);
-    no_mhs_ke(i); 
-    gotoxy(23, i + 4); readln(mahasiswa[i].nim); // Isi NIM
-  end;
-  gotoxy(33, i + 4); readln(mahasiswa[i].nama); // Isi Nama
-end;
-
 procedure tabel_mahasiswa(jml_mhs: integer; var mahasiswa: arr_mhs);
 { I.S: Jumlah mahasiswa telah terdefinisi }
 { F.S: Menghasilkan data baru mahasiswa }
@@ -106,9 +82,21 @@ begin
   write('-------------------------------------------');
 
   for i := 1 to jml_mhs do begin
-    no_mhs_ke(i);
+    gotoxy(17, i + 4); write('|    |         |                          |');
+    gotoxy(21, i + 4); write(i);
 
-    isi_mahasiswa(i, mahasiswa);
+    gotoxy(23, i + 4); readln(mahasiswa[i].nim); // Isi NIM
+    //validasi
+    while (length(mahasiswa[i].nim) <> 8) do begin
+      gotoxy(17, i + 5); textcolor(red); write('NIM hanya boleh 8 digit!');
+      readkey;
+      gotoxy(17, i + 5); clreol; // hapus keterangan error
+      gotoxy(23, i + 4); clreol; textcolor(white);
+      gotoxy(17, i + 4); write('|    |         |                          |');
+      gotoxy(21, i + 4); write(i);
+      gotoxy(23, i + 4); readln(mahasiswa[i].nim); // Isi NIM
+    end;
+    gotoxy(33, i + 4); readln(mahasiswa[i].nama); // Isi Nama
   end;
 
   gotoxy(17, i + 5);
@@ -118,15 +106,6 @@ end;
 { End Mahasiswa }
 
 { Begin Mata Kuliah }
-procedure isi_matkul(i: integer; var matakuliah: arr_mk);
-{ I.S: User memasukkan data tiap mata kuliah }
-{ F.S: Menyimpan data mata kuliah }
-begin
-  gotoxy(23, baris + i + 4); readln(matakuliah[i].kd_mk); // Isi Kode MK
-  gotoxy(42, baris + i + 4); readln(matakuliah[i].nm_mk); // Isi Nama MK
-  gotoxy(63, baris + i + 4); readln(matakuliah[i].sks); // Isi SKS
-end;
-
 procedure tabel_matkul(jml_mk: integer; var matakuliah: arr_mk);
 { I.S: Jumlah mata kuliah telah terdefinisi }
 { F.S: Menghasilkan data baru mata kuliah }
@@ -147,7 +126,9 @@ begin
     gotoxy(17, baris + i + 4); write('|    |                  |                  |     |');
     gotoxy(21, baris + i + 4); write(i);
 
-    isi_matkul(i, matakuliah);
+    gotoxy(23, baris + i + 4); readln(matakuliah[i].kd_mk); // Isi Kode MK
+    gotoxy(42, baris + i + 4); readln(matakuliah[i].nm_mk); // Isi Nama MK
+    gotoxy(63, baris + i + 4); readln(matakuliah[i].sks); // Isi SKS
   end;
 
   gotoxy(17, baris + i + 5);
@@ -170,26 +151,36 @@ begin
   end;
 end;
 
-function bobot(idx_mhs: char; sks: integer): real;
-{ I.S.: (idx_mhs) & (sks) sudah terdefinisi }
+function bobot(indeks: char): real;
+{ I.S.: (indeks) & (sks) sudah terdefinisi }
 { F.S.: menghasilkan fungsi bobot }
 begin
-  case (idx_mhs) of
-    'A': bobot := 4 * sks;
-    'B': bobot := 3 * sks;
-    'C': bobot := 2 * sks;
-    'D': bobot := 1 * sks;
-    'E': bobot := 0 * sks;
+  case (indeks) of
+    'A': bobot := 4;
+    'B': bobot := 3;
+    'C': bobot := 2;
+    'D': bobot := 1;
+    'E': bobot := 0;
   end;
 end;
 { End Perhitungan }
 
-procedure isi_nilai(var nilai: arr_nilai);
-{ I.S.: User mengisi data nilai }
-{ F.S.: Menghasilkan nilai tiap mahasiswa }
+procedure tabel_indeks_nilai(jml_mhs, jml_mk: integer; var nilai: arr_nilai; var indeks: arr_idx);
+{ I.S.: User memulai mengisi data nilai dan indeks }
+{ F.S.: Menampilkan indeks tiap mahasiswa }
 var i, j: integer;
 begin
-  for i := 1 to jml_mhs do begin
+  clrscr;
+  gotoxy(39, 1); // dibagi 2
+  write('Pengisian Nilai Mahasiswa');
+  gotoxy(39, 2); write('-------------------------');
+  gotoxy(1, 5); write('NIM');
+  gotoxy(10, 4); write('Kode Mata Kuliah');
+  for i := 1 to jml_mk do begin
+    textcolor(lightblue);
+    gotoxy(i * 10, 5); write(upcase(matakuliah[i].kd_mk));
+  end;
+  for i := 1 to jml_mhs do begin { begin isi nilai }
     textcolor(lightblue);
     gotoxy(1, i + 5); write(mahasiswa[i].nim);
     for j := 1 to jml_mk do begin
@@ -205,43 +196,16 @@ begin
         gotoxy(j * 10, i + 5); clreol; readln(nilai[i, j]);
         end;
     end;
-  end;
-end;
-
-procedure isi_indeks(var indeks: arr_idx);
-{ I.S.: User mengisi data indeks }
-{ F.S.: Menghasilkan indeks tiap mahasiswa }
-var i, j: integer;
-begin
-  for i := 1 to jml_mhs do begin
+  end; { end isi nilai }
+  for i := 1 to jml_mhs do begin { begin isi indeks }
     for j := 1 to jml_mk do begin
       indeks[i, j] := idx(nilai[i, j]);
       textcolor(red);
       gotoxy(j * 10, i + 5); clreol; delay(300); write(indeks[i, j]);
     end;
-  end;
+  end; { end isi indeks }
   textcolor(white);
   gotoxy(1, i + 6); write('Tekan enter untuk melanjutkan!'); readln;
-end;
-
-procedure tabel_indeks_nilai(jml_mhs, jml_mk: integer; var nilai: arr_nilai; var indeks: arr_idx);
-{ I.S.: User memulai mengisi data nilai dan indeks }
-{ F.S.: Menampilkan indeks tiap mahasiswa }
-var i: integer;
-begin
-  clrscr;
-  gotoxy(39, 1); // dibagi 2
-  write('Pengisian Nilai Mahasiswa');
-  gotoxy(39, 2); write('-------------------------');
-  gotoxy(1, 5); write('NIM');
-  gotoxy(10, 4); write('Kode Mata Kuliah');
-  for i := 1 to jml_mk do begin
-    textcolor(lightblue);
-    gotoxy(i * 10, 5); write(upcase(matakuliah[i].kd_mk));
-  end;
-  isi_nilai(nilai); // prosedur
-  isi_indeks(indeks);
-  writeln;
 end;
 
 procedure tampil_data(jml_mhs, jml_mk: integer; mahasiswa: arr_mhs; matakuliah: arr_mk; nilai: arr_nilai; indeks: arr_idx); // khs
@@ -256,9 +220,8 @@ begin
   gotoxy(1, 2); write('========================================================================================================================');
   for i := 1 to jml_mhs do begin
     total_bobot := 0;
-    total_sks := 0; // reset for each student
+    total_sks := 0;
 
-    if (i > 1) then baris := baris - i; // line-length for each student table
     gotoxy(1, baris + i + 4);
     write('-----------------------------------------------------Mahasiswa Ke-', i, '-----------------------------------------------------');
     gotoxy(1, baris + i + 5); write('NIM  : ', mahasiswa[i].nim);
@@ -270,7 +233,7 @@ begin
 
     for j := 1 to jml_mk do begin
       total_sks := total_sks + matakuliah[j].sks;
-      total_bobot := total_bobot + (bobot(indeks[i, j], matakuliah[j].sks));
+      total_bobot := total_bobot + (bobot(indeks[i, j]) * matakuliah[j].sks);
 
       gotoxy(1, baris + j); write('|    |                  |                  |     |        |');
       gotoxy(3, baris + j); write(j);
@@ -288,7 +251,6 @@ end;
 
 { Algoritma Utama }
 begin
-  // window(1, 1, 100, 100);
   clrscr;
   textcolor(white);
   // masukkan jumlah
