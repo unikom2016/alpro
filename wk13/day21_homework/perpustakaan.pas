@@ -101,10 +101,9 @@ procedure tampil_data();
 var i: integer;
 begin
   for i := 1 to jml do begin
-    writeln;
     writeln(buku[i].kd_buku, '|', buku[i].nm_buku, '|', buku[i].tahun, '|', buku[i].pengarang);
-    writeln;
   end;
+  writeln;
 end;
 
 { Algoritma Utama }
