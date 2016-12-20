@@ -116,6 +116,7 @@ begin
   write('password: '); readln(password);
   repeat
     if (user = pengguna) and (password = sandi) then begin
+      clrscr;
       writeln('Menu pilihan');
       writeln('1. isi data');
       writeln('2. tampil (asc / desc)');
@@ -129,16 +130,14 @@ begin
 
       case (menu) of
         1: begin
-          clrscr;
-          // setlength(0, x);
-          gotoxy(1, 1); write('isi data buku');
           repeat
             jml := jml + 1;
             while (jml = maks_buku) do begin
               writeln('tidak bisa memasukkan data buku!');
               readln(pilihan);
             end;
-            readln; // ga tau kenapa harus di giniin, tiba2 keisi sendiri
+            clrscr;
+            gotoxy(1, 1); write('isi data buku');
             write('kode buku: '); readln(buku[jml].kd_buku);
             write('nama buku: '); readln(buku[jml].nm_buku);
             write('tahun: '); readln(buku[jml].tahun);
