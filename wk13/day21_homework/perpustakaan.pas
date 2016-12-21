@@ -1,173 +1,200 @@
-{ Judul }
 program data_perpustakaan;
 
 uses crt;
 
-{ Kamus Global }
 const
+  maks_buku = 10; // maksimal buku
   pengguna = 'test';
   sandi = '1234!';
-  maks_buku = 10;
 
 type
-  d_buku = record
+  // buku AOR
+  dbuku = record
     kd_buku, nm_buku, pengarang: string;
     tahun: integer;
   end;
+  
+  arr_buku = array[1..maks_buku] of dbuku;
 
-  arr_buku = array[1..maks_buku] of d_buku;
-
+{ Kamus Global }
 var
+  user, pass: string;
+  success: boolean;
+  berdasarkan: string;
+  pilihan: integer;
   buku: arr_buku;
-  kesempatan, jml, menu: integer;
-  pilihan, urutan: string; // y / n
-  user, password: string; // data user
+  jml_buku: integer;
 
-// prototype
-procedure sort_asc(size: integer);
-{ I.S.: }
-{ F.S.: }
-{ Kamus }
+function sort(berdasarkan: string; buku: arr_buku): arr_buku;
 var
-  i: integer;
-  buku_sementara: array[1..maks_buku] of d_buku; //buku sementara
+  temp_buku: dbuku;
+  j: integer;
   bertukar: boolean;
-{ Algoritma }
 begin
-  // bubble sort
   repeat
     bertukar := false;
-    for i := 1 to (size - 1) do begin
-      if (buku[i].kd_buku > buku[i + 1].kd_buku) then begin
-        buku_sementara[i].kd_buku := buku[i].kd_buku;
-        buku[i].kd_buku := buku[i + 1].kd_buku;
-        buku[i + 1].kd_buku := buku_sementara[i].kd_buku; // kode buku
-
-        buku_sementara[i].nm_buku := buku[i].nm_buku;
-        buku[i].nm_buku := buku[i + 1].nm_buku;
-        buku[i + 1].nm_buku := buku_sementara[i].nm_buku; // nama buku
-
-        buku_sementara[i].tahun := buku[i].tahun;
-        buku[i].tahun := buku[i + 1].tahun;
-        buku[i + 1].tahun := buku_sementara[i].tahun; // tahun
-
-        buku_sementara[i].pengarang := buku[i].pengarang;
-        buku[i].pengarang := buku[i + 1].pengarang;
-        buku[i + 1].pengarang := buku_sementara[i].pengarang; // pengarang
-        bertukar := true;
+    for j := 1 to (jml_buku - 1) do begin
+      case (berdasarkan) of
+        'asc': begin
+          if (buku[j].kd_buku > buku[j + 1].kd_buku) then begin
+            temp_buku := buku[j];
+            buku[j] := buku[j + 1];
+            buku[j + 1] := temp_buku;
+            bertukar := true;
+          end;
+        end;
+        'desc': begin
+          if (buku[j].kd_buku < buku[j + 1].kd_buku) then begin
+            temp_buku := buku[j];
+            buku[j] := buku[j + 1];
+            buku[j + 1] := temp_buku;
+            bertukar := true;
+          end;
+        end;
       end;
     end;
-  until (bertukar);
-  // end of bubble sort
-end; // sort_asc
+  until (not bertukar);
+  sort := buku;
+end;
 
-procedure sort_desc(size: integer);
-{ I.S.: }
-{ F.S.: }
-{ Kamus }
-var
-  i: integer;
-  buku_sementara: array[1..maks_buku] of d_buku; //buku sementara
-  bertukar: boolean;
-{ Algoritma }
+procedure jumlah_data(var jml_buku: integer);
+{ I.S: User memasukkan banyaknya data (jml_buku) }
+{ F.S: menghasilkan banyaknya data (jml_buku) }
 begin
-  // bubble sort
-  repeat
-    bertukar := false;
-    for i := 1 to (size - 1) do begin
-      if (buku[i].kd_buku < buku[i + 1].kd_buku) then begin
-        buku_sementara[i].kd_buku := buku[i].kd_buku;
-        buku[i].kd_buku := buku[i + 1].kd_buku;
-        buku[i + 1].kd_buku := buku_sementara[i].kd_buku; // kode buku
+  clrscr;
+  gotoxy(1, 1); write('Banyaknya buku: '); readln(jml_buku);
+  // validasi
+  while (jml_buku < 1) or (jml_buku > maks_buku) do begin
+    gotoxy(1, 2); textcolor(red); write('Banyaknya data buku hanya antara 1-', maks_buku, '!');
+    readkey;
+    gotoxy(1, 2); clreol; 
+    gotoxy(17, 1); clreol; textcolor(white); readln(jml_buku);
+  end;
+end;
 
-        buku_sementara[i].nm_buku := buku[i].nm_buku;
-        buku[i].nm_buku := buku[i + 1].nm_buku;
-        buku[i + 1].nm_buku := buku_sementara[i].nm_buku; // nama buku
-
-        buku_sementara[i].tahun := buku[i].tahun;
-        buku[i].tahun := buku[i + 1].tahun;
-        buku[i + 1].tahun := buku_sementara[i].tahun; // tahun
-
-        buku_sementara[i].pengarang := buku[i].pengarang;
-        buku[i].pengarang := buku[i + 1].pengarang;
-        buku[i + 1].pengarang := buku_sementara[i].pengarang; // pengarang
-        bertukar := true;
-      end;
-    end;
-  until (bertukar);
-end; // end sort_desc
-
-procedure tampil_data();
+{ Begin Buku }
+procedure isi_buku(jml_buku: integer; var buku: arr_buku);
+{ I.S: Jumlah buku telah terdefinisi }
+{ F.S: Menghasilkan data baru buku }
+// procedure isi_mahasiswa(i: integer); prototype
 var i: integer;
 begin
-  for i := 1 to jml do begin
-    writeln(buku[i].kd_buku, '|', buku[i].nm_buku, '|', buku[i].tahun, '|', buku[i].pengarang);
+  clrscr;
+  gotoxy(20, 1);                        write('DAFTAR BUKU');
+  gotoxy(1, 2);       write('--------------------------------------------------');
+  gotoxy(1, 3);       write('| No | Kode Buku | Nama Buku | Tahun | Pengarang |');
+  gotoxy(1, 4);       write('--------------------------------------------------');
+
+  // isi data
+  for i := 1 to jml_buku do begin
+    gotoxy(1, i + 4); write('|    |           |           |       |           |'); // divider
+    gotoxy(3, i + 4); write(i);
+    gotoxy(7, i + 4); readln(buku[i].kd_buku);
+    gotoxy(19, i + 4); readln(buku[i].nm_buku);
+    gotoxy(31, i + 4); readln(buku[i].tahun);
+    gotoxy(39, i + 4); readln(buku[i].pengarang);
   end;
-  writeln;
+
+  gotoxy(1, i + 5);  write('--------------------------------------------------'); writeln;
+end;
+{ End Buku }
+
+procedure tampil_buku(jml_buku: integer; buku: arr_buku);
+{ I.S: Jumlah buku telah terdefinisi }
+{ F.S: Menghasilkan data baru buku }
+// procedure isi_mahasiswa(i: integer); prototype
+var
+  temp_buku: arr_buku;
+  i: integer;
+begin
+  writeln('tampil data');
+  clrscr;
+  write('Urutkan sesuai (asc / desc): '); readln(berdasarkan);
+  temp_buku := sort(berdasarkan, buku);
+  clrscr;
+  writeln('urutkan sesuai ', berdasarkan);
+  gotoxy(20, 2);                        write('DAFTAR BUKU');
+  gotoxy(1, 3);       write('--------------------------------------------------');
+  gotoxy(1, 4);       write('| No | Kode Buku | Nama Buku | Tahun | Pengarang |');
+  gotoxy(1, 5);       write('--------------------------------------------------');
+
+  // isi data
+  for i := 1 to jml_buku do begin
+    gotoxy(1, i + 5); write('|    |           |           |       |           |'); // divider
+    gotoxy(3, i + 5); write(i);
+    gotoxy(7, i + 5); write(temp_buku[i].kd_buku);
+    gotoxy(19, i + 5); write(temp_buku[i].nm_buku);
+    gotoxy(31, i + 5); write(temp_buku[i].tahun);
+    gotoxy(39, i + 5); write(temp_buku[i].pengarang);
+  end;
+
+  gotoxy(1, i + 6);  write('--------------------------------------------------'); writeln;
+  readkey;
+end;
+
+procedure menu_utama(var pilihan: integer; var jml_buku: integer; var buku: arr_buku);
+begin
+  repeat
+    clrscr;
+    writeln('Menu Pilihan');
+    writeln('1. Isi Data');
+    writeln('2. Tampilkan data secara (asc / desc)');
+    writeln('0. Keluar');
+    write('Pilih: '); readln(pilihan);
+    // validasi
+    while (pilihan <> 1) and (pilihan <> 2) and (pilihan <> 0) do begin
+      gotoxy(1, 6); textcolor(red); write('Pilihan hanya 1, 2 dan 0!');
+      readkey;
+      gotoxy(1, 6); clreol; 
+      gotoxy(8, 5); clreol; textcolor(white); readln(pilihan);
+    end;
+    case (pilihan) of
+      1: begin
+        jumlah_data(jml_buku);
+        isi_buku(jml_buku, buku);
+      end;
+      2: begin
+        tampil_buku(jml_buku, buku);
+      end;
+    end;
+    if (pilihan = 0) then begin
+      clrscr;
+      writeln('terima kasih telah menggunakan program!');
+      readkey;
+    end;
+  until (pilihan = 0);
+end;
+
+procedure menu_login(var success: boolean);
+var
+  chance: integer;
+begin
+  clrscr;
+  chance := 3;
+  success := false;
+  repeat
+    clrscr;
+    writeln('Login');
+    write('User: '); readln(user);
+    write('Password: '); readln(pass);
+    if (pass <> sandi) or (user <> pengguna) then begin
+      chance := chance - 1;
+      writeln('User / Password salah, kesempatan login sisa ', chance);
+      readkey;
+    end;
+  until ((user = pengguna) and (pass = sandi)) or (chance = 0);
+  if (chance > 0) then begin
+    success := true;
+  end;
 end;
 
 { Algoritma Utama }
 begin
-  clrscr;
-  kesempatan := 0;
-  jml := 0;
-  write('user: '); readln(user);
-  write('password: '); readln(password);
-  repeat
-    if (user = pengguna) and (password = sandi) then begin
-      clrscr;
-      writeln('Menu pilihan');
-      writeln('1. isi data');
-      writeln('2. tampil (asc / desc)');
-      writeln('0. keluar');
-      readln(menu);
-      
-      while (menu <> 1) and (menu <> 2) and (menu <> 0) do begin
-        writeln('pilihan hanya ada 1, 2, 0');
-        readln(menu);
-      end;
-
-      case (menu) of
-        1: begin
-          repeat
-            jml := jml + 1;
-            while (jml = maks_buku) do begin
-              writeln('tidak bisa memasukkan data buku!');
-              readln(pilihan);
-            end;
-            clrscr;
-            gotoxy(1, 1); write('isi data buku');
-            write('kode buku: '); readln(buku[jml].kd_buku);
-            write('nama buku: '); readln(buku[jml].nm_buku);
-            write('tahun: '); readln(buku[jml].tahun);
-            write('pengarang: '); readln(buku[jml].pengarang);
-            write('isi data lagi? y/n: '); readln(pilihan);
-          until (pilihan = 'n');
-        end; // end 1
-        2: begin
-          clrscr;
-          write('tampil data urutkan secara: (asc / desc)');
-          readln(urutan);
-          if (urutan = 'asc') then begin
-            sort_asc(jml);
-            tampil_data();
-          end else if (urutan = 'desc') then begin
-            sort_desc(jml);
-            tampil_data();
-          end;
-        end; // end 2
-        0: begin
-          writeln('terima kasih telah mengisi data buku');
-          break;
-        end; // end 0
-      end; // dependon
-    end else begin
-      kesempatan := kesempatan + 1;
-      writeln('kamu salah, sisa ', 4 - kesempatan, ' lagi!');
-      readln(password);
-    end;
-    if (kesempatan = 3) then begin
-      writeln('sandi salah sampai ', kesempatan, ' kali!');
-    end;
-  until (kesempatan = 3);
+  menu_login(success);
+  if (success) then begin
+    menu_utama(pilihan, jml_buku, buku);
+  end;
+  // jumlah_data(jml_buku);
+  // isi_buku(jml_buku, buku);
+  // tampil_buku(jml_buku, buku);
 end.
