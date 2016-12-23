@@ -95,14 +95,6 @@ begin
   b := c;
 end;
 
-// sortir sesuai kode buku, secara ascending
-// procedure sort_asc(var bk: arr_buku; kd_buku1, kd_buku2: integer);
-// begin
-//   if (kd_buku1 > kd_buku2) then begin
-//     swap(bk)
-//   end;
-// end;
-
 function urut_berdasarkan: integer;
 var
   pilih: integer;
@@ -131,7 +123,6 @@ var
   metode: string;
 begin
   clrscr;
-  // write('Menggunakan (bubble / selection): '); readln(metode);
   urut := urut_berdasarkan;
   write('Menggunakan urutan (asc / desc): '); readln(metode);
   repeat
