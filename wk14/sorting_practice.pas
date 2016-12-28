@@ -20,6 +20,7 @@ var
   buku: arr_buku;
   n, menu: integer; // banyaknya data buku
   np, ks: string; // NP: Nama Pengguna, KS: Kata Sandi
+  temp_i: array[1..maks_buku] of integer;
 
 // fungsi login
 function menu_login(np, ks: string): boolean;
@@ -46,20 +47,20 @@ end;
 procedure menu_pilihan(var menu: integer);
 begin
   clrscr;
-  gotoxy(30, 9);  write('MENU PILIHAN');
-  gotoxy(30, 10);  write('============');
-  gotoxy(30, 11); write('1. Isi data buku');
-  gotoxy(30, 12); write('2. Tampil data buku');
-  gotoxy(30, 13); write('3. Cari data buku');
-  gotoxy(30, 14); write('0. Keluar');
-  gotoxy(30, 15); write('Pilihan anda? '); readln(menu);
+  gotoxy(30, 8);  write('MENU PILIHAN');
+  gotoxy(30, 9);  write('============');
+  gotoxy(30, 10); write('1. Isi data buku');
+  gotoxy(30, 11); write('2. Tampil data buku');
+  gotoxy(30, 12); write('3. Cari data buku');
+  gotoxy(30, 13); write('0. Keluar');
+  gotoxy(30, 14); write('Pilihan anda? '); readln(menu);
 
   // validasi
-  while (menu <> 1) and (menu <> 2) and (menu <> 3) and (menu <> 0) do begin
-    gotoxy(30, 16); write('Menu hanya (1/2/0)!');
+  while (menu < 0) or (menu > 3) do begin
+    gotoxy(30, 15); write('Menu hanya (1/2/0)!');
     readkey;
-    gotoxy(30, 16); clreol;
-    gotoxy(44, 15); clreol; readln(menu);
+    gotoxy(30, 15); clreol;
+    gotoxy(44, 14); clreol; readln(menu);
   end;
 end;
 
@@ -198,14 +199,19 @@ var
   first, last, mid: integer;
   found: boolean;
   // sequential
-  i: integer;
+  i, j: integer;
   regexPengarang: tregexpr;
 begin
   clrscr;
-  // writeln('Menu Cari'); 
-  // writeln('1. Kode Buku');
-  // writeln('2. Pengarang');
+  writeln('Menu Cari'); 
+  writeln('1. Kode Buku');
+  writeln('2. Pengarang');
   write('Pilih: '); readln(pilih);
+
+  { Validasi menu cari }
+  while (pilih < 1) or (pilih > 2) do begin
+    write('salah, hanya (1/2)'); readln(pilih);
+  end;
 
   write('Data yang dicari: '); readln(cari);
   case (pilih) of
@@ -223,11 +229,16 @@ begin
           writeln('Data ditemukan di indeks: ', mid);
           found := true;
         end;
+        if (first = last) then begin
+          writeln('Kode      :', cari);
+          writeln('Nama      :', bk[mid].nm_buku);
+          writeln('Tahun     :', bk[mid].tahun);
+          writeln('Pengarang :', bk[mid].pengarang);
+        end;
       end;
     end;
     2: begin
       regexPengarang := tregexpr.create;
-      // regexPengarang.expression := concat('.*', cari, '.*');
       regexPengarang.expression := '.*' + cari + '.*';
       writeln('mulai mencari pengarang...');
       found := false;
@@ -235,13 +246,17 @@ begin
       while (not found) and (i <= n) do begin
         // if (cari = bk[i].kd_buku) then begin
         if (regexPengarang.exec(bk[i].pengarang)) then begin
+          writeln('patterns matched');
+          temp_i[i] := i;
           found := true;
         end else begin
           i := i + 1;
         end;
       end;
       if (found) then begin
-        writeln('pengarang ditemukan pada indeks ke-', i);
+        for j := 1 to i do begin
+          writeln('pengarang ditemukan pada indeks ke-', temp_i[j]);
+        end;
       end else begin
         writeln('pengarang tidak ditemukan!');
       end;
@@ -251,6 +266,14 @@ end;
 
 procedure simpan_file;
 begin
+end;
+
+function kosong: boolean;
+begin
+  kosong := false;
+  if (n = 0) then begin
+    kosong := true;
+  end;
 end;
 
 { Algoritma Utama }
@@ -265,12 +288,20 @@ begin
       case (menu) of
         1: isi_data_buku(n, buku);
         2: begin
-          urut_data_buku(n, buku);
-          tampil_data_buku(n, buku);
+          if (not kosong) then begin
+            urut_data_buku(n, buku);
+            tampil_data_buku(n, buku);
+          end else begin
+            writeln('harus isi data dulu!');
+          end;
           readkey;
         end; // end case
         3: begin
-          cari_data(buku);
+          if (not kosong) then begin
+            cari_data(buku);
+          end else begin
+            writeln('harus isi data dulu!');
+          end;
           readkey;
         end;
       end;
