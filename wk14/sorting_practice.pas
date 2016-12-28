@@ -238,34 +238,48 @@ begin
       end;
     end;
     2: begin
-      regexPengarang := tregexpr.create;
-      regexPengarang.expression := '.*' + cari + '.*';
       writeln('mulai mencari pengarang...');
       found := false;
       i := 1;
       while (not found) and (i <= n) do begin
-        // if (cari = bk[i].kd_buku) then begin
-        if (regexPengarang.exec(bk[i].pengarang)) then begin
-          writeln('patterns matched');
-          temp_i[i] := i;
+        if (cari = bk[i].kd_buku) then begin
           found := true;
         end else begin
           i := i + 1;
         end;
       end;
       if (found) then begin
-        for j := 1 to i do begin
-          writeln('pengarang ditemukan pada indeks ke-', temp_i[j]);
+        writeln('nama pengarang: ', cari);
+        for j := 1 to n do begin // dari 1 ga masalah, kan? bukan dari i?
+          if (cari = bk[j].pengarang) then begin
+            writeln('kode buku: ', bk[j].kd_buku);
+            writeln('nama buku: ', bk[j].nm_buku);
+            writeln('tahun: ', bk[j].tahun);
+          end;
         end;
       end else begin
-        writeln('pengarang tidak ditemukan!');
+        writeln('pengarang ', cari, ' tidak ditemukan!');
       end;
     end;
   end; //endcase
 end;
 
 procedure simpan_file;
+const
+  nama_file = '/Users/mochadwi/Documents/learn/college/unikom/class/100_alpro/wk14/data_buku.txt';
+var
+  file_buku: textfile;
+  i: integer;
 begin
+  {assignfile(file_buku, nama_file);
+  for i := 1 to n do begin
+    append(file_buku);
+    writeln(file_buku, bk[i].kd_buku, '   |');
+    writeln(file_buku, bk[i].nm_buku, '   |');
+    writeln(file_buku, bk[i].tahun, '   |');
+    writeln(file_buku, bk[i].pengarang, '    |');
+    closefile(file_buku);
+  end;}
 end;
 
 function kosong: boolean;
