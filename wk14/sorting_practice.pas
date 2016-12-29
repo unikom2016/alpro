@@ -2,7 +2,7 @@ program mengolahdatabuku;
 { I.S.: user memasukkan data buku }
 { F.S.: menampilkan data buku yang sudah terurut }
 
-uses crt, regexpr;
+uses crt, regexpr, sysutils;
 
 const
   maks_buku = 20;
@@ -199,7 +199,8 @@ var
   first, last, mid: integer;
   found: boolean;
   // sequential
-  i, j: integer;
+  i, k: integer;
+  j: array[1..maks_buku] of integer;
   regexPengarang: tregexpr;
 begin
   clrscr;
@@ -239,23 +240,26 @@ begin
     end;
     2: begin
       writeln('mulai mencari pengarang...');
-      found := false;
-      i := 1;
-      while (not found) and (i <= n) do begin
-        if (cari = bk[i].kd_buku) then begin
-          found := true;
-        end else begin
-          i := i + 1;
+      regexPengarang := tregexpr.create;
+      regexPengarang.expression := '.*' + cari + '.*';
+      i := 0;
+      k := 0;
+      // bk[n + 1].pengarang := cari;
+      while (i < n) do begin
+        i := i + 1;
+        if (regexPengarang.exec(bk[i].pengarang)) then begin
+          k := k + 1;
+          j[k] := i;
         end;
       end;
-      if (found) then begin
-        writeln('nama pengarang: ', cari);
-        for j := 1 to n do begin // dari 1 ga masalah, kan? bukan dari i?
-          if (cari = bk[j].pengarang) then begin
-            writeln('kode buku: ', bk[j].kd_buku);
-            writeln('nama buku: ', bk[j].nm_buku);
-            writeln('tahun: ', bk[j].tahun);
-          end;
+      regexPengarang.free;
+      writeln('pengarang ditemukan sebanyak ', k);
+      if (k > 0) then begin
+        for i := 1 to k do begin // dari 1 ga masalah, kan? bukan dari i?
+          writeln('nama pengarang: ', bk[j[i]].pengarang);
+          writeln('kode buku: ', bk[j[i]].kd_buku);
+          writeln('nama buku: ', bk[j[i]].nm_buku);
+          writeln('tahun: ', bk[j[i]].tahun);
         end;
       end else begin
         writeln('pengarang ', cari, ' tidak ditemukan!');
@@ -268,18 +272,19 @@ procedure simpan_file;
 const
   nama_file = '/Users/mochadwi/Documents/learn/college/unikom/class/100_alpro/wk14/data_buku.txt';
 var
-  file_buku: textfile;
+  file_buku: file of arr_buku;
   i: integer;
 begin
   {assignfile(file_buku, nama_file);
   for i := 1 to n do begin
     append(file_buku);
-    writeln(file_buku, bk[i].kd_buku, '   |');
-    writeln(file_buku, bk[i].nm_buku, '   |');
-    writeln(file_buku, bk[i].tahun, '   |');
-    writeln(file_buku, bk[i].pengarang, '    |');
-    closefile(file_buku);
-  end;}
+    write(file_buku, bk[i].kd_buku, '   |');
+    write(file_buku, bk[i].nm_buku, '   |');
+    write(file_buku, bk[i].tahun, '   |');
+    write(file_buku, bk[i].pengarang, '    |');
+    writeln;
+  end;
+  closefile(file_buku);}
 end;
 
 function kosong: boolean;
