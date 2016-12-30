@@ -5,6 +5,7 @@ program mengolahdatabuku;
 uses crt, regexpr, sysutils;
 
 const
+  namafile = 'data.txt';
   maks_buku = 20;
   user = 'iqbal';
   pass = '10116122';
@@ -21,6 +22,7 @@ var
   n, menu: integer; // banyaknya data buku
   np, ks: string; // NP: Nama Pengguna, KS: Kata Sandi
   temp_i: array[1..maks_buku] of integer;
+  filebuku: file of arr_buku; // tempat nyimpan buku
 
 // fungsi login
 function menu_login(np, ks: string): boolean;
@@ -200,7 +202,7 @@ var
   found: boolean;
   // sequential
   i, k: integer;
-  j: array[1..maks_buku] of integer;
+  tempBook: arr_buku;
   regexPengarang: tregexpr;
 begin
   clrscr;
@@ -240,31 +242,33 @@ begin
     end;
     2: begin
       writeln('mulai mencari pengarang...');
-      regexPengarang := tregexpr.create;
-      regexPengarang.expression := '.*' + cari + '.*';
-      i := 0;
+      regexPengarang := tregexpr.create; // initialization
+      regexPengarang.expression := '.*' + lowercase(cari) + '.*';
+      i := 1;
       k := 0;
-      // bk[n + 1].pengarang := cari;
-      while (i < n) do begin
-        i := i + 1;
-        if (regexPengarang.exec(bk[i].pengarang)) then begin
-          k := k + 1;
-          j[k] := i;
+      // sequential search
+      while (i <= n) do begin
+        if (regexPengarang.exec(lowercase(bk[i].pengarang))) then begin
+          k := k + 1; // banyaknya data ditemukan
+          tempBook[k] := bk[i];
         end;
+        i := i + 1;
       end;
-      regexPengarang.free;
-      writeln('pengarang ditemukan sebanyak ', k);
+
       if (k > 0) then begin
+        writeln('pengarang ditemukan sebanyak ', k);
         for i := 1 to k do begin // dari 1 ga masalah, kan? bukan dari i?
-          writeln('nama pengarang: ', bk[j[i]].pengarang);
-          writeln('kode buku: ', bk[j[i]].kd_buku);
-          writeln('nama buku: ', bk[j[i]].nm_buku);
-          writeln('tahun: ', bk[j[i]].tahun);
+          writeln('nama pengarang: ', tempBook[i].pengarang);
+          writeln('kode buku: ', tempBook[i].kd_buku);
+          writeln('nama buku: ', tempBook[i].nm_buku);
+          writeln('tahun: ', tempBook[i].tahun);
         end;
       end else begin
         writeln('pengarang ', cari, ' tidak ditemukan!');
       end;
-    end;
+      
+      regexPengarang.free;
+    end; // end pengarang
   end; //endcase
 end;
 
