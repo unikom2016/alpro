@@ -5,7 +5,7 @@ program mengolahdatabuku;
 uses crt, regexpr, sysutils;
 
 const
-  namafile = 'data.txt';
+  nama_file = '/Users/mochadwi/Documents/learn/college/unikom/class/100_alpro/wk14/data_buku';
   maks_buku = 20;
   user = 'iqbal';
   pass = '10116122';
@@ -19,10 +19,10 @@ type
 
 var
   buku: arr_buku;
+  temp_buku: arr_buku;
   n, menu: integer; // banyaknya data buku
   np, ks: string; // NP: Nama Pengguna, KS: Kata Sandi
-  temp_i: array[1..maks_buku] of integer;
-  filebuku: file of arr_buku; // tempat nyimpan buku
+  file_buku: file of dbuku; // simpan buku sebagai dbuku
 
 // fungsi login
 function menu_login(np, ks: string): boolean;
@@ -78,6 +78,19 @@ end;
 //   end;
 // end;
 
+procedure buka_file;
+begin
+  assign(file_buku, nama_file + '.txt');
+  {$I-} { disable i/o error checking }
+  // assign(file_buku, nama_file + '.txt'); // langsung overwrite setelah dibuka lg
+  reset(file_buku);
+  rewrite(file_buku); // ini yg overwrite ternyata
+  {$I+} { enable again i/o error checking - important }
+  if (IOResult <> 0) then begin
+    writeln('error creating file!');
+  end;
+end;
+
 // prosedur memasukkan data buku
 procedure isi_data_buku(var n: integer; var bk: arr_buku);
 { I.S.: user memasukkan banyaknya data (n) dan data buku }
@@ -85,6 +98,7 @@ procedure isi_data_buku(var n: integer; var bk: arr_buku);
 var i: integer;
 begin
   clrscr;
+  buka_file; // buka file
   write('Banyaknya data buku: '); readln(n);
   clrscr;
   gotoxy(30, 9);        write('DAFTAR BUKU');
@@ -99,7 +113,12 @@ begin
     gotoxy(48, i + 12); readln(bk[i].nm_buku);
     gotoxy(60, i + 12); readln(bk[i].tahun);
     gotoxy(68, i + 12); readln(bk[i].pengarang);
+    // reset(file_buku);
+    seek(file_buku, filesize(file_buku));
+    // blockwrite(file_buku, bk[i], sizeof(dbuku));
+    write(file_buku, bk[i]);
   end;
+  close(file_buku);
   gotoxy(30, i + 13);   write('==================================================');
 end;
 
@@ -213,7 +232,10 @@ begin
 
   { Validasi menu cari }
   while (pilih < 1) or (pilih > 2) do begin
-    write('salah, hanya (1/2)'); readln(pilih);
+    write('salah, hanya (1/2)');
+    readkey;
+    gotoxy(1, 5); clreol;
+    gotoxy(7, 4); clreol; readln(pilih);
   end;
 
   write('Data yang dicari: '); readln(cari);
@@ -266,29 +288,10 @@ begin
       end else begin
         writeln('pengarang ', cari, ' tidak ditemukan!');
       end;
-      
+
       regexPengarang.free;
     end; // end pengarang
   end; //endcase
-end;
-
-procedure simpan_file;
-const
-  nama_file = '/Users/mochadwi/Documents/learn/college/unikom/class/100_alpro/wk14/data_buku.txt';
-var
-  file_buku: file of arr_buku;
-  i: integer;
-begin
-  {assignfile(file_buku, nama_file);
-  for i := 1 to n do begin
-    append(file_buku);
-    write(file_buku, bk[i].kd_buku, '   |');
-    write(file_buku, bk[i].nm_buku, '   |');
-    write(file_buku, bk[i].tahun, '   |');
-    write(file_buku, bk[i].pengarang, '    |');
-    writeln;
-  end;
-  closefile(file_buku);}
 end;
 
 function kosong: boolean;
