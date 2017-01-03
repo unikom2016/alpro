@@ -107,7 +107,8 @@ begin
 end;
 
 // prosedur memasukkan data buku
-procedure isi_data_buku(var n: integer; var bk: arr_buku);
+// procedure isi_data_buku(var n: integer; var bk: arr_buku);
+procedure isi_data_buku;
 { I.S.: user memasukkan banyaknya data (n) dan data buku }
 { F.S.: menghasilkan banyaknya data (n) dan data buku }
 var i, jml: integer;
@@ -123,15 +124,15 @@ begin
   for i := 1 to jml do begin
     gotoxy(30, i + 12); write('|    |           |           |       |           |');
     gotoxy(32, i + 12); write(i);
-    gotoxy(36, i + 12); readln(bk[i].kd_buku);
-    // cari_kode_buku(bk[i].kd_buku);
-    gotoxy(48, i + 12); readln(bk[i].nm_buku);
-    gotoxy(60, i + 12); readln(bk[i].tahun);
-    gotoxy(68, i + 12); readln(bk[i].pengarang);
+    gotoxy(36, i + 12); readln(buku[i].kd_buku);
+    // cari_kode_buku(buku[i].kd_buku);
+    gotoxy(48, i + 12); readln(buku[i].nm_buku);
+    gotoxy(60, i + 12); readln(buku[i].tahun);
+    gotoxy(68, i + 12); readln(buku[i].pengarang);
     // reset(file_buku);
     seek(file_buku, filesize(file_buku));
-    // blockwrite(file_buku, bk[i], sizeof(dbuku));
-    write(file_buku, bk[i]);
+    // blockwrite(file_buku, buku[i], sizeof(dbuku));
+    write(file_buku, buku[i]);
   end;
   close(file_buku); // simpan
   gotoxy(30, i + 13);   write('==================================================');
@@ -167,7 +168,8 @@ begin
 end;
 
 // prosedur mengurutkan data buku
-procedure urut_data_buku(n: integer; var bk: arr_buku);
+// procedure urut_data_buku(n: integer; var bk: arr_buku);
+procedure urut_data_buku;
 var
   i, j: integer;
   temp: dbuku;
@@ -176,11 +178,11 @@ begin
   buka_file; // prosedur buka file sebelumnya
   for i := 1 to n - 1 do begin // tahap
     for j := n downto i + 1 do begin
-      if (bk[j].kd_buku < bk[j - 1].kd_buku) then begin // asc
-        // swap(bk[j], bk[j - 1]);
-        temp := bk[j];
-        bk[j] := bk[j - 1];
-        bk[j - 1] := temp;
+      if (buku[j].kd_buku < buku[j - 1].kd_buku) then begin // asc
+        // swap(buku[j], buku[j - 1]);
+        temp := buku[j];
+        buku[j] := buku[j - 1];
+        buku[j - 1] := temp;
       end;
     end;
   end;
@@ -206,7 +208,8 @@ begin
 end;
 
 // prosedur menampilkan data buku yang sudah terurut
-procedure tampil_data_buku(n: integer; bk: arr_buku);
+// procedure tampil_data_buku(n: integer; bk: arr_buku);
+procedure tampil_data_buku;
 var
   i: integer;
   metode: string;
@@ -223,10 +226,10 @@ begin
   begin
     gotoxy(30, i + 12); write('|    |           |           |       |           |');
     gotoxy(32, i + 12); write(i);
-    gotoxy(36, i + 12); write(bk[i].kd_buku);
-    gotoxy(48, i + 12); write(bk[i].nm_buku);
-    gotoxy(60, i + 12); write(bk[i].tahun);
-    gotoxy(68, i + 12); write(bk[i].pengarang);
+    gotoxy(36, i + 12); write(buku[i].kd_buku);
+    gotoxy(48, i + 12); write(buku[i].nm_buku);
+    gotoxy(60, i + 12); write(buku[i].tahun);
+    gotoxy(68, i + 12); write(buku[i].pengarang);
   end;
   {case (metode) of
     'asc': begin// ascending
@@ -353,12 +356,18 @@ begin
       clrscr;
       menu_pilihan(menu);
       case (menu) of
-        1: isi_data_buku(n, buku);
+        1: 
+        begin
+          // isi_data_buku(n, buku);
+          isi_data_buku;
+        end;
         2: begin
           {if (not kosong) then begin }
-            urut_data_buku(n, buku);
+            // urut_data_buku(n, buku);
+            urut_data_buku;
             simpan_ke_file;
-            tampil_data_buku(n, buku);
+            // tampil_data_buku(n, buku);
+            tampil_data_buku;
           {end else begin
             writeln('harus isi data dulu!');
           end;}
