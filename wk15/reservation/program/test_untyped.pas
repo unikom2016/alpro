@@ -9,7 +9,7 @@ type
                   age     : byte;
                   salary  : longint;
                end;
-    arr_employee = array[1..10] of Temployee;
+    arr_employee = array[1..100] of Temployee;
 
 var
   //  F : file of Temployee;
@@ -17,12 +17,13 @@ var
    c : char;
   //  r : Temployee;
    r : Temployee;
-   tempR : arr_employee;
+   tempR, realR : arr_employee;
    s : string;
-   i, n : integer;
+   i, j, n : integer;
 
 procedure fWrite;
 begin
+  seek(F, filesize(F));
   repeat
     clrscr;
     writeln('File position : ',filepos(F));
@@ -41,26 +42,31 @@ begin
 end;
 
 procedure fRead;
+var
+  tempR: Temployee;
 begin
   seek(F, 0);
+  i := 0;
   repeat
     clrscr;
     writeln('File position : ',filepos(F));
     blockRead(F, r, sizeOf(Temployee));
-    writeln;
     writeln('Name    = ', r.name);     { Input data }
     writeln('Address = ', r.address);
     writeln('Phone   = ', r.phone);
     writeln('Age     = ', r.age);
     writeln('Salary  = ', r.salary);
-    tempR[i] := r; // backup, to show later
     write('Show data again (Y/N) ?');
     repeat
         c:=upcase(readkey);      { Ask user : Input again or not }
     until c in ['Y','N'];
     writeln(c);
+    inc(i);
+    tempR := r;
+    realR[i] := tempR; // backup, to show later
+    writeln('increment: ', i); readln;
   until c='N';
-end;
+end; // end fRead
 
 begin
    clrscr;
@@ -92,16 +98,19 @@ begin
 
    fileMode := 2;
    reset(F, sizeOf(Temployee));
-  //  fWrite;
+   fWrite;
    fRead;
-  for i := 1 to 2 do
+
+   writeln(i); readln;
+  for j := 1 to i do
   begin
-    writeln('Name    = ', tempR[i].name);     { Input data }
-    writeln('Address = ', tempR[i].address);
-    writeln('Phone   = ', tempR[i].phone);
-    writeln('Age     = ', tempR[i].age);
-    writeln('Salary  = ', tempR[i].salary);
-    writeln;
+    clrscr;
+    writeln('Name    = ', realR[j].name);     { Input data }
+    writeln('Address = ', realR[j].address);
+    writeln('Phone   = ', realR[j].phone);
+    writeln('Age     = ', realR[j].age);
+    writeln('Salary  = ', realR[j].salary);
+    readln;
   end;
-   close(F);
+  close(F);
 end.
