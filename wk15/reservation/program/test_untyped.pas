@@ -1,38 +1,107 @@
+{$mode delphi}
 program test_untyped;
 { A crude database recording }
-uses crt;
+uses crt, sysutils;
+
+type { Class object }
+  Generic<T> = class
+    procedure fRead(var F: T; var r: T);
+    procedure fWrite(var F: T; var r: T);
+  end;
+
+procedure Generic.fRead(var F: T; var r: T);
+begin
+  clrscr;
+  // seek(F, 0);
+  writeln('berapa nilai total: ', total);
+  writeln('File position : ', filepos(F));
+  blockRead(F, r, sizeOf(r));
+  readln;
+end; // end fRead
+
+procedure Generic.fWrite(var F: T; var r: T);
+begin
+  clrscr;
+  seek(F, filesize(F));
+  writeln('berapa nilai total: ', total); readln;
+  writeln('File position : ', filepos(F));
+  blockWrite(F, r, sizeOf(r)); { Write data to file }
+end; // end fWrite
+
+// procedure fDelete;
+// var
+//   nama: string;
+//   delElement: integer;
+//   tempR: Temployee;
+// begin
+//   seek(F, 0);
+//   write('search your data by name: '); readln(nama);
+//   while not eof(F) do
+//   begin
+//     writeln('file position: ', filePos(F));
+//     blockRead(F, tempR, sizeOf(Temployee));
+//     if (nama = tempR.name) then
+//     begin
+//       delElement := filePos(F);
+//     end else
+//     begin
+//       // seek(F, )
+//       blockWrite(F, tempR, sizeOf(Temployee));
+//     end;
+//   end;
+// end; // end fDelete
+
 type
-   Temployee = record
-                  name    : string[20];
-                  address : string[40];
-                  phone   : string[15];
-                  age     : byte;
-                  salary  : longint;
-               end;
-    arr_employee = array[1..100] of Temployee;
+  Temployee = record
+    name    : string[20];
+    address : string[40];
+    phone   : string[15];
+    age     : byte;
+    salary  : longint;
+  end;
+  arr_employee = array[1..100] of Temployee;
+  Employee = Generic<Temployee>;
 
 var
-  //  F : file of Temployee;
-   F : File;
-   c : char;
-  //  r : Temployee;
-   r : Temployee;
-   tempR, realR : arr_employee;
-   s : string;
-   i, j, n : integer;
+   F : File; // Untyped files
+   c : char; // choices
+   dR, realR : arr_employee;
+   s : string; // file name
+   n, j, total : integer; // total data
 
-procedure fWrite;
+procedure loadEmployee(var realR: arr_employee; var total: integer);
 begin
-  seek(F, filesize(F));
+  total := 0;
+  seek(F, 0); // necessary before fRead;
   repeat
-    clrscr;
-    writeln('File position : ',filepos(F));
-    write('Name    = '); readln(r.name);     { Input data }
-    write('Address = '); readln(r.address);
-    write('Phone   = '); readln(r.phone);
-    write('Age     = '); readln(r.age);
-    write('Salary  = '); readln(r.salary);
-    blockWrite(F, r, sizeOf(Temployee)); { Write data to file }
+    inc(total);
+    // writeln('berapa nilai total: ', total); readln;
+    // writeln('File position : ', filepos(F));
+    fRead(F, realR[total]);
+    // blockRead(F, realR[total], sizeOf(realR[total]));
+    writeln('Name    = ', realR[total].name);     { Input data }
+    writeln('Address = ', realR[total].address);
+    writeln('Phone   = ', realR[total].phone);
+    writeln('Age     = ', realR[total].age);
+    writeln('Salary  = ', realR[total].salary);
+    write('Load more data (Y/N) ?');
+    repeat
+        c:=upcase(readkey);      { Ask user : Input again or not }
+    until c in ['Y','N'];
+    writeln(c);
+  until c='N';
+end;
+
+procedure inputEmployee(var realR: arr_employee; var total: integer);
+begin
+  repeat
+    inc(total);
+    write('Name    = '); readln(realR[total].name);     { Input data }
+    write('Address = '); readln(realR[total].address);
+    write('Phone   = '); readln(realR[total].phone);
+    write('Age     = '); readln(realR[total].age);
+    write('Salary  = '); readln(realR[total].salary);
+    fWrite(F, realR[total]);
     write('Input data again (Y/N) ?');
     repeat
         c:=upcase(readkey);      { Ask user : Input again or not }
@@ -41,32 +110,20 @@ begin
   until c='N';
 end;
 
-procedure fRead;
-var
-  tempR: Temployee;
+procedure display(realR: arr_employee);
 begin
-  seek(F, 0);
-  i := 0;
-  repeat
+  writeln('nilai total saat ini: ', total); readln;
+  for j := 1 to total do
+  begin
     clrscr;
-    writeln('File position : ',filepos(F));
-    blockRead(F, r, sizeOf(Temployee));
-    writeln('Name    = ', r.name);     { Input data }
-    writeln('Address = ', r.address);
-    writeln('Phone   = ', r.phone);
-    writeln('Age     = ', r.age);
-    writeln('Salary  = ', r.salary);
-    write('Show data again (Y/N) ?');
-    repeat
-        c:=upcase(readkey);      { Ask user : Input again or not }
-    until c in ['Y','N'];
-    writeln(c);
-    inc(i);
-    tempR := r;
-    realR[i] := tempR; // backup, to show later
-    writeln('increment: ', i); readln;
-  until c='N';
-end; // end fRead
+    writeln('Name    = ', realR[j].name);     { Input data }
+    writeln('Address = ', realR[j].address);
+    writeln('Phone   = ', realR[j].phone);
+    writeln('Age     = ', realR[j].age);
+    writeln('Salary  = ', realR[j].salary);
+    readln;
+  end;
+end;
 
 begin
    clrscr;
@@ -89,8 +146,7 @@ begin
       begin
          writeln('Error creating file !'); halt;
       end;
-   end
-   else
+   end else
    begin                  { If it exists then }
       n:=filesize(F);     { Calculate total record }
       // seek(F,n);          { Move file pointer PAST the last record }
@@ -98,19 +154,9 @@ begin
 
    fileMode := 2;
    reset(F, sizeOf(Temployee));
-   fWrite;
-   fRead;
-
-   writeln(i); readln;
-  for j := 1 to i do
-  begin
-    clrscr;
-    writeln('Name    = ', realR[j].name);     { Input data }
-    writeln('Address = ', realR[j].address);
-    writeln('Phone   = ', realR[j].phone);
-    writeln('Age     = ', realR[j].age);
-    writeln('Salary  = ', realR[j].salary);
-    readln;
-  end;
+   loadEmployee(realR, total);
+  //  inputEmployee(realR, total);
+   // fDelete;
+   display(realR);
   close(F);
 end.
