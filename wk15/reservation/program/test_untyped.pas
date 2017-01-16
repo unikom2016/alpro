@@ -1,15 +1,17 @@
 {$mode delphi}
 program test_untyped;
+
 { A crude database recording }
 uses crt, sysutils;
 
-type { Class object }
-  Generic<T> = class
-    procedure fRead(var F: T; var r: T);
-    procedure fWrite(var F: T; var r: T);
+type
+  Data<T> = class
+    procedure fRead(var F: File; var r: T); forward;
+    procedure fWrite(var F: File; var r: T); forward;
+    procedure fDelete(var F: File; var r: T); forward;
   end;
 
-procedure Generic.fRead(var F: T; var r: T);
+procedure Data.fRead(var F: File; var r: T);
 begin
   clrscr;
   // seek(F, 0);
@@ -19,14 +21,33 @@ begin
   readln;
 end; // end fRead
 
-procedure Generic.fWrite(var F: T; var r: T);
+procedure Data.fWrite(var F: File; var r: T);
 begin
   clrscr;
-  seek(F, filesize(F));
+  // seek(F, filesize(F));
   writeln('berapa nilai total: ', total); readln;
   writeln('File position : ', filepos(F));
   blockWrite(F, r, sizeOf(r)); { Write data to file }
 end; // end fWrite
+
+type
+  Temployee = record
+    name    : string[20];
+    address : string[40];
+    phone   : string[15];
+    age     : byte;
+    salary  : longint;
+  end;
+  arr_employee = array[1..100] of Temployee;
+  DataEmployee = Data<Temployee>;
+
+var
+   F : File; // Untyped files
+   c : char; // choices
+   dEmployee : DataEmployee;
+   dR, realR : arr_employee;
+   s : string; // file name
+   n, j, total : integer; // total data
 
 // procedure fDelete;
 // var
@@ -51,24 +72,6 @@ end; // end fWrite
 //   end;
 // end; // end fDelete
 
-type
-  Temployee = record
-    name    : string[20];
-    address : string[40];
-    phone   : string[15];
-    age     : byte;
-    salary  : longint;
-  end;
-  arr_employee = array[1..100] of Temployee;
-  Employee = Generic<Temployee>;
-
-var
-   F : File; // Untyped files
-   c : char; // choices
-   dR, realR : arr_employee;
-   s : string; // file name
-   n, j, total : integer; // total data
-
 procedure loadEmployee(var realR: arr_employee; var total: integer);
 begin
   total := 0;
@@ -77,7 +80,7 @@ begin
     inc(total);
     // writeln('berapa nilai total: ', total); readln;
     // writeln('File position : ', filepos(F));
-    fRead(F, realR[total]);
+    dEmployee.fRead(F, realR[total]);
     // blockRead(F, realR[total], sizeOf(realR[total]));
     writeln('Name    = ', realR[total].name);     { Input data }
     writeln('Address = ', realR[total].address);
@@ -101,7 +104,7 @@ begin
     write('Phone   = '); readln(realR[total].phone);
     write('Age     = '); readln(realR[total].age);
     write('Salary  = '); readln(realR[total].salary);
-    fWrite(F, realR[total]);
+    dEmployee.fWrite(F, realR[total]);
     write('Input data again (Y/N) ?');
     repeat
         c:=upcase(readkey);      { Ask user : Input again or not }
