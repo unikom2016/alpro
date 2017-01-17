@@ -154,7 +154,7 @@ begin
     write('NO KTP        : '); readln(reservasi[n].ktp);
     write('Nama Lengkap  : '); readln(reservasi[n].nama);
     write('Alamat        : '); readln(reservasi[n].alamat);
-    write('no Telfon     : '); readln(reservasi[n].telp);
+    write('No Telpon     : '); readln(reservasi[n].telp);
     writeln;
     writeln('===================================');
     writeln('|         Harga Tipe Kamar        |');
@@ -187,10 +187,10 @@ begin
     // writeln('[debug] kodenya: str(', n, ', ', kode, ')');
     reservasi[n].kode  := concat(kodeTipe(tipe),'-',kode);
     // writeln('[debug] hasil concat: ', reservasi[n].kode);
-    write('Kode Pemesanan      : ', reservasi[n].kode); writeln();
+    writeln('Kode Pemesanan      : ', reservasi[n].kode);
     writeln('Tipe Kamarnya adalah: ', reservasi[n].tipe_kamar);
-    writeln('Pajak (21%)         : Rp. ',reservasi[n].pajak:0:2);
-    writeln('Total Biaya         : Rp. ',reservasi[n].total_bayar:0:2);
+    writeln('Pajak (21%)         : Rp. ', reservasi[n].pajak:0:2);
+    writeln('Total Biaya         : Rp. ', reservasi[n].total_bayar:0:2);
     writeln;
     write('Mau Memasukkan Data Lagi [Y/T]: ');
     repeat
@@ -368,12 +368,15 @@ begin
     if (kode_cari > reservasi[tengah].kode) then
     begin
       awal := tengah + 1;
+      writeln('[debug] kode_cari > : ', reservasi[tengah].kode); readkey;
     end else if (kode_cari < reservasi[tengah].kode) then
     begin
       akhir := tengah - 1;
+      writeln('[debug] kode_cari < : ', reservasi[tengah].kode); readkey;
     end else
     begin
       temp[1] := reservasi[tengah];
+      writeln('[debug] kode_cari found : ', reservasi[tengah].kode); readkey;
       ketemu := true;
     end;
   end;
@@ -412,12 +415,15 @@ begin
     if (ktp_cari > reservasi[tengah].ktp) then
     begin
       awal := tengah + 1;
+      writeln('[debug] ktp_cari > : ', reservasi[tengah].ktp); readkey;
     end else if (ktp_cari < reservasi[tengah].ktp) then
     begin
       akhir := tengah - 1;
+      writeln('[debug] ktp_cari < : ', reservasi[tengah].ktp); readkey;
     end else
     begin
       temp[1] := reservasi[tengah];
+      writeln('[debug] ktp_cari found : ', reservasi[tengah].ktp); readkey;
       ketemu := true;
     end;
   end;
@@ -532,7 +538,7 @@ begin
   {validasi menu pilihan}
   if (menu < 0) or (menu > 5) then
   begin
-    gotoxy(26,9);textcolor(yellow);
+    gotoxy(1, 10); textcolor(yellow);
     write('Salah Memilih Menu, Ulangi! (Tekan Enter)'); readln;
     menuPilihan(menu);
   end;
@@ -545,6 +551,8 @@ procedure menuCari(var menu: integer);
 {I.S.: menu belum terdefinisi}
 {F.S.: menghasilkan nilai menu dan menampilkan menu cari}
 begin
+  clrscr;
+  textcolor(15);
   writeln('           Menu Pilihan Cari           ');
   writeln('=======================================');
   writeln('1. Cari Data Berdasarkan Kode Pemesanan');
@@ -556,7 +564,7 @@ begin
   {validasi menu pilihan}
   if (menu < 0) or (menu > 4) then
   begin
-    gotoxy(26,9);textcolor(yellow);
+    gotoxy(1, 9); textcolor(yellow);
     write('Salah Memilih Menu, Ulangi! (Tekan Enter)'); readln;
     menuCari(menu);
   end;
@@ -569,6 +577,8 @@ procedure menuCariHarga(var menu: integer);
 {I.S.: menu belum terdefinisi}
 {F.S.: menghasilkan nilai menu dan menampilkan menu cari harga}
 begin
+  clrscr;
+  textcolor(15);
   writeln('   Menu Pilihan Cari Harga    ');
   writeln('==============================');
   writeln('1. Cari Harga Lebih besar dari');
@@ -578,7 +588,7 @@ begin
   {validasi menu pilihan}
   if (menu < 0) or (menu > 2) then
   begin
-    gotoxy(26, 9); textcolor(yellow);
+    gotoxy(1, 9); textcolor(yellow);
     write('Salah Memilih Menu, Ulangi! (Tekan Enter)'); readln;
     menuCariHarga(menu);
   end;
@@ -638,10 +648,12 @@ begin
           case (m) of
             1: begin {Cari Data Berdasarkan Kode Pemesanan}
               clrscr;
+              bubbleSort(reservasi, n, 1);
               cariKode(reservasi, n);
             end; // end 2 kode
             2: begin {Cari Data Berdasarkan No ktp}
               clrscr;
+              bubbleSort(reservasi, n, 2);
               cariNoKtp(reservasi, n);
             end; // end 2 no ktp
             3: begin {Cari Data Berdasarkan Nama}
