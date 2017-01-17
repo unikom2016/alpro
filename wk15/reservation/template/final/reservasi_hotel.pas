@@ -628,8 +628,8 @@ begin
       2: begin  {Cari Data Pemesanan Reservasi}
         repeat
           clrscr;
-          menuCari(menu);
-          case (menu) of
+          menuCari(m);
+          case (m) of
             1: begin {Cari Data Berdasarkan No ktp}
               clrscr;
               cariNoKtp(reservasi, n);
@@ -645,8 +645,8 @@ begin
             4: begin {Cari ascending Harga}
               repeat
                 clrscr;
-                menuCariHarga(menu);
-                case (menu) of
+                menuCariHarga(m);
+                case (m) of
                   1: begin {Cari Harga Lebih besar dari}
                     clrscr;
                     cariHarga(reservasi, n, 1);
@@ -656,10 +656,10 @@ begin
                     cariHarga(reservasi, n, 2);
                   end;
                 end; //endcase
-              until (menu = 0);
+              until (m = 0);
             end; // end 4 harga
           end; //endcase
-        until (menu = 0);
+        until (m = 0);
       end; // end 2
       3: begin  {Lihat Data Pemesanan reservasi yang sudah terurut}
         repeat
