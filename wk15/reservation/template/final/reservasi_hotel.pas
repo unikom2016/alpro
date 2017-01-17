@@ -211,30 +211,30 @@ var
 begin
   //membuat header tabel
   clrscr;
-  writeln('                                                           DAFTAR TAMU                                                                 ');
-  writeln('---------------------------------------------------------------------------------------------------------------------------------------');
-  writeln('|   Kode   |         KTP          |               Nama                |         Tipe Kamar        |  Lama  |           Total          |');
-  writeln('---------------------------------------------------------------------------------------------------------------------------------------');
+  writeln('                                                            DAFTAR TAMU                                                                 ');
+  writeln('----------------------------------------------------------------------------------------------------------------------------------------');
+  writeln('|   Kode   |         KTP          |               Nama                |         Tipe Kamar         |  Lama  |           Total          |');
+  writeln('----------------------------------------------------------------------------------------------------------------------------------------');
   //menampilkan data mahasiswa (1:n)
   for i := 1 to n do
   begin
-    gotoxy(1, i+4);
-    write('|          |                      |                                   |                           |        | Rp.                      |');
+    gotoxy(1, i + 4);
+    write('|          |                      |                                   |                            |        | Rp.                      |');
     //menampilkan nomor
-    gotoxy(2, i+4); write(reservasi[i].kode);
+    gotoxy(3, i + 4); write(reservasi[i].kode);
     //menampilkan ktp
-    gotoxy(13, i+4); write(reservasi[i].ktp);
+    gotoxy(14, i + 4); write(reservasi[i].ktp);
     //menampilkan Nama
-    gotoxy(36, i+4); write(reservasi[i].nama);
+    gotoxy(37, i + 4); write(reservasi[i].nama);
     //menampilkan tipe kamar
-    gotoxy(72, i+4); write(reservasi[i].tipe_kamar);
+    gotoxy(73, i + 4); write(reservasi[i].tipe_kamar);
     //menampilkan lama inap
-    gotoxy(100, i+4); write(reservasi[i].lama);
+    gotoxy(102, i + 4); write(reservasi[i].lama);
     //menampilkan total bayar
-    gotoxy(109, i+4); write(reservasi[i].total_bayar:0:2);
+    gotoxy(111, i + 4); write('Rp. ', reservasi[i].total_bayar:0:2);
   end; //endfor
   //garis penutup tabel
-  writeln('---------------------------------------------------------------------------------------------------------------------------------------');
+  gotoxy(1, i + 5); write('----------------------------------------------------------------------------------------------------------------------------------------');
   readln;
 end;
 
@@ -352,6 +352,7 @@ var
   awal, tengah, akhir: integer;
   kode_cari: string;
   ketemu: boolean;
+  temp     : larik_tamu;
 begin
   //memasukan Kode yang dicari
   clrscr;
@@ -372,6 +373,7 @@ begin
       akhir := tengah - 1;
     end else
     begin
+      temp[1] := reservasi[tengah];
       ketemu := true;
     end;
   end;
@@ -379,7 +381,7 @@ begin
   //menampilkan data apakah Kode Pemesanan yang dicari ditemukan atau tidak
   if (ketemu) then
   begin
-    tampilData(reservasi, 1);
+    tampilData(temp, 1);
   end else
   begin
     writeln('Kode ',kode_cari,' tidak ditemukan!');
@@ -392,8 +394,9 @@ procedure cariNoKtp(reservasi: larik_tamu; n: integer);
 {F.S.: menampilkan data ktp tamu}
 var
   awal, tengah, akhir: integer;
-  ktp_cari: string;
-  ketemu: boolean;
+  ktp_cari : string;
+  ketemu   : boolean;
+  temp     : larik_tamu;
 begin
   //memasukan KTP yang dicari
   clrscr;
@@ -414,6 +417,7 @@ begin
       akhir := tengah - 1;
     end else
     begin
+      temp[1] := reservasi[tengah];
       ketemu := true;
     end;
   end;
@@ -421,7 +425,7 @@ begin
   //menampilkan data apakah KTP yang dicari ditemukan atau tidak
   if (ketemu) then
   begin
-    tampilData(reservasi, 1);
+    tampilData(temp, 1);
   end else
   begin
     writeln('KTP ', ktp_cari,' tidak ditemukan!');
@@ -587,6 +591,8 @@ procedure menuTampil(var menu: integer);
 {I.S.: menu belum terdefinisi}
 {F.S.: menghasilkan nilai menu dan menampilkan data yang terurut}
 begin
+  clrscr;
+  textcolor(15);
   writeln('Lihat Data Pemesanan Reservasi yang sudah terurut (Asc)');
   writeln('=======================================================');
   writeln('1. Urut Berdasarkan Kode Pemesanan');
@@ -598,7 +604,7 @@ begin
   {validasi menu pilihan}
   if (menu < 0) or (menu > 4) then
   begin
-    gotoxy(26,9);textcolor(yellow);
+    gotoxy(1, 9);textcolor(yellow);
     write('Salah Memilih Menu, Ulangi! (Tekan Enter)'); readln;
     menuTampil(menu);
   end;
@@ -630,14 +636,14 @@ begin
           clrscr;
           menuCari(m);
           case (m) of
-            1: begin {Cari Data Berdasarkan No ktp}
-              clrscr;
-              cariNoKtp(reservasi, n);
-            end; // end 1 no ktp
-            2: begin {Cari Data Berdasarkan Kode Pemesanan}
+            1: begin {Cari Data Berdasarkan Kode Pemesanan}
               clrscr;
               cariKode(reservasi, n);
             end; // end 2 kode
+            2: begin {Cari Data Berdasarkan No ktp}
+              clrscr;
+              cariNoKtp(reservasi, n);
+            end; // end 2 no ktp
             3: begin {Cari Data Berdasarkan Nama}
               clrscr;
               cariNama(reservasi, n);
