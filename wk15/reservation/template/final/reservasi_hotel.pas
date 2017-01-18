@@ -249,6 +249,7 @@ begin
   b    := temp;
 end; // EndProcedure tukar
 
+{IF3 - 10116095, 10116101, 10116111, 10116122, 10116135}
 // procedure ascending(mode: integer);
 // begin
 //   case (mode) of
@@ -368,15 +369,15 @@ begin
     if (kode_cari > reservasi[tengah].kode) then
     begin
       awal := tengah + 1;
-      writeln('[debug] kode_cari > : ', reservasi[tengah].kode); readkey;
+      // writeln('[debug] kode_cari > : ', reservasi[tengah].kode); readkey;
     end else if (kode_cari < reservasi[tengah].kode) then
     begin
       akhir := tengah - 1;
-      writeln('[debug] kode_cari < : ', reservasi[tengah].kode); readkey;
+      // writeln('[debug] kode_cari < : ', reservasi[tengah].kode); readkey;
     end else
     begin
       temp[1] := reservasi[tengah];
-      writeln('[debug] kode_cari found : ', reservasi[tengah].kode); readkey;
+      // writeln('[debug] kode_cari found : ', reservasi[tengah].kode); readkey;
       ketemu := true;
     end;
   end;
@@ -415,15 +416,15 @@ begin
     if (ktp_cari > reservasi[tengah].ktp) then
     begin
       awal := tengah + 1;
-      writeln('[debug] ktp_cari > : ', reservasi[tengah].ktp); readkey;
+      // writeln('[debug] ktp_cari > : ', reservasi[tengah].ktp); readkey;
     end else if (ktp_cari < reservasi[tengah].ktp) then
     begin
       akhir := tengah - 1;
-      writeln('[debug] ktp_cari < : ', reservasi[tengah].ktp); readkey;
+      // writeln('[debug] ktp_cari < : ', reservasi[tengah].ktp); readkey;
     end else
     begin
       temp[1] := reservasi[tengah];
-      writeln('[debug] ktp_cari found : ', reservasi[tengah].ktp); readkey;
+      // writeln('[debug] ktp_cari found : ', reservasi[tengah].ktp); readkey;
       ketemu := true;
     end;
   end;
@@ -448,21 +449,22 @@ var
   tempTamu: larik_tamu;
 begin
   clrscr;
-  write('Masukan nama yang akan dicari '); readln(cari_nama);
+  write('Masukan nama yang akan dicari: '); readln(cari_nama);
   i := 0;
   k := 0;
   // Sequential search (karena tidak unik, perlu mencari semua data)
-  while (i <= n) do
+  while (i < n) do
   begin
     inc(i);
     if (pos(lowerCase(cari_nama), lowerCase(reservasi[i].nama)) > 0) then
     begin
-      // writeln('Kode Pemesanan',reservasi[i].kode,': ',reservasi[i].nama,' ' );
       inc(k);
       tempTamu[k] := reservasi[i]; // simpan ke variabel sementara
+      writeln('[debug] nama : ', cari_nama, ' = ', reservasi[i].nama); readkey;
     end;
   end;
 
+  writeln('[debug] nilai k : ', k); readkey;
   if (k > 0) then
   begin
     tampilData(tempTamu, k);
@@ -477,16 +479,16 @@ procedure cariHarga(reservasi: larik_tamu; n: integer; mode: integer);
 {I.S.: reservasi, n dan mode telah terdefinisi}
 {F.S.: menampilkan data harga}
 var
-  cari_harga: integer;
+  cari_harga: longint;
   i, k: integer;
   tempTamu: larik_tamu;
 begin
   clrscr;
-  write('Masukan kisaran harga yang akan dicari '); readln(cari_harga);
+  write('Masukan kisaran harga yang akan dicari: '); readln(cari_harga);
   i := 0;
   k := 0;
   // Sequential search (karena tidak unik, perlu mencari semua data)
-  while (i <= n) do
+  while (i < n) do
   begin
     inc(i);
     { Mode }
@@ -498,6 +500,7 @@ begin
         begin
           inc(k);
           tempTamu[k] := reservasi[i]; // simpan ke variabel sementara
+          writeln('[debug] harga : Rp. ', reservasi[i].total_bayar:0:2, ' > Rp.', cari_harga); readkey;
         end;
       end; // EndCase 1
       2: begin
@@ -505,11 +508,13 @@ begin
         begin
           inc(k);
           tempTamu[k] := reservasi[i]; // simpan ke variabel sementara
+          writeln('[debug] harga : Rp. ', reservasi[i].total_bayar:0:2, ' < Rp.', cari_harga); readkey;
         end;
       end; // EndCase 2
     end; // EndCase mode
   end;
 
+  writeln('[debug] nilai k : ', k); readkey;
   if (k > 0) then
   begin
     tampilData(tempTamu, k);
@@ -526,6 +531,12 @@ procedure menuPilihan(var menu: integer);
 begin
   clrscr;
   textColor(15);
+  writeln('-----------------------------------------------------------------------');
+  writeln('            Selamat datang di aplikasi reservasi Ibis Hotel            ');
+  writeln('Jl. Gatot Subroto No 289, Pusat Kota Bandung, Bandung, Indonesia, 40273');
+  writeln('-----------------------------------------------------------------------');
+  writeln;
+  writeln('===================================');
   writeln('           Menu Pilihan            ');
   writeln('===================================');
   writeln('1. Isi data reservasi');
@@ -538,7 +549,7 @@ begin
   {validasi menu pilihan}
   if (menu < 0) or (menu > 5) then
   begin
-    gotoxy(1, 10); textcolor(yellow);
+    gotoxy(1, 16); textcolor(yellow);
     write('Salah Memilih Menu, Ulangi! (Tekan Enter)'); readln;
     menuPilihan(menu);
   end;
@@ -588,7 +599,7 @@ begin
   {validasi menu pilihan}
   if (menu < 0) or (menu > 2) then
   begin
-    gotoxy(1, 9); textcolor(yellow);
+    gotoxy(1, 7); textcolor(yellow);
     write('Salah Memilih Menu, Ulangi! (Tekan Enter)'); readln;
     menuCariHarga(menu);
   end;
@@ -719,7 +730,7 @@ begin
       end; // end 5 reset data
     end; //endcase utama
   until (menu = 0);
-end; // end procedure
+end; // endprocedure
 
 procedure login(user, pass: string);
 {I.S.: pass dan user belum terdefinisi}
@@ -757,7 +768,6 @@ end;//endprocedure
 
 {program utama}
 begin
-  writeln('Selamat datang di aplikasi reservasi hotel');
   login(USER, PASS);
   readln;
 end.
